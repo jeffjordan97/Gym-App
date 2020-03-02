@@ -36,6 +36,7 @@ class ViewController: UIViewController {
         return dateString
     }
     
+    
     func addCoreData(date: String, duration:Int, type:String ){
         //refer to container set up in the app delegate
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
