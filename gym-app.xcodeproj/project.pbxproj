@@ -15,6 +15,7 @@
 		90E1D216240D3B0300F229F1 /* gym_app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 90E1D214240D3B0300F229F1 /* gym_app.xcdatamodeld */; };
 		90E1D218240D3B0400F229F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90E1D217240D3B0400F229F1 /* Assets.xcassets */; };
 		90E1D21B240D3B0400F229F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E1D219240D3B0400F229F1 /* LaunchScreen.storyboard */; };
+		90EDB96F241011A000F39E30 /* UniLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 90EDB96E241011A000F39E30 /* UniLogo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		90E1D217240D3B0400F229F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90E1D21A240D3B0400F229F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90E1D21C240D3B0400F229F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90EDB96E241011A000F39E30 /* UniLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UniLogo.png; path = "../../../Downloads/Gym-App-Downloads/UniLogo.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				90BB09F4240D57D30028CBE1 /* iOSDropDown.swift */,
 				90E1D211240D3B0300F229F1 /* Main.storyboard */,
 				90E1D217240D3B0400F229F1 /* Assets.xcassets */,
+				90EDB96E241011A000F39E30 /* UniLogo.png */,
 				90E1D219240D3B0400F229F1 /* LaunchScreen.storyboard */,
 				90E1D21C240D3B0400F229F1 /* Info.plist */,
 				90E1D214240D3B0300F229F1 /* gym_app.xcdatamodeld */,
@@ -134,6 +137,7 @@
 				90E1D21B240D3B0400F229F1 /* LaunchScreen.storyboard in Resources */,
 				90E1D218240D3B0400F229F1 /* Assets.xcassets in Resources */,
 				90E1D213240D3B0300F229F1 /* Main.storyboard in Resources */,
+				90EDB96F241011A000F39E30 /* UniLogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

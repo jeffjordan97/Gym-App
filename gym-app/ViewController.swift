@@ -11,7 +11,7 @@ import CoreData
 
 class ViewController: UIViewController {
     
-
+    //MARK: Outlets
     @IBOutlet weak var durationLabel: UITextView!
     @IBOutlet weak var typeLabel: UITextView!
     @IBOutlet weak var historyLabel: UITextView!
@@ -22,55 +22,113 @@ class ViewController: UIViewController {
     @IBOutlet weak var valueLabel: UILabel!
     
     
-    func getDate() -> String {
-        //gets current date and time
-        let currentDateTime = Date()
+    //MARK: Attributes
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var context: NSManagedObjectContext?
+    
+    var duration: Int = 0
+    var activityType: String = ""
+    var dateToday = Date()
+    
+    
+    
+    //MARK: Formatted Date
+    //returns today's date in the format: Month Day, Year
+    func getFormattedDate(_ thisDate: Date) -> String {
         
         //gets the date String of the date object
         let format = DateFormatter()
         format.dateStyle = .medium
         
         //gets the date String from the date object
-        let dateString = format.string(from: currentDateTime)
+        let dateString = format.string(from: thisDate)
         
         return dateString
     }
     
     
-    func addCoreData(date: String, duration:Int, type:String ){
-        //refer to container set up in the app delegate
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-        
-        //create a context from this container
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        //crete an entity and new user records
-        let workoutEntity = NSEntityDescription.entity(forEntityName: "WorkoutList", in: managedContext)!
-        
-        //adding some data to newly created record for each keys
-        let user = NSManagedObject(entity: workoutEntity, insertInto: managedContext)
-        user.setValue(date, forKey: "date")
-        user.setValue(String(duration), forKey: "duration")
-        user.setValue(type, forKey: "type")
-        
-        
-        //now all values have been set, next step is to save inside Core Data
-        do {
-            try managedContext.save()
-        }
-        catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
-    
+    //MARK: Retrieve Core Data
     func retrieveCoreData(){
-        //https://medium.com/@ankurvekariya/core-data-crud-with-swift-4-2-for-beginners-40efe4e7d1cc
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "WorkoutList")
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let results = try context?.fetch(request)
+            if results!.count > 0 {
+                //iterate through array to get value for specific key
+                for result in results as! [NSManagedObject] {
+                    
+                    if let date = result.value(forKey: "date") as? Date {
+                        print("CoreData: Date = "+getFormattedDate(date))
+                    }
+                    
+                    if let duration = result.value(forKey: "duration") as? Int {
+                        print("CoreData: Duration = ",duration)
+                    }
+                    
+                    if let type = result.value(forKey: "type") as? String {
+                        print("CoreData: Type = "+type)
+                    }
+                }
+            }
+        } catch {
+            print("Error retrieving core data: ",error)
+        }
+        
+    }
+    
+    
+    //MARK: Update Core Data
+    func updateCoreData(date: Date, duration:Int, type:String ){
+       
+        if duration != 0 && type != "" {
+            let entity = NSEntityDescription.entity(forEntityName: "WorkoutList", in: context!)
+            let newWorkout = NSManagedObject(entity: entity!, insertInto: context)
+            newWorkout.setValue(date, forKey: "date")
+            newWorkout.setValue(duration, forKey: "duration")
+            newWorkout.setValue(type, forKey: "type")
+            
+            //objects added to context are saved to persistent store
+            do {
+                try context!.save()
+                print("Saved to persistent store")
+            } catch {
+                print("Failed to save to persistent store",error)
+            }
+        }
+        
+    }
+    
+    
+    //MARK: Add Button
+    @IBAction func addButton(_ sender: Any) {
+        
+        if durationInput.text != "" {
+            duration = Int(durationInput.text!)!
+        } else {
+            duration = 0
+        }
+        
+        if activityType == "" {
+            activityType = "No Type Entered"
+        }
+        
+        let formatDate = getFormattedDate(dateToday)
+        valueLabel.text = "Date: "+formatDate+"\n Duration: "+String(duration)+"\n Type: "+activityType
+        
+        updateCoreData(date: dateToday, duration: duration, type: activityType)
         
     }
     
     
     
     
+    
+    
+    
+    
+    //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -85,10 +143,20 @@ class ViewController: UIViewController {
         
 
         
+        //Load Core Data
+        context = appDelegate.persistentContainer.viewContext
+        retrieveCoreData()
+        
+        
+        //MARK: DropDown Types
+        // The list of array to display. Can be changed dynamically
+        typeInput.optionArray = ["Weights", "Cardio", "Circuits"]
+        
         // The the Closure returns Selected Index and String
         typeInput.didSelect{(selectedText , index ,id) in
-        self.valueLabel.text = "Selected String: \(selectedText) \n index: \(index) \n id: \(id)"
+        self.activityType = selectedText
         }
+         
     }
 }
 
