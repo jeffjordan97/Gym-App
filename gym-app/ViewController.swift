@@ -71,6 +71,8 @@ class ViewController: UIViewController {
                         print("CoreData: Type = "+type)
                     }
                 }
+            } else {
+                print("Core Data Empty")
             }
         } catch {
             print("Error retrieving core data: ",error)
@@ -80,7 +82,7 @@ class ViewController: UIViewController {
     
     
     //MARK: Update Core Data
-    func updateCoreData(date: Date, duration:Int, type:String ){
+    func updateCoreData(date: Date, duration:Int, type:String){
        
         if duration != 0 && type != "" {
             let entity = NSEntityDescription.entity(forEntityName: "WorkoutList", in: context!)
@@ -98,6 +100,30 @@ class ViewController: UIViewController {
             }
         }
         
+    }
+    
+    
+    //MARK: Remove Core Data
+    func removeCoreData() {
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "WorkoutList")
+        //let entity = NSEntityDescription.entity(forEntityName: "WorkoutList", in: context!)
+        
+        do {
+            let results = try context?.fetch(fetchRequest)
+            if results!.count > 0 {
+                for result in results as! [NSManagedObject] {
+                    context?.delete(result)
+                }
+                do {
+                    try context?.save()
+                } catch {
+                    print("Error updating context from delete:",error)
+                }
+            }
+        } catch {
+            print("Error fetching results: ",error)
+        }
     }
     
     
@@ -122,7 +148,12 @@ class ViewController: UIViewController {
     }
     
     
-    
+    //MARK: Delete Button
+    //deletes all data from core data
+    @IBAction func deleteButton(_ sender: Any) {
+        removeCoreData()
+        print("...Core Data Emptied...")
+    }
     
     
     
