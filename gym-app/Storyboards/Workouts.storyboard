@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aqP-aJ-LZ7">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Workout-->
+        <scene sceneID="sob-Lr-DZz">
+            <objects>
+                <viewController title="Workout" id="zWE-90-Q5E" customClass="WorkoutController" customModule="gym_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hHN-c0-ohy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8I-aG-ayn">
+                                <rect key="frame" x="152" y="433" width="111" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="ADD WORKOUT"/>
+                                <connections>
+                                    <segue destination="sTi-3F-Wcz" kind="show" id="jXK-e6-kh1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="3GY-au-egW"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="cAd-t2-lFw"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7T5-9I-Hgw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1944.9275362318842" y="114.50892857142857"/>
+        </scene>
+        <!--Add Workout Controller-->
+        <scene sceneID="wdx-Vr-Npc">
+            <objects>
+                <viewController storyboardIdentifier="AddWorkout" id="sTi-3F-Wcz" customClass="AddWorkoutController" customModule="gym_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HCk-xA-Idd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="iCc-XM-9M6"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="HrA-l9-PwT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a3E-CE-qUc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2912" y="115"/>
+        </scene>
+        <!--Workout-->
+        <scene sceneID="mHe-ql-5xY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aqP-aJ-LZ7" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Workout" id="f3f-wb-Ut4"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uFZ-2K-IzW">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zWE-90-Q5E" kind="relationship" relationship="rootViewController" id="lwz-hX-NjB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hzj-cZ-jRT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1034.7826086956522" y="114.50892857142857"/>
+        </scene>
+    </scenes>
+</document>

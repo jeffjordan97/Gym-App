@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9039C78C241173BB00A739F8 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9039C78B241173BB00A739F8 /* Home.storyboard */; };
+		9039C78E241173CB00A739F8 /* Workouts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9039C78D241173CB00A739F8 /* Workouts.storyboard */; };
+		9039C790241173DA00A739F8 /* Progress.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9039C78F241173DA00A739F8 /* Progress.storyboard */; };
+		9039C792241173E500A739F8 /* Community.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9039C791241173E500A739F8 /* Community.storyboard */; };
+		90620C312411871100A98138 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90620C302411871100A98138 /* HomeController.swift */; };
+		90620C332411880100A98138 /* WorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90620C322411880100A98138 /* WorkoutController.swift */; };
+		90620C352411885F00A98138 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90620C342411885F00A98138 /* ProgressController.swift */; };
+		90620C37241188AF00A98138 /* CommunityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90620C36241188AF00A98138 /* CommunityController.swift */; };
+		90620C39241189B900A98138 /* AddWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90620C38241189B900A98138 /* AddWorkoutController.swift */; };
 		90BB09F5240D57D30028CBE1 /* iOSDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BB09F4240D57D30028CBE1 /* iOSDropDown.swift */; };
 		90E1D20C240D3B0300F229F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E1D20B240D3B0300F229F1 /* AppDelegate.swift */; };
 		90E1D20E240D3B0300F229F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E1D20D240D3B0300F229F1 /* SceneDelegate.swift */; };
@@ -19,6 +28,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9039C78B241173BB00A739F8 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		9039C78D241173CB00A739F8 /* Workouts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Workouts.storyboard; sourceTree = "<group>"; };
+		9039C78F241173DA00A739F8 /* Progress.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Progress.storyboard; sourceTree = "<group>"; };
+		9039C791241173E500A739F8 /* Community.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Community.storyboard; sourceTree = "<group>"; };
+		90620C302411871100A98138 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		90620C322411880100A98138 /* WorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutController.swift; sourceTree = "<group>"; };
+		90620C342411885F00A98138 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
+		90620C36241188AF00A98138 /* CommunityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityController.swift; sourceTree = "<group>"; };
+		90620C38241189B900A98138 /* AddWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutController.swift; sourceTree = "<group>"; };
 		90BB09F4240D57D30028CBE1 /* iOSDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = iOSDropDown.swift; path = "../../../Downloads/Gym-App-Downloads/iOSDropDown.swift"; sourceTree = "<group>"; };
 		90E1D208240D3B0300F229F1 /* gym-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gym-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E1D20B240D3B0300F229F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +61,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9039C78A2411735000A739F8 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				90E1D211240D3B0300F229F1 /* Main.storyboard */,
+				9039C78B241173BB00A739F8 /* Home.storyboard */,
+				9039C78D241173CB00A739F8 /* Workouts.storyboard */,
+				9039C78F241173DA00A739F8 /* Progress.storyboard */,
+				9039C791241173E500A739F8 /* Community.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		90620C2F241186D800A98138 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				90E1D20F240D3B0300F229F1 /* ViewController.swift */,
+				90620C302411871100A98138 /* HomeController.swift */,
+				90620C322411880100A98138 /* WorkoutController.swift */,
+				90620C38241189B900A98138 /* AddWorkoutController.swift */,
+				90620C342411885F00A98138 /* ProgressController.swift */,
+				90620C36241188AF00A98138 /* CommunityController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		90E1D1FF240D3B0300F229F1 = {
 			isa = PBXGroup;
 			children = (
@@ -62,11 +105,11 @@
 		90E1D20A240D3B0300F229F1 /* gym-app */ = {
 			isa = PBXGroup;
 			children = (
+				90620C2F241186D800A98138 /* Controllers */,
+				9039C78A2411735000A739F8 /* Storyboards */,
 				90E1D20B240D3B0300F229F1 /* AppDelegate.swift */,
 				90E1D20D240D3B0300F229F1 /* SceneDelegate.swift */,
-				90E1D20F240D3B0300F229F1 /* ViewController.swift */,
 				90BB09F4240D57D30028CBE1 /* iOSDropDown.swift */,
-				90E1D211240D3B0300F229F1 /* Main.storyboard */,
 				90E1D217240D3B0400F229F1 /* Assets.xcassets */,
 				90EDB96E241011A000F39E30 /* UniLogo.png */,
 				90E1D219240D3B0400F229F1 /* LaunchScreen.storyboard */,
@@ -134,8 +177,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9039C792241173E500A739F8 /* Community.storyboard in Resources */,
 				90E1D21B240D3B0400F229F1 /* LaunchScreen.storyboard in Resources */,
+				9039C78C241173BB00A739F8 /* Home.storyboard in Resources */,
+				9039C78E241173CB00A739F8 /* Workouts.storyboard in Resources */,
 				90E1D218240D3B0400F229F1 /* Assets.xcassets in Resources */,
+				9039C790241173DA00A739F8 /* Progress.storyboard in Resources */,
 				90E1D213240D3B0300F229F1 /* Main.storyboard in Resources */,
 				90EDB96F241011A000F39E30 /* UniLogo.png in Resources */,
 			);
@@ -149,8 +196,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				90E1D210240D3B0300F229F1 /* ViewController.swift in Sources */,
+				90620C39241189B900A98138 /* AddWorkoutController.swift in Sources */,
 				90E1D216240D3B0300F229F1 /* gym_app.xcdatamodeld in Sources */,
+				90620C312411871100A98138 /* HomeController.swift in Sources */,
+				90620C37241188AF00A98138 /* CommunityController.swift in Sources */,
 				90BB09F5240D57D30028CBE1 /* iOSDropDown.swift in Sources */,
+				90620C352411885F00A98138 /* ProgressController.swift in Sources */,
+				90620C332411880100A98138 /* WorkoutController.swift in Sources */,
 				90E1D20C240D3B0300F229F1 /* AppDelegate.swift in Sources */,
 				90E1D20E240D3B0300F229F1 /* SceneDelegate.swift in Sources */,
 			);
