@@ -17,10 +17,13 @@ class AddWorkoutController: UIViewController {
     @IBOutlet weak var woTypeView: UIView!
     
     @IBOutlet weak var woTypeLabel: UILabel!
+    
+    
+    
     //MARK: Attributes
     
     
-    
+    //To show dropdown for user to select workout type
     @IBAction func woTypeButton(_ sender: Any) {
         
         woTypeLabel.isHidden = true
@@ -39,6 +42,7 @@ class AddWorkoutController: UIViewController {
             self.woTypeLabel.isHidden = false
             self.woTypeLabel.text = item
             self.woTypeLabel.textColor = .black
+            self.woTypeLabel.font = self.woTypeLabel.font.withSize(22.0)
         }
         
         typeDropDown.show()
