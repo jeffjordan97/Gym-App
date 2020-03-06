@@ -152,6 +152,9 @@
                                 <rect key="frame" x="313" y="349" width="32" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="ADD"/>
+                                <connections>
+                                    <segue destination="mOh-CF-QSv" kind="show" id="ddP-1i-fLd"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12f-WE-N02">
                                 <rect key="frame" x="289" y="269" width="81" height="21"/>
@@ -173,6 +176,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3E-CE-qUc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2911.594202898551" y="114.50892857142857"/>
+        </scene>
+        <!--Exercises Controller-->
+        <scene sceneID="TW7-yS-OBv">
+            <objects>
+                <viewController id="mOh-CF-QSv" customClass="ExercisesController" customModule="gym_app" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CJN-2S-khg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="EXERCISES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZH7-Hn-sPb">
+                                <rect key="frame" x="137" y="123" width="141" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                <color key="textColor" red="0.0" green="0.22257292270000001" blue="0.51798737049999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Ub0-PD-Fgi"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="7ZW-tp-iy4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5jh-t8-sGX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3833" y="115"/>
         </scene>
         <!--Workout-->
         <scene sceneID="mHe-ql-5xY">
