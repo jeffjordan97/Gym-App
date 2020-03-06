@@ -31,16 +31,24 @@
                                     <segue destination="QHJ-NU-Wah" kind="presentation" id="oNw-cV-oxE"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="UniLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="ywJ-Gf-mYI">
+                                <rect key="frame" x="20" y="44" width="374" height="140"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons8-settings-50" translatesAutoresizingMaskIntoConstraints="NO" id="afP-IQ-aPP">
+                                <rect key="frame" x="354" y="144" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="7Gl-EA-t6m"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="h7I-lg-vcY"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="icons8-home-50" id="h7I-lg-vcY"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="irV-Mr-h1E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-152" y="-127"/>
+            <point key="canvasLocation" x="-152.17391304347828" y="-127.23214285714285"/>
         </scene>
         <!--AddGoal-->
         <scene sceneID="8Z4-Vm-sAF">
@@ -61,4 +69,9 @@
             <point key="canvasLocation" x="549" y="-50"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="UniLogo.png" width="303.05453491210938" height="123.70909118652344"/>
+        <image name="icons8-home-50" width="25" height="25"/>
+        <image name="icons8-settings-50" width="50" height="50"/>
+    </resources>
 </document>

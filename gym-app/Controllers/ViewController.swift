@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var historyLabel: UITextView!
     
     @IBOutlet weak var durationInput: UITextField!
-    @IBOutlet weak var typeInput: DropDown!
     
     @IBOutlet weak var valueLabel: UILabel!
     
@@ -169,9 +168,6 @@ class ViewController: UIViewController {
         typeLabel.textContainerInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0);
         historyLabel.textContainerInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0);
         
-        // The list of array to display. Can be changed dynamically
-        typeInput.optionArray = ["Weights", "Cardio", "Circuits"]
-        
 
         
         //Load Core Data
@@ -181,12 +177,12 @@ class ViewController: UIViewController {
         
         //MARK: DropDown Types
         // The list of array to display. Can be changed dynamically
-        typeInput.optionArray = ["Weights", "Cardio", "Circuits"]
+//        typeInput.optionArray = ["Weights", "Cardio", "Circuits"]
         
         // The the Closure returns Selected Index and String
-        typeInput.didSelect{(selectedText , index ,id) in
-        self.activityType = selectedText
-        }
+//        typeInput.didSelect{(selectedText , index ,id) in
+//        self.activityType = selectedText
+//        }
          
     }
 }

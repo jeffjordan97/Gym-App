@@ -57,7 +57,7 @@
         <scene sceneID="Lnt-XO-pYA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oLJ-Kc-6bD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Progress" id="D3I-ps-gT2"/>
+                    <tabBarItem key="tabBarItem" title="Progress" image="icons8-in-progress-50" id="D3I-ps-gT2"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="29i-yI-w0a">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -73,4 +73,7 @@
             <point key="canvasLocation" x="57.971014492753625" y="53.571428571428569"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-in-progress-50" width="50" height="50"/>
+    </resources>
 </document>
