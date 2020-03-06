@@ -16,29 +16,12 @@ class HomeController: UIViewController {
     
     //MARK: Outlets
     
-    @IBOutlet weak var typeDrop: UIView!
+    
     
     
     //MARK: Attributes
     
     
-    @IBAction func typePick(_ sender: Any) {
-         let dropDown = DropDown()
-        
-        // The list of items to display. Can be changed dynamically
-        dropDown.dataSource = ["Car", "Motorcycle", "Truck"]
-        
-        // The view to which the drop down will appear on
-        dropDown.anchorView = typeDrop // UIView or UIBarButtonItem
-
-        
-        // Action triggered on selection
-        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-          print("Selected item: \(item) at index: \(index)")
-        }
-        
-        dropDown.show()
-    }
     
     
     //MARK: viewDidLoad
