@@ -28,7 +28,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start Workout"/>
                                 <connections>
-                                    <segue destination="QHJ-NU-Wah" kind="presentation" id="oNw-cV-oxE"/>
+                                    <segue destination="QHJ-NU-Wah" kind="presentation" identifier="toAddWorkout" id="oNw-cV-oxE"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="UniLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="ywJ-Gf-mYI">

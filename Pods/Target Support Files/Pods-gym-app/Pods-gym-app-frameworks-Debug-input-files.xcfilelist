@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-gym-app/Pods-gym-app-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework
+${BUILT_PRODUCTS_DIR}/SOTabBar/SOTabBar.framework

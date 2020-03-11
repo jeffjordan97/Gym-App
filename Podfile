@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'gym-app' do
   use_frameworks!
@@ -6,5 +6,6 @@ target 'gym-app' do
   # Pods for gym-app
   # pod 'SVProgressHUD'
   pod 'DropDown'
+  pod 'SOTabBar'
 
 end

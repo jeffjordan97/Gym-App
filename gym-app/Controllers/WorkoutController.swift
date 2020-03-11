@@ -18,7 +18,14 @@ class WorkoutController: UIViewController {
     
     
     
-    
+    //function to pass info to AddWorkoutController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toAddWorkout"){
+            let addWorkoutVC = segue.destination as! AddWorkoutController
+            print("toAddWorkout Segue...")
+            addWorkoutVC.isModalInPresentation = true
+        }
+    }
     
     
     

@@ -7,67 +7,101 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		361F5CE2807CBD530C8C6E63FD245F5A /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EA092CDFBD4C66A29A9CDEA1DE78E1 /* DropDownCell.swift */; };
-		41167630FAF1E7D93478000932AF82E0 /* Pods-gym-app-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE867D6C90C4562821D7E719309517E /* Pods-gym-app-dummy.m */; };
-		4A8FE4C4F6D45B41CE01A00D24C56961 /* DPDUIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451F84589A96D52448FD74E261268404 /* DPDUIView+Extension.swift */; };
-		5F515237FF94DAB4C8A15B7E33A3877B /* DPDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3761A77A038E79C8451C03293CDA4FC0 /* DPDConstants.swift */; };
-		6064C623428CE711C252E442741F81AB /* DropDown+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87586FE2C9DECB6AE7FCA3238E4A1B8 /* DropDown+Appearance.swift */; };
+		16E01F4407E09B763899624C34158BB1 /* Pods-gym-app-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D1DE1C8F1EB2856F711EAEEC0EA9D2EE /* Pods-gym-app-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2084165416245DDBF15CA6B8871D4FE0 /* SOTabBarSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53362B26EDD431DD8A6619C0495C1532 /* SOTabBarSetting.swift */; };
+		361F5CE2807CBD530C8C6E63FD245F5A /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463F96361C6E7A3F212A9BEB38F56C05 /* DropDownCell.swift */; };
+		382BBA4A7F6A920F8C34F47E2EAC18B9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		4A61BE15BD27E7644100BFE4C3CFB9BD /* SOTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48081901C8DE4736720E7A1252F36CA8 /* SOTabBarController.swift */; };
+		4A8FE4C4F6D45B41CE01A00D24C56961 /* DPDUIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A04F269100A422FBB94935F0DE8307 /* DPDUIView+Extension.swift */; };
+		5BF04AB5D939C35F58485BA809738F02 /* SOTabBar-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFF909ADEF79A4E16085E8DCC0C6123 /* SOTabBar-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5F515237FF94DAB4C8A15B7E33A3877B /* DPDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359723C6F58E4429D7C56EF19EFF6F4F /* DPDConstants.swift */; };
+		6064C623428CE711C252E442741F81AB /* DropDown+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE0CDD342C7BD7E395DDB3D9E58A497 /* DropDown+Appearance.swift */; };
 		618D9C6E8BFF0C7AAD509E9279488585 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		842DFBB1471889C2CA329AE05620BBE7 /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCC1AD54C344AFD4E184B9586BFE267 /* DropDown.swift */; };
-		9518195DB69E904D77247E0A55A0043C /* DropDown-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F8F61850F82D6CC477FAF8326336FD5A /* DropDown-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		95897DCFD4071A7D61AEAE1DA86BB539 /* DropDown-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AF17E1BF2597D8F37F69DB34CA024E5C /* DropDown-dummy.m */; };
-		B4F3531C36093E752F0396343532AA5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		BA7BB2FF04CE1CAFC5238D1807EF0034 /* DPDKeyboardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB2377069976EC65992A59335066D3 /* DPDKeyboardListener.swift */; };
-		C4D8736EDA33604E1B141F3751B4A45B /* Pods-gym-app-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D1DE1C8F1EB2856F711EAEEC0EA9D2EE /* Pods-gym-app-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EB3D83C05EC7793D23A1192C11B9F631 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEBC6D732E1B0C41C6A8D03A8C81CF47 /* DropDownCell.xib */; };
+		842DFBB1471889C2CA329AE05620BBE7 /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7321D4B5EE422A4CB7EF8967357BBB4 /* DropDown.swift */; };
+		85F3FD609F6DB7048E828EBCDE67F1DD /* Pods-gym-app-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE867D6C90C4562821D7E719309517E /* Pods-gym-app-dummy.m */; };
+		8CD0C396095AF25E6CEE426784A006C2 /* SOTabBar-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B5D1E0AFF6639FF6F683EBBCDF35E6 /* SOTabBar-dummy.m */; };
+		9518195DB69E904D77247E0A55A0043C /* DropDown-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F6C0468DE8FD4E3278E27C247BE49AE /* DropDown-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		95897DCFD4071A7D61AEAE1DA86BB539 /* DropDown-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 078CED49C27E2B2165D9FA194A26E11A /* DropDown-dummy.m */; };
+		A031452B2FB26249667B3042DA783490 /* SOTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467B0FAB1CE258EBCDF814D3CF15575F /* SOTabBar.swift */; };
+		BA7BB2FF04CE1CAFC5238D1807EF0034 /* DPDKeyboardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B734077298D632008AD26BAA901A812 /* DPDKeyboardListener.swift */; };
+		DBDDA79E94F0FF32DD9F631B3222EFFE /* SOTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5D5FFAE11B8D454060408F9E6BDB1 /* SOTabBarItem.swift */; };
+		EB3D83C05EC7793D23A1192C11B9F631 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43FC8000D0120E4D1D672290E3E02737 /* DropDownCell.xib */; };
+		ECCECB8A6A545371E9E12B82816BDB5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AD7BCD38DC0D09C23A962618D3B535D8 /* PBXContainerItemProxy */ = {
+		2F298D72C0D6D361235228CA9A324A65 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E9F9401E9C74C0C393164FD8D86D0068;
 			remoteInfo = DropDown;
 		};
+		E53E257AB03305114E2707128504D975 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C6ACF3335315E86A27831CC929125D4C;
+			remoteInfo = SOTabBar;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		078CED49C27E2B2165D9FA194A26E11A /* DropDown-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DropDown-dummy.m"; sourceTree = "<group>"; };
 		0F80C1E61DF89192AD955373755A641D /* Pods-gym-app-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-gym-app-frameworks.sh"; sourceTree = "<group>"; };
 		14CC56094F24524267EDBECB1064BE59 /* Pods-gym-app-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-gym-app-acknowledgements.plist"; sourceTree = "<group>"; };
-		2F8A529C653A26F8D0B57E1CD7B2B5E6 /* DropDown-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "DropDown-Info.plist"; sourceTree = "<group>"; };
-		2FCC1AD54C344AFD4E184B9586BFE267 /* DropDown.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DropDown.swift; path = DropDown/src/DropDown.swift; sourceTree = "<group>"; };
+		167811F4235E87316CAADBDDD2FC5C01 /* SOTabBar-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SOTabBar-Info.plist"; sourceTree = "<group>"; };
+		16A04F269100A422FBB94935F0DE8307 /* DPDUIView+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DPDUIView+Extension.swift"; path = "DropDown/helpers/DPDUIView+Extension.swift"; sourceTree = "<group>"; };
+		1EF1B4B8EA405737861B069B02474217 /* DropDown-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DropDown-prefix.pch"; sourceTree = "<group>"; };
+		2036E54EAAB8D409BFB603424D8CEAF6 /* DropDown-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "DropDown-Info.plist"; sourceTree = "<group>"; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		33B1335485F4B025D4220B6402443C42 /* Pods-gym-app-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-gym-app-Info.plist"; sourceTree = "<group>"; };
-		3761A77A038E79C8451C03293CDA4FC0 /* DPDConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DPDConstants.swift; path = DropDown/helpers/DPDConstants.swift; sourceTree = "<group>"; };
+		359723C6F58E4429D7C56EF19EFF6F4F /* DPDConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DPDConstants.swift; path = DropDown/helpers/DPDConstants.swift; sourceTree = "<group>"; };
+		3F6C0468DE8FD4E3278E27C247BE49AE /* DropDown-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DropDown-umbrella.h"; sourceTree = "<group>"; };
 		40395F594B9132427C159E7DB13668BC /* Pods-gym-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-gym-app.release.xcconfig"; sourceTree = "<group>"; };
 		41F1167474953373A147FD2D014520D1 /* Pods-gym-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-gym-app.debug.xcconfig"; sourceTree = "<group>"; };
-		451F84589A96D52448FD74E261268404 /* DPDUIView+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DPDUIView+Extension.swift"; path = "DropDown/helpers/DPDUIView+Extension.swift"; sourceTree = "<group>"; };
+		43FC8000D0120E4D1D672290E3E02737 /* DropDownCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = DropDownCell.xib; path = DropDown/resources/DropDownCell.xib; sourceTree = "<group>"; };
+		463F96361C6E7A3F212A9BEB38F56C05 /* DropDownCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DropDownCell.swift; path = DropDown/src/DropDownCell.swift; sourceTree = "<group>"; };
+		467B0FAB1CE258EBCDF814D3CF15575F /* SOTabBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SOTabBar.swift; path = SOTabBar/Classes/SOTabBar.swift; sourceTree = "<group>"; };
+		48081901C8DE4736720E7A1252F36CA8 /* SOTabBarController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SOTabBarController.swift; path = SOTabBar/Classes/SOTabBarController.swift; sourceTree = "<group>"; };
+		4AFF6AA7D291FA0115B9367583808290 /* SOTabBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SOTabBar.release.xcconfig; sourceTree = "<group>"; };
+		4B734077298D632008AD26BAA901A812 /* DPDKeyboardListener.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DPDKeyboardListener.swift; path = DropDown/helpers/DPDKeyboardListener.swift; sourceTree = "<group>"; };
+		53362B26EDD431DD8A6619C0495C1532 /* SOTabBarSetting.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SOTabBarSetting.swift; path = SOTabBar/Classes/SOTabBarSetting.swift; sourceTree = "<group>"; };
+		5EB5D5FFAE11B8D454060408F9E6BDB1 /* SOTabBarItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SOTabBarItem.swift; path = SOTabBar/Classes/SOTabBarItem.swift; sourceTree = "<group>"; };
+		692F9AEA8B554AB0B0A815ED9DF129E8 /* SOTabBar-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SOTabBar-prefix.pch"; sourceTree = "<group>"; };
 		69B5388316F5B5DE63D1EE7BE73CB7B2 /* Pods-gym-app-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-gym-app-acknowledgements.markdown"; sourceTree = "<group>"; };
-		730D85BE0320FD50EA665A82042E5742 /* DropDown-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DropDown-prefix.pch"; sourceTree = "<group>"; };
+		7C0FDAC99D2FB81EF9DA0EC9E9FE223D /* SOTabBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SOTabBar.framework; path = SOTabBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DE867D6C90C4562821D7E719309517E /* Pods-gym-app-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-gym-app-dummy.m"; sourceTree = "<group>"; };
-		8DBB2377069976EC65992A59335066D3 /* DPDKeyboardListener.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DPDKeyboardListener.swift; path = DropDown/helpers/DPDKeyboardListener.swift; sourceTree = "<group>"; };
-		93EA092CDFBD4C66A29A9CDEA1DE78E1 /* DropDownCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DropDownCell.swift; path = DropDown/src/DropDownCell.swift; sourceTree = "<group>"; };
+		89B5D1E0AFF6639FF6F683EBBCDF35E6 /* SOTabBar-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SOTabBar-dummy.m"; sourceTree = "<group>"; };
 		9B6725B782188F18CB76A740433F14E4 /* DropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DropDown.framework; path = DropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9C15EB8657063755722D9C7DC8D72885 /* DropDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DropDown.release.xcconfig; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A14BBC28E5DD0392464277B85452FAD5 /* Pods_gym_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_gym_app.framework; path = "Pods-gym-app.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A87586FE2C9DECB6AE7FCA3238E4A1B8 /* DropDown+Appearance.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DropDown+Appearance.swift"; path = "DropDown/src/DropDown+Appearance.swift"; sourceTree = "<group>"; };
-		AF17E1BF2597D8F37F69DB34CA024E5C /* DropDown-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DropDown-dummy.m"; sourceTree = "<group>"; };
+		A3C9A4BD22374C444329FE2352445C9C /* SOTabBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SOTabBar.debug.xcconfig; sourceTree = "<group>"; };
+		A87DBBB989CB1938622789D68BCADA28 /* DropDown.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = DropDown.modulemap; sourceTree = "<group>"; };
+		AFAC8A64926A3033EBD029707DD55A52 /* DropDown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DropDown.release.xcconfig; sourceTree = "<group>"; };
+		B1CAB8CA97FE9F64FB1642184CD9DCC0 /* DropDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DropDown.debug.xcconfig; sourceTree = "<group>"; };
 		B1FA8D4B641AB72140C4BF8690664D95 /* Pods-gym-app.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-gym-app.modulemap"; sourceTree = "<group>"; };
+		C7321D4B5EE422A4CB7EF8967357BBB4 /* DropDown.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DropDown.swift; path = DropDown/src/DropDown.swift; sourceTree = "<group>"; };
+		CCE0CDD342C7BD7E395DDB3D9E58A497 /* DropDown+Appearance.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DropDown+Appearance.swift"; path = "DropDown/src/DropDown+Appearance.swift"; sourceTree = "<group>"; };
 		D1DE1C8F1EB2856F711EAEEC0EA9D2EE /* Pods-gym-app-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-gym-app-umbrella.h"; sourceTree = "<group>"; };
-		DCD9DE78A7260CA1D999340CF0124D1D /* DropDown.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = DropDown.modulemap; sourceTree = "<group>"; };
-		E5834E7BD925BD3ED29331C1938CC0B7 /* DropDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DropDown.debug.xcconfig; sourceTree = "<group>"; };
-		EEBC6D732E1B0C41C6A8D03A8C81CF47 /* DropDownCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = DropDownCell.xib; path = DropDown/resources/DropDownCell.xib; sourceTree = "<group>"; };
-		F8F61850F82D6CC477FAF8326336FD5A /* DropDown-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DropDown-umbrella.h"; sourceTree = "<group>"; };
+		DDFF909ADEF79A4E16085E8DCC0C6123 /* SOTabBar-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SOTabBar-umbrella.h"; sourceTree = "<group>"; };
+		DF551CE15A55439461AE386CC3930FF4 /* SOTabBar.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SOTabBar.modulemap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6A1F5F73D81F16703B8DC98DBAE658CF /* Frameworks */ = {
+		41810571ADB6478EC9893DA622EB48A5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4F3531C36093E752F0396343532AA5A /* Foundation.framework in Frameworks */,
+				382BBA4A7F6A920F8C34F47E2EAC18B9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A552AC028F2B72BE7E1C746800042EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECCECB8A6A545371E9E12B82816BDB5A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,60 +116,89 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		03D114B328A63C934E528549C2DCFE8D /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				DCD9DE78A7260CA1D999340CF0124D1D /* DropDown.modulemap */,
-				AF17E1BF2597D8F37F69DB34CA024E5C /* DropDown-dummy.m */,
-				2F8A529C653A26F8D0B57E1CD7B2B5E6 /* DropDown-Info.plist */,
-				730D85BE0320FD50EA665A82042E5742 /* DropDown-prefix.pch */,
-				F8F61850F82D6CC477FAF8326336FD5A /* DropDown-umbrella.h */,
-				E5834E7BD925BD3ED29331C1938CC0B7 /* DropDown.debug.xcconfig */,
-				9C15EB8657063755722D9C7DC8D72885 /* DropDown.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/DropDown";
-			sourceTree = "<group>";
-		};
-		057ED11B9D5977F85CBBBEF7C3E69DDB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1340602042F82FB2F98974EB1B0C2387 /* DropDown */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		1340602042F82FB2F98974EB1B0C2387 /* DropDown */ = {
-			isa = PBXGroup;
-			children = (
-				3761A77A038E79C8451C03293CDA4FC0 /* DPDConstants.swift */,
-				8DBB2377069976EC65992A59335066D3 /* DPDKeyboardListener.swift */,
-				451F84589A96D52448FD74E261268404 /* DPDUIView+Extension.swift */,
-				2FCC1AD54C344AFD4E184B9586BFE267 /* DropDown.swift */,
-				A87586FE2C9DECB6AE7FCA3238E4A1B8 /* DropDown+Appearance.swift */,
-				93EA092CDFBD4C66A29A9CDEA1DE78E1 /* DropDownCell.swift */,
-				C59647B6F3C67ED72D999C113D892AF0 /* Resources */,
-				03D114B328A63C934E528549C2DCFE8D /* Support Files */,
-			);
-			name = DropDown;
-			path = DropDown;
-			sourceTree = "<group>";
-		};
-		191EACC2329FF6398CF3E344367D4884 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9B6725B782188F18CB76A740433F14E4 /* DropDown.framework */,
-				A14BBC28E5DD0392464277B85452FAD5 /* Pods_gym_app.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		354581AFC212576CFFABDC5227676373 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
 				DC805A3D1A50A96A2F5D723E04A2273D /* Pods-gym-app */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		3CB9A4DBAD22F1C80B6C1E8A3B631EA7 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				DF551CE15A55439461AE386CC3930FF4 /* SOTabBar.modulemap */,
+				89B5D1E0AFF6639FF6F683EBBCDF35E6 /* SOTabBar-dummy.m */,
+				167811F4235E87316CAADBDDD2FC5C01 /* SOTabBar-Info.plist */,
+				692F9AEA8B554AB0B0A815ED9DF129E8 /* SOTabBar-prefix.pch */,
+				DDFF909ADEF79A4E16085E8DCC0C6123 /* SOTabBar-umbrella.h */,
+				A3C9A4BD22374C444329FE2352445C9C /* SOTabBar.debug.xcconfig */,
+				4AFF6AA7D291FA0115B9367583808290 /* SOTabBar.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SOTabBar";
+			sourceTree = "<group>";
+		};
+		3E906747B5FCBBF5962045BF37D13607 /* DropDown */ = {
+			isa = PBXGroup;
+			children = (
+				359723C6F58E4429D7C56EF19EFF6F4F /* DPDConstants.swift */,
+				4B734077298D632008AD26BAA901A812 /* DPDKeyboardListener.swift */,
+				16A04F269100A422FBB94935F0DE8307 /* DPDUIView+Extension.swift */,
+				C7321D4B5EE422A4CB7EF8967357BBB4 /* DropDown.swift */,
+				CCE0CDD342C7BD7E395DDB3D9E58A497 /* DropDown+Appearance.swift */,
+				463F96361C6E7A3F212A9BEB38F56C05 /* DropDownCell.swift */,
+				5A7242F9191BE25F093BE94ABAE78450 /* Resources */,
+				471EC8C4759A15D5BEC92942DE7EB9E2 /* Support Files */,
+			);
+			name = DropDown;
+			path = DropDown;
+			sourceTree = "<group>";
+		};
+		471EC8C4759A15D5BEC92942DE7EB9E2 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A87DBBB989CB1938622789D68BCADA28 /* DropDown.modulemap */,
+				078CED49C27E2B2165D9FA194A26E11A /* DropDown-dummy.m */,
+				2036E54EAAB8D409BFB603424D8CEAF6 /* DropDown-Info.plist */,
+				1EF1B4B8EA405737861B069B02474217 /* DropDown-prefix.pch */,
+				3F6C0468DE8FD4E3278E27C247BE49AE /* DropDown-umbrella.h */,
+				B1CAB8CA97FE9F64FB1642184CD9DCC0 /* DropDown.debug.xcconfig */,
+				AFAC8A64926A3033EBD029707DD55A52 /* DropDown.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/DropDown";
+			sourceTree = "<group>";
+		};
+		5A7242F9191BE25F093BE94ABAE78450 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				43FC8000D0120E4D1D672290E3E02737 /* DropDownCell.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		6F53F0413DAF64378E00F80F7676FD70 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9B6725B782188F18CB76A740433F14E4 /* DropDown.framework */,
+				A14BBC28E5DD0392464277B85452FAD5 /* Pods_gym_app.framework */,
+				7C0FDAC99D2FB81EF9DA0EC9E9FE223D /* SOTabBar.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		76497188CB1B057FD54030769B014F75 /* SOTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				467B0FAB1CE258EBCDF814D3CF15575F /* SOTabBar.swift */,
+				48081901C8DE4736720E7A1252F36CA8 /* SOTabBarController.swift */,
+				5EB5D5FFAE11B8D454060408F9E6BDB1 /* SOTabBarItem.swift */,
+				53362B26EDD431DD8A6619C0495C1532 /* SOTabBarSetting.swift */,
+				3CB9A4DBAD22F1C80B6C1E8A3B631EA7 /* Support Files */,
+			);
+			name = SOTabBar;
+			path = SOTabBar;
 			sourceTree = "<group>";
 		};
 		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
@@ -146,21 +209,13 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		C59647B6F3C67ED72D999C113D892AF0 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				EEBC6D732E1B0C41C6A8D03A8C81CF47 /* DropDownCell.xib */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				057ED11B9D5977F85CBBBEF7C3E69DDB /* Pods */,
-				191EACC2329FF6398CF3E344367D4884 /* Products */,
+				FECF3CE95A223A16806EBF0F06AF45B1 /* Pods */,
+				6F53F0413DAF64378E00F80F7676FD70 /* Products */,
 				354581AFC212576CFFABDC5227676373 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -190,14 +245,31 @@
 			path = "Target Support Files/Pods-gym-app";
 			sourceTree = "<group>";
 		};
+		FECF3CE95A223A16806EBF0F06AF45B1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3E906747B5FCBBF5962045BF37D13607 /* DropDown */,
+				76497188CB1B057FD54030769B014F75 /* SOTabBar */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		2587B9336167B08EDAFF0668B6A027BC /* Headers */ = {
+		1CCA915CAC6CB344F3F36BFE6DDB5B52 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4D8736EDA33604E1B141F3751B4A45B /* Pods-gym-app-umbrella.h in Headers */,
+				5BF04AB5D939C35F58485BA809738F02 /* SOTabBar-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		20FE2542B357CE3B56425D5D91BA5415 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16E01F4407E09B763899624C34158BB1 /* Pods-gym-app-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,21 +286,40 @@
 /* Begin PBXNativeTarget section */
 		AD18B6EB0302948942659355C46A1952 /* Pods-gym-app */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8246C4D72A26AA08687E4450BC34AD32 /* Build configuration list for PBXNativeTarget "Pods-gym-app" */;
+			buildConfigurationList = E0A6B2905B5355125F48E7B7B0B7E68C /* Build configuration list for PBXNativeTarget "Pods-gym-app" */;
 			buildPhases = (
-				2587B9336167B08EDAFF0668B6A027BC /* Headers */,
-				E2F32A863236327352A043D85EBA55F8 /* Sources */,
-				6A1F5F73D81F16703B8DC98DBAE658CF /* Frameworks */,
-				3AC688471D946AAC08B4DF737AC8A390 /* Resources */,
+				20FE2542B357CE3B56425D5D91BA5415 /* Headers */,
+				AC908D00A376B96A7CEE714C95A3A769 /* Sources */,
+				41810571ADB6478EC9893DA622EB48A5 /* Frameworks */,
+				42A5D40CACF4E3D40F589A1E393E018A /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C2C9225D46355C715C07F2C62C3BE065 /* PBXTargetDependency */,
+				90D39AA6ECF46C12512ED8DDEDF5B4C5 /* PBXTargetDependency */,
+				F24687B8BADAF21E2FF3738D325B6BD4 /* PBXTargetDependency */,
 			);
 			name = "Pods-gym-app";
 			productName = "Pods-gym-app";
 			productReference = A14BBC28E5DD0392464277B85452FAD5 /* Pods_gym_app.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C6ACF3335315E86A27831CC929125D4C /* SOTabBar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B4B5FF9D633641AE57ADEA14293D33D /* Build configuration list for PBXNativeTarget "SOTabBar" */;
+			buildPhases = (
+				1CCA915CAC6CB344F3F36BFE6DDB5B52 /* Headers */,
+				511C170196C57390D4C4B19883A795C1 /* Sources */,
+				6A552AC028F2B72BE7E1C746800042EE /* Frameworks */,
+				6678EDA1161C5D20EE9EAB6CC76A86B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SOTabBar;
+			productName = SOTabBar;
+			productReference = 7C0FDAC99D2FB81EF9DA0EC9E9FE223D /* SOTabBar.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		E9F9401E9C74C0C393164FD8D86D0068 /* DropDown */ = {
@@ -267,18 +358,26 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 191EACC2329FF6398CF3E344367D4884 /* Products */;
+			productRefGroup = 6F53F0413DAF64378E00F80F7676FD70 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				E9F9401E9C74C0C393164FD8D86D0068 /* DropDown */,
 				AD18B6EB0302948942659355C46A1952 /* Pods-gym-app */,
+				C6ACF3335315E86A27831CC929125D4C /* SOTabBar */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3AC688471D946AAC08B4DF737AC8A390 /* Resources */ = {
+		42A5D40CACF4E3D40F589A1E393E018A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6678EDA1161C5D20EE9EAB6CC76A86B7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -296,11 +395,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E2F32A863236327352A043D85EBA55F8 /* Sources */ = {
+		511C170196C57390D4C4B19883A795C1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41167630FAF1E7D93478000932AF82E0 /* Pods-gym-app-dummy.m in Sources */,
+				8CD0C396095AF25E6CEE426784A006C2 /* SOTabBar-dummy.m in Sources */,
+				A031452B2FB26249667B3042DA783490 /* SOTabBar.swift in Sources */,
+				4A61BE15BD27E7644100BFE4C3CFB9BD /* SOTabBarController.swift in Sources */,
+				DBDDA79E94F0FF32DD9F631B3222EFFE /* SOTabBarItem.swift in Sources */,
+				2084165416245DDBF15CA6B8871D4FE0 /* SOTabBarSetting.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC908D00A376B96A7CEE714C95A3A769 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85F3FD609F6DB7048E828EBCDE67F1DD /* Pods-gym-app-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,18 +432,24 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C2C9225D46355C715C07F2C62C3BE065 /* PBXTargetDependency */ = {
+		90D39AA6ECF46C12512ED8DDEDF5B4C5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = DropDown;
 			target = E9F9401E9C74C0C393164FD8D86D0068 /* DropDown */;
-			targetProxy = AD7BCD38DC0D09C23A962618D3B535D8 /* PBXContainerItemProxy */;
+			targetProxy = 2F298D72C0D6D361235228CA9A324A65 /* PBXContainerItemProxy */;
+		};
+		F24687B8BADAF21E2FF3738D325B6BD4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SOTabBar;
+			target = C6ACF3335315E86A27831CC929125D4C /* SOTabBar */;
+			targetProxy = E53E257AB03305114E2707128504D975 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		113FE450017590BFCDE0E07D448096DF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5834E7BD925BD3ED29331C1938CC0B7 /* DropDown.debug.xcconfig */;
+			baseConfigurationReference = B1CAB8CA97FE9F64FB1642184CD9DCC0 /* DropDown.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -365,141 +482,7 @@
 			};
 			name = Debug;
 		};
-		42EE5E78EF9E13F316166B6A70BD5874 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C15EB8657063755722D9C7DC8D72885 /* DropDown.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/DropDown/DropDown-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/DropDown/DropDown-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/DropDown/DropDown.modulemap";
-				PRODUCT_MODULE_NAME = DropDown;
-				PRODUCT_NAME = DropDown;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		63AA6C93AE732781B5D82F41EED5F00F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 40395F594B9132427C159E7DB13668BC /* Pods-gym-app.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-gym-app/Pods-gym-app-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-gym-app/Pods-gym-app.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		8F17DC3A99F99FBAD606CE6963886315 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Release;
-		};
-		916E0404255105F480DC4950B7625F7A /* Debug */ = {
+		196DFA3E4A09A28224918543529A1885 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -550,7 +533,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -563,11 +546,119 @@
 			};
 			name = Debug;
 		};
-		B4FA3896BA4E4CCA0C7F83A88E05003B /* Debug */ = {
+		204B40A44B2F0FFA6DD257A547CED941 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3C9A4BD22374C444329FE2352445C9C /* SOTabBar.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SOTabBar/SOTabBar-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SOTabBar/SOTabBar-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/SOTabBar/SOTabBar.modulemap";
+				PRODUCT_MODULE_NAME = SOTabBar;
+				PRODUCT_NAME = SOTabBar;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		41C2CE6BC4700F84AFB189744AD8CEDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4AFF6AA7D291FA0115B9367583808290 /* SOTabBar.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SOTabBar/SOTabBar-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SOTabBar/SOTabBar-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/SOTabBar/SOTabBar.modulemap";
+				PRODUCT_MODULE_NAME = SOTabBar;
+				PRODUCT_NAME = SOTabBar;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		42EE5E78EF9E13F316166B6A70BD5874 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AFAC8A64926A3033EBD029707DD55A52 /* DropDown.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/DropDown/DropDown-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DropDown/DropDown-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/DropDown/DropDown.modulemap";
+				PRODUCT_MODULE_NAME = DropDown;
+				PRODUCT_NAME = DropDown;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		A473FD96FD22977CE96B10BC570C716A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 41F1167474953373A147FD2D014520D1 /* Pods-gym-app.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -579,7 +670,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-gym-app/Pods-gym-app-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -600,23 +691,131 @@
 			};
 			name = Debug;
 		};
+		B01D14FDC83DCF9D4BE53066BEA96D05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		CA2F4C20DC550F811FD65B1081367E20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40395F594B9132427C159E7DB13668BC /* Pods-gym-app.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-gym-app/Pods-gym-app-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-gym-app/Pods-gym-app.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				916E0404255105F480DC4950B7625F7A /* Debug */,
-				8F17DC3A99F99FBAD606CE6963886315 /* Release */,
+				196DFA3E4A09A28224918543529A1885 /* Debug */,
+				B01D14FDC83DCF9D4BE53066BEA96D05 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8246C4D72A26AA08687E4450BC34AD32 /* Build configuration list for PBXNativeTarget "Pods-gym-app" */ = {
+		5B4B5FF9D633641AE57ADEA14293D33D /* Build configuration list for PBXNativeTarget "SOTabBar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B4FA3896BA4E4CCA0C7F83A88E05003B /* Debug */,
-				63AA6C93AE732781B5D82F41EED5F00F /* Release */,
+				204B40A44B2F0FFA6DD257A547CED941 /* Debug */,
+				41C2CE6BC4700F84AFB189744AD8CEDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0A6B2905B5355125F48E7B7B0B7E68C /* Build configuration list for PBXNativeTarget "Pods-gym-app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A473FD96FD22977CE96B10BC570C716A /* Debug */,
+				CA2F4C20DC550F811FD65B1081367E20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

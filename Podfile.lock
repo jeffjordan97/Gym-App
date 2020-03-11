@@ -1,16 +1,20 @@
 PODS:
   - DropDown (2.3.13)
+  - SOTabBar (1.1.3)
 
 DEPENDENCIES:
   - DropDown
+  - SOTabBar
 
 SPEC REPOS:
   trunk:
     - DropDown
+    - SOTabBar
 
 SPEC CHECKSUMS:
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
 
-PODFILE CHECKSUM: 7d9746b71234563ee2a266695c187584023ca9d1
+PODFILE CHECKSUM: 0e91603bbcdc6b75c958a4b7ad4392de0d8b06b8
 
 COCOAPODS: 1.9.0
