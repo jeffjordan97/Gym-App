@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home-->
+        <!--Home Controller-->
         <scene sceneID="zYT-Jo-Iw6">
             <objects>
-                <viewController id="oZ3-B3-iB0" customClass="HomeController" customModule="gym_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Home" id="oZ3-B3-iB0" customClass="HomeController" customModule="gym_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lfv-mE-jSw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,20 +35,39 @@
                                 <rect key="frame" x="20" y="44" width="374" height="140"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons8-settings-50" translatesAutoresizingMaskIntoConstraints="NO" id="afP-IQ-aPP">
-                                <rect key="frame" x="354" y="144" width="40" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sN2-nK-kJo">
+                                <rect key="frame" x="348" y="39" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                                <state key="normal" image="icons8-settings"/>
+                                <connections>
+                                    <action selector="settingsButton:" destination="oZ3-B3-iB0" eventType="touchUpInside" id="vhN-rF-tBJ"/>
+                                    <segue destination="xOP-Ep-lc8" kind="presentation" modalPresentationStyle="fullScreen" id="Abp-qR-jgz"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="010-mw-Bq1">
+                                <rect key="frame" x="176" y="157" width="62" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="0.22257292270000001" blue="0.51798737049999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="7Gl-EA-t6m"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" image="icons8-home-50" id="h7I-lg-vcY"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="irV-Mr-h1E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-152.17391304347828" y="-127.23214285714285"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="TPh-I2-Swd">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" id="xOP-Ep-lc8" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JLz-NL-lbc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="492" y="-316"/>
         </scene>
         <!--AddGoal-->
         <scene sceneID="8Z4-Vm-sAF">
@@ -71,7 +90,6 @@
     </scenes>
     <resources>
         <image name="UniLogo.png" width="303.05453491210938" height="123.70909118652344"/>
-        <image name="icons8-home-50" width="25" height="25"/>
-        <image name="icons8-settings-50" width="50" height="50"/>
+        <image name="icons8-settings" width="50" height="50"/>
     </resources>
 </document>

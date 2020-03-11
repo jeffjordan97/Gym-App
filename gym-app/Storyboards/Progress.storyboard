@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Progress-->
+        <!--Progress Controller-->
         <scene sceneID="Tfj-pg-atA">
             <objects>
-                <viewController title="Progress" id="qup-Iq-S0Y" customClass="ProgressController" customModule="gym_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Progress" id="qup-Iq-S0Y" customClass="ProgressController" customModule="gym_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sLZ-YS-c6a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,6 +74,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icons8-in-progress-50" width="50" height="50"/>
+        <image name="icons8-in-progress-50" width="25" height="25"/>
     </resources>
 </document>

@@ -7,17 +7,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Community-->
+        <!--Community Controller-->
         <scene sceneID="FR8-2y-CNh">
             <objects>
-                <viewController id="ZaK-Ck-o2m" customClass="CommunityController" customModule="gym_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Community" id="ZaK-Ck-o2m" customClass="CommunityController" customModule="gym_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dkA-dy-30K">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="pg1-Ei-4Hy"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Community" image="icons8-group-50" id="UjH-lR-ueZ"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ApY-BG-d4R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -25,7 +24,4 @@
             <point key="canvasLocation" x="1" y="62"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="icons8-group-50" width="50" height="50"/>
-    </resources>
 </document>

@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import SOTabBar
 
-class ViewController: UIViewController {
+class ViewController: SOTabBarController {
     
     //MARK: Outlets
     @IBOutlet weak var durationLabel: UITextView!
@@ -155,7 +156,11 @@ class ViewController: UIViewController {
     }
     
     
-    
+    override func loadView() {
+        super.loadView()
+        SOTabBarSetting.tabBarAnimationDurationTime = 0.3
+        SOTabBarSetting.tabBarTintColor = #colorLiteral(red: 0.5530590781, green: 0.8335904475, blue: 0.9914795678, alpha: 1)
+    }
     
     
     //MARK: viewDidLoad
@@ -164,26 +169,35 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         
-        durationLabel.textContainerInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0);
-        typeLabel.textContainerInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0);
-        historyLabel.textContainerInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0);
+//        durationLabel.textContainerInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0);
+//        typeLabel.textContainerInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0);
+//        historyLabel.textContainerInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0);
         
 
         
         //Load Core Data
-        context = appDelegate.persistentContainer.viewContext
-        retrieveCoreData()
+//        context = appDelegate.persistentContainer.viewContext
+//        retrieveCoreData()
         
         
-        //MARK: DropDown Types
-        // The list of array to display. Can be changed dynamically
-//        typeInput.optionArray = ["Weights", "Cardio", "Circuits"]
         
-        // The the Closure returns Selected Index and String
-//        typeInput.didSelect{(selectedText , index ,id) in
-//        self.activityType = selectedText
-//        }
-         
+        
+        
+        //MARK: viewDidLoad: Tab bar
+        let firstVC = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "Home")
+        let secondVC = UIStoryboard(name: "Workouts", bundle: nil).instantiateViewController(withIdentifier: "Workouts")
+        let thirdVC = UIStoryboard(name: "Progress", bundle: nil).instantiateViewController(withIdentifier: "Progress")
+        let fourthVC = UIStoryboard(name: "Community", bundle: nil).instantiateViewController(withIdentifier: "Community")
+           
+        firstVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "icons8-home"), selectedImage: UIImage(named: "icons8-home"))
+        secondVC.tabBarItem = UITabBarItem(title: "Workout", image: UIImage(named: "icons8-workouts"), selectedImage: UIImage(named: "icons8-workouts"))
+        thirdVC.tabBarItem = UITabBarItem(title: "Progress", image: UIImage(named: "icons8-progress"), selectedImage: UIImage(named: "icons8-progress"))
+        fourthVC.tabBarItem = UITabBarItem(title: "Community", image: UIImage(named: "icons8-community"), selectedImage: UIImage(named: "icons8-community"))
+        
+        
+        
+        viewControllers = [firstVC, secondVC, thirdVC, fourthVC]
+        
     }
 }
 
