@@ -159,7 +159,7 @@ class ViewController: SOTabBarController {
     override func loadView() {
         super.loadView()
         SOTabBarSetting.tabBarAnimationDurationTime = 0.3
-        SOTabBarSetting.tabBarTintColor = #colorLiteral(red: 0.5530590781, green: 0.8335904475, blue: 0.9914795678, alpha: 1)
+        SOTabBarSetting.tabBarTintColor = .white
     }
     
     

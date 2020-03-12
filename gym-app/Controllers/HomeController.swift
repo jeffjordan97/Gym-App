@@ -23,14 +23,14 @@ class HomeController: UIViewController {
     
     
     @IBAction func settingsButton(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.05, animations: {
-               sender.alpha = 0.0
-           }, completion:{(finished) in
-            sender.setImage(UIImage(named: "icons8-settings-dark"), for: .normal)
-            UIView.animate(withDuration: 0.05,animations:{
-               sender.alpha = 1.0
-               },completion:nil)
-        })
+//        UIView.animate(withDuration: 0.05, animations: {
+//               sender.alpha = 0.0
+//           }, completion:{(finished) in
+//            sender.setImage(UIImage(named: "icons8-settings-dark"), for: .normal)
+//            UIView.animate(withDuration: 0.05,animations:{
+//               sender.alpha = 1.0
+//               },completion:nil)
+//        })
     }
     
     

@@ -17,7 +17,14 @@ class ProgressController: UIViewController {
     //MARK: Attributes
     
     
-    
+    //function to pass info to AddWorkoutController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toAddGoal"){
+            let addGoalVC = segue.destination as! AddGoalController
+            print("toAddGoal Segue...")
+            addGoalVC.isModalInPresentation = true
+        }
+    }
     
     
     

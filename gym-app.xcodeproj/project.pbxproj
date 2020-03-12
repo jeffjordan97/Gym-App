@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		636614689020312480C3E841 /* Pods_gym_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF00BF6B3221EA5BCF233A5F /* Pods_gym_app.framework */; };
+		9020E58D241A6EBF00503674 /* AddGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9020E58C241A6EBF00503674 /* AddGoalController.swift */; };
 		9039C78C241173BB00A739F8 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9039C78B241173BB00A739F8 /* Home.storyboard */; };
 		9039C78E241173CB00A739F8 /* Workouts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9039C78D241173CB00A739F8 /* Workouts.storyboard */; };
 		9039C790241173DA00A739F8 /* Progress.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9039C78F241173DA00A739F8 /* Progress.storyboard */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		14C67B0FCB032E7283653924 /* Pods-gym-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gym-app.release.xcconfig"; path = "Target Support Files/Pods-gym-app/Pods-gym-app.release.xcconfig"; sourceTree = "<group>"; };
+		9020E58C241A6EBF00503674 /* AddGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalController.swift; sourceTree = "<group>"; };
 		9039C78B241173BB00A739F8 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		9039C78D241173CB00A739F8 /* Workouts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Workouts.storyboard; sourceTree = "<group>"; };
 		9039C78F241173DA00A739F8 /* Progress.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Progress.storyboard; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				90620C322411880100A98138 /* WorkoutController.swift */,
 				90620C38241189B900A98138 /* AddWorkoutController.swift */,
 				90620C342411885F00A98138 /* ProgressController.swift */,
+				9020E58C241A6EBF00503674 /* AddGoalController.swift */,
 				90620C36241188AF00A98138 /* CommunityController.swift */,
 				907FF2252412D1B800D943B4 /* ExercisesController.swift */,
 				907F92BE24196C4A001D5C48 /* SettingsController.swift */,
@@ -272,6 +275,7 @@
 			files = (
 				90E1D210240D3B0300F229F1 /* ViewController.swift in Sources */,
 				90620C39241189B900A98138 /* AddWorkoutController.swift in Sources */,
+				9020E58D241A6EBF00503674 /* AddGoalController.swift in Sources */,
 				90E1D216240D3B0300F229F1 /* gym_app.xcdatamodeld in Sources */,
 				907FF2262412D1B800D943B4 /* ExercisesController.swift in Sources */,
 				90620C312411871100A98138 /* HomeController.swift in Sources */,
