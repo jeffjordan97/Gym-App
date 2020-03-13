@@ -34,7 +34,7 @@ class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerView
     private var list = ["0","1","2","3","4","5","6","7","8","9"]
     
     
-    //MARK: Type Select
+    //MARK: Type Input
     //To show dropdown for user to select workout type
     @IBAction func woTypeButton(_ sender: Any) {
         
@@ -67,7 +67,7 @@ class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerView
     var titlePickList = ["hours", "mins"]
     
     
-    //MARK: Duration Picker Functions
+    //MARK: Duration Input
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 4
     }
@@ -97,6 +97,8 @@ class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerView
         var selectedMins = minsPickList[pickerView.selectedRow(inComponent: 2)]
         
         
+        hoursField.textAlignment = .center
+        hoursField.font!.withSize(22.0)
         hoursField.text = "\(selectedHours) hours   \(selectedMins) mins"
         
     }
@@ -139,7 +141,14 @@ class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     
     
-    
+    //function to pass info to AddWorkoutController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toExercises"){
+            let exercisesVC = segue.destination as! ExercisesController
+            print("toExercises Segue...")
+            exercisesVC.isModalInPresentation = true
+        }
+    }
     
     
     
@@ -157,8 +166,8 @@ class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerView
         durationPicker.dataSource = self
         
         hoursField.inputView = durationPicker
-        hoursField.textAlignment = .center
-        hoursField.placeholder = "Select"
+        //hoursField.textAlignment = .center
+        //hoursField.placeholder = "Select"
         
         //Adds a toolbar to the pickerView, with a 'done' button that closes the pickerView
         let toolBar = UIToolbar()

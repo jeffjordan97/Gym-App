@@ -18,6 +18,7 @@
 		90620C352411885F00A98138 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90620C342411885F00A98138 /* ProgressController.swift */; };
 		90620C37241188AF00A98138 /* CommunityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90620C36241188AF00A98138 /* CommunityController.swift */; };
 		90620C39241189B900A98138 /* AddWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90620C38241189B900A98138 /* AddWorkoutController.swift */; };
+		906D7499241BCE6000F7695C /* testJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 906D7498241BCE6000F7695C /* testJSON.json */; };
 		907F92BD24196C20001D5C48 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 907F92BC24196C20001D5C48 /* Settings.storyboard */; };
 		907F92BF24196C4A001D5C48 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907F92BE24196C4A001D5C48 /* SettingsController.swift */; };
 		907FF2262412D1B800D943B4 /* ExercisesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907FF2252412D1B800D943B4 /* ExercisesController.swift */; };
@@ -43,6 +44,7 @@
 		90620C342411885F00A98138 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
 		90620C36241188AF00A98138 /* CommunityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityController.swift; sourceTree = "<group>"; };
 		90620C38241189B900A98138 /* AddWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutController.swift; sourceTree = "<group>"; };
+		906D7498241BCE6000F7695C /* testJSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = testJSON.json; path = "../../../Downloads/Gym-App-Downloads/testJSON.json"; sourceTree = "<group>"; };
 		907F92BC24196C20001D5C48 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		907F92BE24196C4A001D5C48 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		907FF2252412D1B800D943B4 /* ExercisesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesController.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		90E1D20A240D3B0300F229F1 /* gym-app */ = {
 			isa = PBXGroup;
 			children = (
+				906D7498241BCE6000F7695C /* testJSON.json */,
 				90620C2F241186D800A98138 /* Controllers */,
 				9039C78A2411735000A739F8 /* Storyboards */,
 				90E1D20B240D3B0300F229F1 /* AppDelegate.swift */,
@@ -221,6 +224,7 @@
 				907F92BD24196C20001D5C48 /* Settings.storyboard in Resources */,
 				90E1D213240D3B0300F229F1 /* Main.storyboard in Resources */,
 				90EDB96F241011A000F39E30 /* UniLogo.png in Resources */,
+				906D7499241BCE6000F7695C /* testJSON.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
