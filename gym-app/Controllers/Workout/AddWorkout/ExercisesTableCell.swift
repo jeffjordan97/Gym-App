@@ -12,7 +12,6 @@ class ExercisesTableCell: UITableViewCell {
 
     //Outlets
     @IBOutlet weak var outerView: UIView!
-    @IBOutlet weak var button: UIButton!
     @IBOutlet weak var exTitle: UILabel?
     @IBOutlet weak var exType: UILabel?
     @IBOutlet weak var exInfo: UILabel?
@@ -36,27 +35,31 @@ class ExercisesTableCell: UITableViewCell {
         }
     }
     
-    //MARK: Selected Exercises List
-    func selectedExercises(){
-        
+    //MARK: Tick Box Image
+    func changeTickBox(){
+        if tickBox?.image == UIImage(named: "icons8-unchecked-checkbox-50") {
+            tickBox?.image = UIImage(named: "icons8-tick-box-50")
+        } else {
+            tickBox?.image = UIImage(named: "icons8-unchecked-checkbox-50")
+        }
     }
     
     
     //MARK: Cell Tapped
-    @IBAction func cellTapped(_ sender: Any) {
-        if outerView.backgroundColor == .none {
-            
-            outerView.backgroundColor = #colorLiteral(red: 0.751993654, green: 0.9365622094, blue: 1, alpha: 1)
-            tickBox?.image = UIImage(named: "icons8-tick-box-50")
-            
-        } else if outerView.backgroundColor == #colorLiteral(red: 0.751993654, green: 0.9365622094, blue: 1, alpha: 1) {
-            
-            outerView.backgroundColor = .none
-            tickBox?.image = UIImage(named: "icons8-unchecked-checkbox-50")
-            
-        }
-        
-    }
+//    @IBAction func cellTapped(_ sender: Any) {
+//        if outerView.backgroundColor == .none {
+//
+//            outerView.backgroundColor = #colorLiteral(red: 0.751993654, green: 0.9365622094, blue: 1, alpha: 1)
+//            tickBox?.image = UIImage(named: "icons8-tick-box-50")
+//
+//        } else if outerView.backgroundColor == #colorLiteral(red: 0.751993654, green: 0.9365622094, blue: 1, alpha: 1) {
+//
+//            outerView.backgroundColor = .none
+//
+//
+//        }
+//
+//    }
     
     
     

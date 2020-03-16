@@ -152,4 +152,15 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        
+        let exercise = exList[indexPath.row]
+        
+        print(exercise.name)
+        
+        let cell = table.cellForRow(at: indexPath) as! ExercisesTableCell
+        
+        cell.changeTickBox()
+    }
+    
 }

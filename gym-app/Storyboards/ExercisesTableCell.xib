@@ -16,13 +16,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xpa-qh-2JX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <connections>
-                            <action selector="cellTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="X0d-kK-hOZ"/>
-                        </connections>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W94-Jd-UHJ">
                         <rect key="frame" x="102" y="5" width="164" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -56,7 +49,6 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="button" destination="Xpa-qh-2JX" id="r2z-dt-s96"/>
                 <outlet property="exImage" destination="xNt-RU-4Y9" id="reO-Fq-pWY"/>
                 <outlet property="exInfo" destination="eff-HA-RFE" id="xnD-OT-WGa"/>
                 <outlet property="exTitle" destination="W94-Jd-UHJ" id="0J3-OJ-MRq"/>
