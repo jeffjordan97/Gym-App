@@ -17,7 +17,7 @@ class ExercisesController: UIViewController {
     //MARK: Outlets
     
     @IBOutlet weak var table: UITableView!
-    
+    @IBOutlet weak var exSegControl: UISegmentedControl!
     
     
     //MARK: Attributes
@@ -59,7 +59,7 @@ class ExercisesController: UIViewController {
                 
                 let addEx = exListJson(name: exerciseName, info: exerciseInfo, type: exerciseType, image: exerciseImage)
                 exList.append(addEx)
-                print(addEx)
+                //print(addEx)
                 
             }
             
@@ -88,6 +88,24 @@ class ExercisesController: UIViewController {
     
     
     
+    @IBAction func exSegControlTapped(_ sender: Any) {
+        
+        var segIndex = exSegControl.selectedSegmentIndex
+        
+        if segIndex == 0 {
+            table.isHidden = false
+            table.reloadData()
+        } else {
+            table.isHidden = true
+            
+            table.reloadData()
+        }
+    }
+    
+    
+    
+    
+    
     
     
     
@@ -100,7 +118,15 @@ class ExercisesController: UIViewController {
         
         getJSON()
         
-        table.rowHeight = 80
+        table.dataSource = self
+        
+        if exSegControl.selectedSegmentIndex == 0 {
+            table.rowHeight = 80
+            table.register(UINib(nibName: "ExercisesTableCell", bundle: nil), forCellReuseIdentifier: "ExercisesTableCell")
+        } else {
+            print("Routines table")
+        }
+        
     }
 }
 
@@ -118,55 +144,12 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let exercise = exList[indexPath.row]
+        let cell = table.dequeueReusableCell(withIdentifier: "ExercisesTableCell", for: indexPath) as! ExercisesTableCell
         
-        let cell = table.dequeueReusableCell(withIdentifier: "exCell") as! ExerciseCell
         cell.setLabels(exercise.name!, exercise.type!, exercise.info!)
-        cell.handleExerciseImage(exercise.image!)
+        cell.setImage(exercise.image!)
+        
         return cell
     }
-    
-}
-
-class ExerciseCell: UITableViewCell {
-    
-    //Outlets
-    @IBOutlet weak var cellView: UIView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
-    @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var exImage: UIImageView!
-    @IBOutlet weak var tickImage: UIImageView!
-    
-    //function for add button tapped
-    
-    
-    
-    func setLabels(_ title: String, _ type: String, _ info: String){
-        nameLabel.text = title
-        typeLabel.text = type
-        infoLabel.text = info
-    }
-    
-    
-    func handleExerciseImage(_ imageString: String){
-        if imageString == "" {
-            exImage.image = UIImage(named: "icons8-no-image-50")!
-        }else {
-            exImage.image = UIImage(named: imageString)!
-        }
-        
-    }
-    
-    
-    @IBAction func cellButton(_ sender: Any) {
-        if cellView.backgroundColor == .none {
-            cellView.backgroundColor = #colorLiteral(red: 0.751993654, green: 0.9365622094, blue: 1, alpha: 1)
-            tickImage.image = UIImage(named: "icons8-tick-box-50")
-        } else if cellView.backgroundColor == #colorLiteral(red: 0.751993654, green: 0.9365622094, blue: 1, alpha: 1) {
-            cellView.backgroundColor = .none
-            tickImage.image = UIImage(named: "icons8-unchecked-checkbox-50")
-        }
-    }
-    
     
 }
