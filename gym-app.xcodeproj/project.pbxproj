@@ -18,6 +18,8 @@
 		90620C352411885F00A98138 /* ProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90620C342411885F00A98138 /* ProgressController.swift */; };
 		90620C37241188AF00A98138 /* CommunityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90620C36241188AF00A98138 /* CommunityController.swift */; };
 		90620C39241189B900A98138 /* AddWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90620C38241189B900A98138 /* AddWorkoutController.swift */; };
+		9068C9C3242285C40070346D /* AddExInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9068C9C1242285C40070346D /* AddExInfoTableCell.swift */; };
+		9068C9C4242285C40070346D /* AddExInfoTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9068C9C2242285C40070346D /* AddExInfoTableCell.xib */; };
 		906D7499241BCE6000F7695C /* testJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 906D7498241BCE6000F7695C /* testJSON.json */; };
 		907F92BD24196C20001D5C48 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 907F92BC24196C20001D5C48 /* Settings.storyboard */; };
 		907F92BF24196C4A001D5C48 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907F92BE24196C4A001D5C48 /* SettingsController.swift */; };
@@ -51,6 +53,8 @@
 		90620C342411885F00A98138 /* ProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressController.swift; sourceTree = "<group>"; };
 		90620C36241188AF00A98138 /* CommunityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityController.swift; sourceTree = "<group>"; };
 		90620C38241189B900A98138 /* AddWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutController.swift; sourceTree = "<group>"; };
+		9068C9C1242285C40070346D /* AddExInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExInfoTableCell.swift; sourceTree = "<group>"; };
+		9068C9C2242285C40070346D /* AddExInfoTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddExInfoTableCell.xib; sourceTree = "<group>"; };
 		906D7498241BCE6000F7695C /* testJSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = testJSON.json; path = "../../../Downloads/Gym-App-Downloads/testJSON.json"; sourceTree = "<group>"; };
 		907F92BC24196C20001D5C48 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		907F92BE24196C4A001D5C48 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 				907F92BC24196C20001D5C48 /* Settings.storyboard */,
 				908169AB241FBD7D00FF81CE /* ExercisesTableCell.xib */,
 				908169AF241FD40000FF81CE /* RoutinesTableCell.xib */,
+				9068C9C2242285C40070346D /* AddExInfoTableCell.xib */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -176,6 +181,7 @@
 				90620C38241189B900A98138 /* AddWorkoutController.swift */,
 				908169AA241FBD7D00FF81CE /* ExercisesTableCell.swift */,
 				908169AE241FD40000FF81CE /* RoutinesTableCell.swift */,
+				9068C9C1242285C40070346D /* AddExInfoTableCell.swift */,
 			);
 			path = AddWorkout;
 			sourceTree = "<group>";
@@ -297,6 +303,7 @@
 				9039C78C241173BB00A739F8 /* Home.storyboard in Resources */,
 				908169B1241FD40000FF81CE /* RoutinesTableCell.xib in Resources */,
 				9039C78E241173CB00A739F8 /* Workouts.storyboard in Resources */,
+				9068C9C4242285C40070346D /* AddExInfoTableCell.xib in Resources */,
 				908169B3241FD82D00FF81CE /* Routines.storyboard in Resources */,
 				90E1D218240D3B0400F229F1 /* Assets.xcassets in Resources */,
 				9039C790241173DA00A739F8 /* Progress.storyboard in Resources */,
@@ -368,6 +375,7 @@
 				908169B9241FDC2500FF81CE /* AddRoutineController.swift in Sources */,
 				90620C352411885F00A98138 /* ProgressController.swift in Sources */,
 				908169AC241FBD7D00FF81CE /* ExercisesTableCell.swift in Sources */,
+				9068C9C3242285C40070346D /* AddExInfoTableCell.swift in Sources */,
 				90620C332411880100A98138 /* WorkoutController.swift in Sources */,
 				90E1D20C240D3B0300F229F1 /* AppDelegate.swift in Sources */,
 				90E1D20E240D3B0300F229F1 /* SceneDelegate.swift in Sources */,

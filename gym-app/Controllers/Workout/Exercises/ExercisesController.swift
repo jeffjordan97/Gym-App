@@ -10,6 +10,13 @@ import Foundation
 import UIKit
 import CoreData
 
+struct exListJson: Decodable {
+    var name: String?
+    var info: String?
+    var type: String?
+    var image: String?
+}
+
 class ExercisesController: UIViewController {
     
     
@@ -23,12 +30,7 @@ class ExercisesController: UIViewController {
     
     //MARK: Attributes
     
-    struct exListJson: Decodable {
-        var name: String?
-        var info: String?
-        var type: String?
-        var image: String?
-    }
+    
     
     //stores all exercises from JSON file
     var exList = [exListJson]()
@@ -76,6 +78,9 @@ class ExercisesController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    var delegate: AddWorkoutController?
+    var testvalue = ""
+    
     @IBAction func addButton(_ sender: Any) {
         
         
@@ -83,7 +88,14 @@ class ExercisesController: UIViewController {
         if selectedExList.count > 0 {
             
             print("...Exercises saved...")
-            print(selectedExList)
+            
+            
+            
+            if let addVC = self.presentingViewController as? AddWorkoutController {
+                addVC.exList = self.selectedExList
+            }
+            
+            
             self.dismiss(animated: true, completion: nil)
         } else {
             warningLabel.text = "* No Exercises Selected *"
@@ -91,7 +103,6 @@ class ExercisesController: UIViewController {
         
         
     }
-    
     
     
     

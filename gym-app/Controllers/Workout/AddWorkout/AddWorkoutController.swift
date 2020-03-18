@@ -22,14 +22,17 @@ class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     @IBOutlet weak var hoursField: UITextField!
     
+    @IBOutlet weak var editTable: UITableView!
     
     
     //MARK: Attributes
     
     private var durationPicker = UIPickerView()
     
-    //private var minsPicker: UIPickerView?
     
+    
+    //stores all exercises from JSON file
+    var exList = [exListJson]()
     
     private var list = ["0","1","2","3","4","5","6","7","8","9"]
     
@@ -180,4 +183,24 @@ class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.hoursField.inputAccessoryView = toolBar
         
     }
+}
+
+extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return exList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let exercise = exList[indexPath.row]
+        
+        let cell = editTable.dequeueReusableCell(withIdentifier: "EditTableCell", for: indexPath)
+        
+        return cell
+    }
+    
+    
+    
+    
 }

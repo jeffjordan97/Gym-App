@@ -173,6 +173,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="sTi-3F-Wcz" id="Xza-ru-eNK"/>
+                                    <outlet property="delegate" destination="sTi-3F-Wcz" id="liW-Oq-m7a"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12f-WE-N02">
                                 <rect key="frame" x="306" y="198" width="81" height="21"/>
@@ -195,6 +199,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="HrA-l9-PwT"/>
                     <connections>
+                        <outlet property="editTable" destination="daG-1G-VjK" id="LC0-cd-yaQ"/>
                         <outlet property="hoursField" destination="prg-H4-y5y" id="lc4-uy-2Mc"/>
                         <outlet property="woTypeLabel" destination="6yA-qY-tmm" id="QQ2-GG-Lde"/>
                         <outlet property="woTypeView" destination="Vu5-85-WaC" id="gg0-C9-Pvi"/>
