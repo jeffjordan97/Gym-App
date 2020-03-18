@@ -18,6 +18,7 @@ class ExercisesController: UIViewController {
     
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var exSegControl: UISegmentedControl!
+    @IBOutlet weak var warningLabel: UILabel!
     
     
     //MARK: Attributes
@@ -32,6 +33,7 @@ class ExercisesController: UIViewController {
     //stores all exercises from JSON file
     var exList = [exListJson]()
     
+    var selectedExList = [exListJson]()
     
     
     
@@ -78,10 +80,16 @@ class ExercisesController: UIViewController {
         
         
         //pass selected exercises to AddWorkoutVC...
+        if selectedExList.count > 0 {
+            
+            print("...Exercises saved...")
+            print(selectedExList)
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            warningLabel.text = "* No Exercises Selected *"
+        }
         
         
-        print("...Exercises saved...")
-        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -149,18 +157,47 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource {
         cell.setLabels(exercise.name!, exercise.type!, exercise.info!)
         cell.setImage(exercise.image!)
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = #colorLiteral(red: 0.734172568, green: 0.997696025, blue: 1, alpha: 1)
+        cell.selectedBackgroundView = backgroundView
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
-        let exercise = exList[indexPath.row]
+        //didSelectRow for Exercises
+        if exSegControl.selectedSegmentIndex == 0 {
+            let exercise = exList[indexPath.row]
+            
+            //print(exercise.name)
+            
+            let cell = table.cellForRow(at: indexPath) as! ExercisesTableCell
+            
+            cell.boxTicked()
+            
+            //If box ticked, add exercise to selectedExList
+            if cell.checked {
+                selectedExList.append(exercise)
+                print("Added: ", exercise)
+            } else {
+                //check if exercise in selectedExList, remove
+                if selectedExList.contains(where: {$0.name == exercise.name}) {
+                    let getIndex = selectedExList.firstIndex(where: {$0.name == exercise.name})
+                    selectedExList.remove(at: getIndex!)
+                    print("Removed: ", exercise)
+                }
+            }
+        } else {
+            //didSelectRow for Routines
+            
+            //let routine = routineList[indexPath.row]
+            //let cell = table.cellForRow(at: indexPath) as! RoutinesTableCell
+            //cell.boxTicked()
+        }
         
-        print(exercise.name)
         
-        let cell = table.cellForRow(at: indexPath) as! ExercisesTableCell
         
-        cell.changeTickBox()
     }
     
 }

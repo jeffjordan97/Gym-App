@@ -265,6 +265,13 @@
                                 <color key="textColor" red="0.0" green="0.22257292270000001" blue="0.51798737049999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mbL-Kw-B4y">
+                                <rect key="frame" x="99" y="43" width="216" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="1" green="0.45624048077132529" blue="0.4286911654014286" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Ub0-PD-Fgi"/>
@@ -273,6 +280,7 @@
                     <connections>
                         <outlet property="exSegControl" destination="lOa-wK-a4h" id="NIv-uV-Vqi"/>
                         <outlet property="table" destination="w0G-UX-8Lt" id="xcT-Ne-xe1"/>
+                        <outlet property="warningLabel" destination="mbL-Kw-B4y" id="shu-ld-wn8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5jh-t8-sGX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

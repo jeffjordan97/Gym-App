@@ -18,6 +18,9 @@ class ExercisesTableCell: UITableViewCell {
     @IBOutlet weak var exImage: UIImageView?
     @IBOutlet weak var tickBox: UIImageView?
     
+    //Attributes
+    var checked = false
+    
     
     //MARK: Set Text
     func setLabels(_ title:String, _ type:String, _ info:String){
@@ -36,12 +39,16 @@ class ExercisesTableCell: UITableViewCell {
     }
     
     //MARK: Tick Box Image
-    func changeTickBox(){
-        if tickBox?.image == UIImage(named: "icons8-unchecked-checkbox-50") {
-            tickBox?.image = UIImage(named: "icons8-tick-box-50")
+    func boxTicked(){
+        
+        if checked {
+            tickBox!.image = UIImage(named: "icons8-unchecked-checkbox-50")
+            checked = false
         } else {
-            tickBox?.image = UIImage(named: "icons8-unchecked-checkbox-50")
+            tickBox!.image = UIImage(named: "icons8-tick-box-50")
+            checked = true
         }
+        
     }
     
     
