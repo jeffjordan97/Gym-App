@@ -195,7 +195,9 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let exercise = exList[indexPath.row]
         
-        let cell = editTable.dequeueReusableCell(withIdentifier: "EditTableCell", for: indexPath)
+        let cell = editTable.dequeueReusableCell(withIdentifier: "AddExInfoTableCell", for: indexPath)
+        
+        
         
         return cell
     }
