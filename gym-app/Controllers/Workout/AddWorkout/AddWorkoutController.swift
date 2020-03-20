@@ -182,6 +182,13 @@ class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerView
         toolBar.setItems([doneButton], animated: false)
         self.hoursField.inputAccessoryView = toolBar
         
+        
+        
+        editTable.delegate = self
+        editTable.rowHeight = 80
+        editTable.register(UINib(nibName: "AddExInfoTableCell", bundle: nil), forCellReuseIdentifier: "AddExInfoTableCell")
+        
+        
     }
 }
 
@@ -195,9 +202,10 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let exercise = exList[indexPath.row]
         
-        let cell = editTable.dequeueReusableCell(withIdentifier: "AddExInfoTableCell", for: indexPath)
+        let cell = editTable.dequeueReusableCell(withIdentifier: "AddExInfoTableCell", for: indexPath) as! AddExInfoTableCell
         
         
+        cell.setLabels(exercise.name!, exercise.type!)
         
         return cell
     }

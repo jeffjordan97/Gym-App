@@ -39,7 +39,7 @@ class ExercisesController: UIViewController {
     
     
     
-    
+    //MARK: Decode JSON
     //decodes JSON data and adds the data to the exList array
     func getJSON(){
         guard let filePath = Bundle.main.path(forResource: "testJSON", ofType: "json") else {return}
@@ -73,7 +73,7 @@ class ExercisesController: UIViewController {
     }
     
     
-    
+    //MARK: Cancel button
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -81,6 +81,7 @@ class ExercisesController: UIViewController {
     var delegate: AddWorkoutController?
     var testvalue = ""
     
+    //MARK: Add Button
     @IBAction func addButton(_ sender: Any) {
         
         
@@ -89,13 +90,10 @@ class ExercisesController: UIViewController {
             
             print("...Exercises saved...")
             
-            
-            
             if let addVC = self.presentingViewController as? AddWorkoutController {
                 addVC.exList = self.selectedExList
+                addVC.editTable.reloadData()
             }
-            
-            
             self.dismiss(animated: true, completion: nil)
         } else {
             warningLabel.text = "* No Exercises Selected *"
@@ -106,7 +104,7 @@ class ExercisesController: UIViewController {
     
     
     
-    
+    //MARK: Segment Control Tapped
     @IBAction func exSegControlTapped(_ sender: Any) {
         
         var segIndex = exSegControl.selectedSegmentIndex

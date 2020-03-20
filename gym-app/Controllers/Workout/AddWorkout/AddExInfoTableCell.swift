@@ -11,13 +11,14 @@ import UIKit
 class AddExInfoTableCell: UITableViewCell {
     
     
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel?
+    @IBOutlet weak var typeLabel: UILabel?
     
     
-    func changeTitle(_ title: String){
-        self.titleLabel.text = title
+    func setLabels(_ title: String, _ info: String){
+        titleLabel?.text = title
+        typeLabel?.text = info
     }
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
