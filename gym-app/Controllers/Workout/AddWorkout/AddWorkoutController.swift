@@ -11,7 +11,7 @@ import UIKit
 import CoreData
 import DropDown
 
-class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AddWorkoutController: UIViewController {
     
     
     
@@ -27,15 +27,17 @@ class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     //MARK: Attributes
     
-    private var durationPicker = UIPickerView()
-    
-    
-    
     //stores all exercises from JSON file
     var exList = [exListJson]()
     
-    private var list = ["0","1","2","3","4","5","6","7","8","9"]
+    var durationPicker = UIPickerView()
     
+    //constants for duration picker view
+    let hoursPickList = ["0","1","2", "3", "4", "5"]
+    let minsPickList = ["0","1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11","12","13","14","15"]
+    let titlePickList = ["hours", "mins"]
+    
+    var selectedExercises = [SelectedExercises]()
     
     //MARK: Type Input
     //To show dropdown for user to select workout type
@@ -57,94 +59,21 @@ class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerView
             self.woTypeLabel.isHidden = false
             self.woTypeLabel.text = item
             self.woTypeLabel.textColor = .black
+            self.woTypeLabel.textAlignment = .center
             self.woTypeLabel.font = self.woTypeLabel.font.withSize(22.0)
         }
         
         typeDropDown.show()
     }
     
-    
-    
-    var hoursPickList = ["0","1","2", "3", "4", "5"]
-    var minsPickList = ["0","1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11","12","13","14","15"]
-    var titlePickList = ["hours", "mins"]
-    
-    
-    //MARK: Duration Input
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 4
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return hoursPickList.count
-        }else {
-            if component == 1 {
-                return 1
-            }else {
-                if component == 2 {
-                    return minsPickList.count
-                }else {
-                    if component == 3 {
-                        return 1
-                    }
-                }
-            }
-        }
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        var selectedHours = hoursPickList[pickerView.selectedRow(inComponent: 0)]
-        var selectedMins = minsPickList[pickerView.selectedRow(inComponent: 2)]
-        
-        
-        hoursField.textAlignment = .center
-        hoursField.font!.withSize(22.0)
-        hoursField.text = "\(selectedHours) hours   \(selectedMins) mins"
-        
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        if component == 0 {
-            let str = hoursPickList[row]
-            pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-            return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
-        }else {
-            if component == 1 {
-                let str = titlePickList[0]
-                pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-                return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
-            }else {
-                if component == 2 {
-                    let str = minsPickList[row]
-                    pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-                    return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
-                }else {
-                    let str = titlePickList[1]
-                    pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-                    return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
-                }
-            }
-        }
-    }
-    
-    //closes Duration pickerView
-    @objc private func doneButtonTapped(){
-        self.hoursField.resignFirstResponder()
-    }
-    
-    
-    
-    
+    //MARK: Cancel Button
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     
     
-    //function to pass info to AddWorkoutController
+    //MARK: Pass Info: AddWorkoutController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toExercises"){
             let exercisesVC = segue.destination as! ExercisesController
@@ -184,33 +113,173 @@ class AddWorkoutController: UIViewController, UIPickerViewDelegate, UIPickerView
         
         
         
+        
+        
+        selectedExercises.append(SelectedExercises.init(exerciseName: "name1", exerciseType: "type1", exerciseInfo: "info1", exerciseSets: [1:10,2:15]))
+        selectedExercises.append(SelectedExercises.init(exerciseName: "name2", exerciseType: "type2", exerciseInfo: "info2", exerciseSets: [1:5,2:7, 3: 9]))
+        
+        
         editTable.delegate = self
-        editTable.rowHeight = 80
-        editTable.register(UINib(nibName: "AddExInfoTableCell", bundle: nil), forCellReuseIdentifier: "AddExInfoTableCell")
+        editTable.rowHeight = 60
+        
+        editTable.register(UITableViewCell.self, forCellReuseIdentifier: "BelowExerciseHeaderCell")
+        editTable.register(UITableViewCell.self, forCellReuseIdentifier: "AddExInfoTableCell")
+        //editTable.register(UINib(nibName: "AddExInfoTableCell", bundle: nil), forCellReuseIdentifier: "AddExInfoTableCell")
         
         
     }
 }
 
+
+
+//MARK: Duration Picker
+extension AddWorkoutController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    //number of columns in picker view
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 4
+    }
+    
+    //sets number of rows for each column in picker view
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return hoursPickList.count
+        }else {
+            if component == 1 {
+                return 1
+            }else {
+                if component == 2 {
+                    return minsPickList.count
+                }else {
+                    if component == 3 {
+                        return 1
+                    }
+                }
+            }
+        }
+        return 1
+    }
+    
+    //changes label to number of hours and minutes selected from picker
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        var selectedHours = hoursPickList[pickerView.selectedRow(inComponent: 0)]
+        var selectedMins = minsPickList[pickerView.selectedRow(inComponent: 2)]
+        
+        hoursField.textAlignment = .center
+        hoursField.font!.withSize(22.0)
+        hoursField.text = "\(selectedHours) hours   \(selectedMins) mins"
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        if component == 0 {
+            let str = hoursPickList[row]
+            pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+            return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
+        }else {
+            if component == 1 {
+                let str = titlePickList[0]
+                pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
+            }else {
+                if component == 2 {
+                    let str = minsPickList[row]
+                    pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                    return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
+                }else {
+                    let str = titlePickList[1]
+                    pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+                    return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
+                }
+            }
+        }
+    }
+    
+    //closes Duration picker view
+    @objc private func doneButtonTapped(){
+        self.hoursField.resignFirstResponder()
+    }
+    
+}
+
+
+//MARK: Exercise Table
 extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return selectedExercises.count
+    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exList.count
+        return selectedExercises[section].exerciseSets?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let exercise = exList[indexPath.row]
+        //let exercise = exList[indexPath.row]
         
-        let cell = editTable.dequeueReusableCell(withIdentifier: "AddExInfoTableCell", for: indexPath) as! AddExInfoTableCell
+        let thisExercise = selectedExercises[indexPath.section]
+        print(thisExercise)
         
+        if indexPath.row == 0  {
+            let cell = Bundle.main.loadNibNamed("BelowExerciseHeaderCell", owner: self, options: nil)?.first as! BelowExerciseHeaderCell
+            
+            return cell
+        } else {
+            let cell = Bundle.main.loadNibNamed("AddExInfoTableCell", owner: self, options: nil)?.first as! AddExInfoTableCell
+            
+            
+            cell.setLabels("Sets: \(indexPath.row) Reps: \(String(describing: thisExercise.exerciseSets![indexPath.row]!))", "Section: \(indexPath.section) Row: \(indexPath.row)")
+            
+            
+            return cell
+        }
         
-        cell.setLabels(exercise.name!, exercise.type!)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return cell
+        let exHeaderCell = Bundle.main.loadNibNamed("ExerciseHeaderCell", owner: self, options: nil)?.first as! ExerciseHeaderCell
+        
+        exHeaderCell.setButton.setTitleColor(.gray, for: .highlighted)
+        exHeaderCell.setTitle(selectedExercises[section].exerciseName!)
+        
+        exHeaderCell.getTable(editTable, section: section, rowsInSection: editTable.numberOfRows(inSection: section))
+        
+        exHeaderCell.getSelectedExercises(selectedExercises)
+        
+        return exHeaderCell
     }
     
     
-    
-    
 }
+
+class SelectedExercises {
+    var exerciseName: String?
+    var exerciseType: String?
+    var exerciseInfo: String?
+    var exerciseSets: [Int:Int]?
+    
+    init(exerciseName:String, exerciseType:String, exerciseInfo: String, exerciseSets:[Int:Int]) {
+        self.exerciseName = exerciseName
+        self.exerciseType = exerciseType
+        self.exerciseInfo = exerciseInfo
+        self.exerciseSets = exerciseSets
+    }
+}
+
+
+class SetRepsWeights {
+    var set: Int?
+    var reps: Int?
+    var weight: Float?
+    
+    init(set:Int, reps:Int, weight:Float){
+        self.set = set
+        self.reps = reps
+        self.weight = weight
+    }
+}
+
+

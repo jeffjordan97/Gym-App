@@ -78,8 +78,7 @@ class ExercisesController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    var delegate: AddWorkoutController?
-    var testvalue = ""
+    
     
     //MARK: Add Button
     @IBAction func addButton(_ sender: Any) {

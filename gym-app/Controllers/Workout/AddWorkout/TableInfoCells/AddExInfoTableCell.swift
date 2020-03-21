@@ -16,8 +16,8 @@ class AddExInfoTableCell: UITableViewCell {
     
     
     func setLabels(_ title: String, _ info: String){
-        titleLabel?.text = title
-        typeLabel?.text = info
+        self.titleLabel?.text = title
+        self.typeLabel?.text = info
     }
 
     override func awakeFromNib() {

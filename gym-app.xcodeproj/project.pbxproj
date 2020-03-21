@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F10FEA524267C9E0089F5C3 /* ExerciseHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F10FEA324267C9E0089F5C3 /* ExerciseHeaderCell.swift */; };
+		1F10FEA624267C9E0089F5C3 /* ExerciseHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F10FEA424267C9E0089F5C3 /* ExerciseHeaderCell.xib */; };
 		1FA9B5D72423B2D500182CBE /* testJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9B5D62423B2D500182CBE /* testJSON.json */; };
+		1FB8647E2426A93500E6DD60 /* BelowExerciseHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8647C2426A93500E6DD60 /* BelowExerciseHeaderCell.swift */; };
+		1FB8647F2426A93500E6DD60 /* BelowExerciseHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB8647D2426A93500E6DD60 /* BelowExerciseHeaderCell.xib */; };
 		636614689020312480C3E841 /* Pods_gym_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF00BF6B3221EA5BCF233A5F /* Pods_gym_app.framework */; };
 		9020E58D241A6EBF00503674 /* AddGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9020E58C241A6EBF00503674 /* AddGoalController.swift */; };
 		9039C78C241173BB00A739F8 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9039C78B241173BB00A739F8 /* Home.storyboard */; };
@@ -42,7 +46,11 @@
 
 /* Begin PBXFileReference section */
 		14C67B0FCB032E7283653924 /* Pods-gym-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gym-app.release.xcconfig"; path = "Target Support Files/Pods-gym-app/Pods-gym-app.release.xcconfig"; sourceTree = "<group>"; };
+		1F10FEA324267C9E0089F5C3 /* ExerciseHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseHeaderCell.swift; sourceTree = "<group>"; };
+		1F10FEA424267C9E0089F5C3 /* ExerciseHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExerciseHeaderCell.xib; sourceTree = "<group>"; };
 		1FA9B5D62423B2D500182CBE /* testJSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = testJSON.json; path = "../../../Dropbox/Uni Work/Year 3/Comp39X/3. Software Demo/testJSON.json"; sourceTree = "<group>"; };
+		1FB8647C2426A93500E6DD60 /* BelowExerciseHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BelowExerciseHeaderCell.swift; sourceTree = "<group>"; };
+		1FB8647D2426A93500E6DD60 /* BelowExerciseHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BelowExerciseHeaderCell.xib; sourceTree = "<group>"; };
 		9020E58C241A6EBF00503674 /* AddGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalController.swift; sourceTree = "<group>"; };
 		9039C78B241173BB00A739F8 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		9039C78D241173CB00A739F8 /* Workouts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Workouts.storyboard; sourceTree = "<group>"; };
@@ -90,6 +98,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F45638B2426B7D60097D296 /* TableInfoCells */ = {
+			isa = PBXGroup;
+			children = (
+				9068C9C1242285C40070346D /* AddExInfoTableCell.swift */,
+				9068C9C2242285C40070346D /* AddExInfoTableCell.xib */,
+			);
+			path = TableInfoCells;
+			sourceTree = "<group>";
+		};
+		1FB864802426B19900E6DD60 /* TableHeaderCell */ = {
+			isa = PBXGroup;
+			children = (
+				1F10FEA324267C9E0089F5C3 /* ExerciseHeaderCell.swift */,
+				1F10FEA424267C9E0089F5C3 /* ExerciseHeaderCell.xib */,
+			);
+			path = TableHeaderCell;
+			sourceTree = "<group>";
+		};
+		1FB864812426B1C900E6DD60 /* TableFirstCell */ = {
+			isa = PBXGroup;
+			children = (
+				1FB8647C2426A93500E6DD60 /* BelowExerciseHeaderCell.swift */,
+				1FB8647D2426A93500E6DD60 /* BelowExerciseHeaderCell.xib */,
+			);
+			path = TableFirstCell;
+			sourceTree = "<group>";
+		};
+		1FB864822426B23A00E6DD60 /* ExercisesTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				908169AA241FBD7D00FF81CE /* ExercisesTableCell.swift */,
+				908169AB241FBD7D00FF81CE /* ExercisesTableCell.xib */,
+			);
+			path = ExercisesTableCell;
+			sourceTree = "<group>";
+		};
+		1FB864832426B2D700E6DD60 /* RoutinesTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				908169AE241FD40000FF81CE /* RoutinesTableCell.swift */,
+				908169AF241FD40000FF81CE /* RoutinesTableCell.xib */,
+			);
+			path = RoutinesTableCell;
+			sourceTree = "<group>";
+		};
 		9039C78A2411735000A739F8 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,9 +153,6 @@
 				9039C78F241173DA00A739F8 /* Progress.storyboard */,
 				9039C791241173E500A739F8 /* Community.storyboard */,
 				907F92BC24196C20001D5C48 /* Settings.storyboard */,
-				908169AB241FBD7D00FF81CE /* ExercisesTableCell.xib */,
-				908169AF241FD40000FF81CE /* RoutinesTableCell.xib */,
-				9068C9C2242285C40070346D /* AddExInfoTableCell.xib */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -169,6 +219,8 @@
 			isa = PBXGroup;
 			children = (
 				907FF2252412D1B800D943B4 /* ExercisesController.swift */,
+				1FB864822426B23A00E6DD60 /* ExercisesTableCell */,
+				1FB864832426B2D700E6DD60 /* RoutinesTableCell */,
 			);
 			path = Exercises;
 			sourceTree = "<group>";
@@ -177,9 +229,9 @@
 			isa = PBXGroup;
 			children = (
 				90620C38241189B900A98138 /* AddWorkoutController.swift */,
-				908169AA241FBD7D00FF81CE /* ExercisesTableCell.swift */,
-				908169AE241FD40000FF81CE /* RoutinesTableCell.swift */,
-				9068C9C1242285C40070346D /* AddExInfoTableCell.swift */,
+				1FB864802426B19900E6DD60 /* TableHeaderCell */,
+				1FB864812426B1C900E6DD60 /* TableFirstCell */,
+				1F45638B2426B7D60097D296 /* TableInfoCells */,
 			);
 			path = AddWorkout;
 			sourceTree = "<group>";
@@ -303,6 +355,8 @@
 				9068C9C4242285C40070346D /* AddExInfoTableCell.xib in Resources */,
 				908169B3241FD82D00FF81CE /* Routines.storyboard in Resources */,
 				90E1D218240D3B0400F229F1 /* Assets.xcassets in Resources */,
+				1F10FEA624267C9E0089F5C3 /* ExerciseHeaderCell.xib in Resources */,
+				1FB8647F2426A93500E6DD60 /* BelowExerciseHeaderCell.xib in Resources */,
 				9039C790241173DA00A739F8 /* Progress.storyboard in Resources */,
 				907F92BD24196C20001D5C48 /* Settings.storyboard in Resources */,
 				90E1D213240D3B0300F229F1 /* Main.storyboard in Resources */,
@@ -362,6 +416,7 @@
 			files = (
 				90E1D210240D3B0300F229F1 /* ViewController.swift in Sources */,
 				90620C39241189B900A98138 /* AddWorkoutController.swift in Sources */,
+				1F10FEA524267C9E0089F5C3 /* ExerciseHeaderCell.swift in Sources */,
 				9020E58D241A6EBF00503674 /* AddGoalController.swift in Sources */,
 				90E1D216240D3B0300F229F1 /* gym_app.xcdatamodeld in Sources */,
 				907FF2262412D1B800D943B4 /* ExercisesController.swift in Sources */,
@@ -375,6 +430,7 @@
 				90620C332411880100A98138 /* WorkoutController.swift in Sources */,
 				90E1D20C240D3B0300F229F1 /* AppDelegate.swift in Sources */,
 				90E1D20E240D3B0300F229F1 /* SceneDelegate.swift in Sources */,
+				1FB8647E2426A93500E6DD60 /* BelowExerciseHeaderCell.swift in Sources */,
 				908169B0241FD40000FF81CE /* RoutinesTableCell.swift in Sources */,
 				908169B7241FD9DB00FF81CE /* RoutinesController.swift in Sources */,
 			);
