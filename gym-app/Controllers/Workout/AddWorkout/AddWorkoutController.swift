@@ -11,9 +11,7 @@ import UIKit
 import CoreData
 import DropDown
 
-class AddWorkoutController: UIViewController {
-    
-    
+class AddWorkoutController: UIViewController, UITextFieldDelegate {
     
     //MARK: Outlets
     @IBOutlet weak var woTypeView: UIView!
@@ -27,9 +25,6 @@ class AddWorkoutController: UIViewController {
     
     //MARK: Attributes
     
-    //stores all exercises from JSON file
-    var exList = [exListJson]()
-    
     var durationPicker = UIPickerView()
     
     //constants for duration picker view
@@ -37,7 +32,11 @@ class AddWorkoutController: UIViewController {
     let minsPickList = ["0","1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11","12","13","14","15"]
     let titlePickList = ["hours", "mins"]
     
+    //Stores all selectedExercises from ExercisesController, used in TableView
     var selectedExercises = [SelectedExercises]()
+    var activeTextField = UITextField()
+    
+    
     
     //MARK: Type Input
     //To show dropdown for user to select workout type
@@ -66,6 +65,36 @@ class AddWorkoutController: UIViewController {
         typeDropDown.show()
     }
     
+    
+    //MARK: Pass Info: AddWorkoutController
+    //If Add button clicked, which opens segue to Exercises
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toExercises"){
+            let exercisesVC = segue.destination as! ExercisesController
+            print("toExercises Segue...")
+            
+            //prevents 'slide to close' modal
+            exercisesVC.isModalInPresentation = true
+        }
+    }
+    
+    
+    
+    
+    @IBAction func finishButton(_ sender: Any) {
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     //MARK: Cancel Button
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -73,14 +102,7 @@ class AddWorkoutController: UIViewController {
     
     
     
-    //MARK: Pass Info: AddWorkoutController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "toExercises"){
-            let exercisesVC = segue.destination as! ExercisesController
-            print("toExercises Segue...")
-            exercisesVC.isModalInPresentation = true
-        }
-    }
+    
     
     
     
@@ -112,12 +134,9 @@ class AddWorkoutController: UIViewController {
         self.hoursField.inputAccessoryView = toolBar
         
         
-        
-        
-        
-        selectedExercises.append(SelectedExercises.init(exerciseName: "name1", exerciseType: "type1", exerciseInfo: "info1", exerciseSets: [1:10,2:15]))
-        selectedExercises.append(SelectedExercises.init(exerciseName: "name2", exerciseType: "type2", exerciseInfo: "info2", exerciseSets: [1:5,2:7, 3: 9]))
-        
+        if selectedExercises.isEmpty {
+            self.editTable.isHidden = true
+        }
         
         editTable.delegate = self
         editTable.rowHeight = 60
@@ -125,7 +144,7 @@ class AddWorkoutController: UIViewController {
         editTable.register(UITableViewCell.self, forCellReuseIdentifier: "BelowExerciseHeaderCell")
         editTable.register(UITableViewCell.self, forCellReuseIdentifier: "AddExInfoTableCell")
         //editTable.register(UINib(nibName: "AddExInfoTableCell", bundle: nil), forCellReuseIdentifier: "AddExInfoTableCell")
-        
+        self.hideKeyboardWhenTappedAround()
         
     }
 }
@@ -207,21 +226,23 @@ extension AddWorkoutController: UIPickerViewDelegate, UIPickerViewDataSource {
 //MARK: Exercise Table
 extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
     
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return selectedExercises.count
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectedExercises[section].exerciseSets?.count ?? 0
+        return (selectedExercises[section].exerciseSets?.count ?? 0) + 1
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let exercise = exList[indexPath.row]
         
         let thisExercise = selectedExercises[indexPath.section]
-        print(thisExercise)
         
+        //cell to display row headings -> Set Reps Weight
         if indexPath.row == 0  {
             let cell = Bundle.main.loadNibNamed("BelowExerciseHeaderCell", owner: self, options: nil)?.first as! BelowExerciseHeaderCell
             
@@ -229,14 +250,45 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = Bundle.main.loadNibNamed("AddExInfoTableCell", owner: self, options: nil)?.first as! AddExInfoTableCell
             
+            cell.setLabels("\(indexPath.row)")
             
-            cell.setLabels("Sets: \(indexPath.row) Reps: \(String(describing: thisExercise.exerciseSets![indexPath.row]!))", "Section: \(indexPath.section) Row: \(indexPath.row)")
             
+            //this class becomes the delegate, by extending the class with UITextFieldDelegate
+            cell.inputReps.delegate = self
+            cell.inputWeight.delegate = self
+            
+            //checks whether exerciseSet has already been assigned the current indexPath, if so, getSetCell will be an array with one element
+            let getSetCell = thisExercise.exerciseSets?.filter( { $0.indexPath == indexPath } )
+            
+            //if array returned above is empty, indexPath is not in exerciseSets for the current selectedExercise
+            if getSetCell?.count == 0 {
+                print("Index NOT in exerciseSets for exercise: \(selectedExercises[indexPath.section].exerciseName!)")
+                
+                var getSetForExercise = thisExercise.exerciseSets?.first(where: {$0.set == indexPath.row})
+                
+                getSetForExercise?.indexPath = indexPath
+                print("Index \(getSetForExercise?.indexPath) added to exerciseSets: \(String(describing: getSetForExercise?.set))")
+                
+            } else {
+                //index in selectedExercises for the given exerciseSet
+                var getSetForExercise = thisExercise.exerciseSets?.first(where: {$0.set == indexPath.row})
+                print("Index IN exerciseSets for exercise: \(thisExercise.exerciseName!) \(getSetForExercise?.indexPath)")
+                if getSetForExercise?.reps != nil {
+                    cell.inputReps.text = String(describing: (getSetForExercise?.reps)!)
+                }
+                if getSetForExercise?.weight != nil {
+                    cell.inputWeight.text = String(describing: (getSetForExercise?.weight)!)
+                }
+            }
+            
+            //check if reps and weight for exerciseSet in selectedExercises where indexpaht
+            //if indexPathForTextField()
             
             return cell
         }
         
     }
+    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -252,6 +304,60 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
         return exHeaderCell
     }
     
+    //prevents colour change of cell when clicked
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.contentView.backgroundColor = .white
+        print("clicked!")
+        
+    }
+    
+    //checks whether a string can be converted to an Int
+    func isStringAnInt(string: String) -> Bool {
+        return Int(string) != nil
+    }
+    
+    
+    //assigns the current textfield to activeTextField within this VC
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.activeTextField = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        let pointInTable = activeTextField.convert(activeTextField.bounds.origin, to: self.editTable)
+        let textFieldIndexPath = self.editTable.indexPathForRow(at: pointInTable)
+        
+        
+        print(textFieldIndexPath!)
+        
+        //tag = 0 --> Reps textField, tag = 1 --> Weight textField
+        if activeTextField.tag == 0 {
+            
+            if isStringAnInt(string: activeTextField.text!) {
+                let textToInt = Int(activeTextField.text!)
+                selectedExercises[textFieldIndexPath!.section].exerciseSets?[textFieldIndexPath!.row - 1].reps = textToInt!
+                print("Added Reps")
+            }
+            
+        } else if activeTextField.tag == 1 {
+            
+            if isStringAnInt(string: activeTextField.text!) {
+                let textToInt = Int(activeTextField.text!)
+                selectedExercises[textFieldIndexPath!.section].exerciseSets?[textFieldIndexPath!.row - 1].weight = textToInt!
+                print("Added weight")
+            }
+            
+        }
+        
+        if let activeTextFieldtext = self.activeTextField.text {
+            print("Active Text Field: \(activeTextFieldtext)")
+            return
+        }
+        print("Active Text Field: Empty")
+    }
+    
+    
+    
     
 }
 
@@ -259,9 +365,9 @@ class SelectedExercises {
     var exerciseName: String?
     var exerciseType: String?
     var exerciseInfo: String?
-    var exerciseSets: [Int:Int]?
+    var exerciseSets: [SetRepsWeights]?
     
-    init(exerciseName:String, exerciseType:String, exerciseInfo: String, exerciseSets:[Int:Int]) {
+    init(exerciseName:String, exerciseType:String, exerciseInfo: String, exerciseSets:[SetRepsWeights]) {
         self.exerciseName = exerciseName
         self.exerciseType = exerciseType
         self.exerciseInfo = exerciseInfo
@@ -273,13 +379,37 @@ class SelectedExercises {
 class SetRepsWeights {
     var set: Int?
     var reps: Int?
-    var weight: Float?
+    var weight: Int?
+    var indexPath: IndexPath?
     
-    init(set:Int, reps:Int, weight:Float){
+    init(set:Int, reps:Int?, weight:Int?, indexpath:IndexPath){
         self.set = set
         self.reps = reps
         self.weight = weight
+        self.indexPath = indexpath
     }
 }
 
+class SetTimeCardio {
+    var set: Int?
+    var time: Int
+    
+    init(set: Int, time: Int) {
+        self.set = set
+        self.time = time
+    }
+    
+}
 
+
+extension UIViewController {
+func hideKeyboardWhenTappedAround() {
+    let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+    tap.cancelsTouchesInView = false
+    view.addGestureRecognizer(tap)
+}
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

@@ -8,12 +8,13 @@
 
 import UIKit
 
-class ExerciseHeaderCell: UITableViewCell {
+class ExerciseHeaderCell: UITableViewHeaderFooterView {
 
     var tableSection: Int = 0
     var rowsInSection: Int = 0
     var table: UITableView = UITableView()
     var selectedExercises = [SelectedExercises]()
+    
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var setButton: UIButton!
@@ -41,16 +42,21 @@ class ExerciseHeaderCell: UITableViewCell {
         self.titleLabel.text = "clicked"
         
         
-        selectedExercises[tableSection].exerciseSets![rowsInSection+1] = 55
-        
-        table.reloadData()
+       //add exercise set
         
         
-        //add exercise set
         
-        //let indexPath = IndexPath(row: tableRow, section: tableSection)
-        //table.insertRows(at: [indexPath], with: .fade)
+        let rows = table.numberOfRows(inSection: tableSection)
+        
+        selectedExercises[tableSection].exerciseSets?.append(SetRepsWeights(set: rows, reps: nil, weight: nil, indexpath: IndexPath()))
+        
+        #warning("Fix inserting Row to Section, reloadData clears each textfield")
+        table.insertRows(at: [IndexPath(row: rows, section: tableSection)], with: .bottom)
+        
         //table.reloadData()
+        
+        
+        
         
     }
     
@@ -61,12 +67,6 @@ class ExerciseHeaderCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

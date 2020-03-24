@@ -9,16 +9,18 @@
 import UIKit
 
 class AddExInfoTableCell: UITableViewCell {
-    
+    //add delegate UITextFieldDelegate
     
     @IBOutlet weak var titleLabel: UILabel?
-    @IBOutlet weak var typeLabel: UILabel?
+    @IBOutlet weak var inputReps: UITextField!
+    @IBOutlet weak var inputWeight: UITextField!
     
+    var storedIndexPath = IndexPath()
     
-    func setLabels(_ title: String, _ info: String){
+    func setLabels(_ title: String){
         self.titleLabel?.text = title
-        self.typeLabel?.text = info
     }
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,4 +33,10 @@ class AddExInfoTableCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
+    
 }
+
+//extension AddExInfoTableCell: UITextFieldDelegate {
+//    func text
+//}

@@ -90,7 +90,19 @@ class ExercisesController: UIViewController {
             print("...Exercises saved...")
             
             if let addVC = self.presentingViewController as? AddWorkoutController {
-                addVC.exList = self.selectedExList
+                //addVC.exList = self.selectedExList
+                
+                
+                #warning("Add to selectedExercises from exList here...")
+                
+                addVC.selectedExercises.append(SelectedExercises.init(exerciseName: "name1", exerciseType: "type1", exerciseInfo: "info1", exerciseSets: [SetRepsWeights(set: 1, reps: nil, weight: nil, indexpath: IndexPath())]))
+                addVC.selectedExercises.append(SelectedExercises.init(exerciseName: "name2", exerciseType: "type2", exerciseInfo: "info2", exerciseSets: [SetRepsWeights(set: 1, reps: nil, weight: nil, indexpath: IndexPath())]))
+                
+                
+                addVC.editTable.isHidden = false
+                
+                
+                
                 addVC.editTable.reloadData()
             }
             self.dismiss(animated: true, completion: nil)
