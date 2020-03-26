@@ -20,8 +20,15 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var hoursField: UITextField!
     
+    @IBOutlet weak var durationWarningLabel: UILabel!
+    
+    @IBOutlet weak var typeWarningLabel:UILabel!
+    
+    @IBOutlet weak var exercisesWarningLabel: UILabel!
+    
     @IBOutlet weak var editTable: UITableView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     
     //MARK: Attributes
     
@@ -60,6 +67,7 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
             self.woTypeLabel.textColor = .black
             self.woTypeLabel.textAlignment = .center
             self.woTypeLabel.font = self.woTypeLabel.font.withSize(22.0)
+            self.typeWarningLabel.text = ""
         }
         
         typeDropDown.show()
@@ -70,6 +78,7 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     //If Add button clicked, which opens segue to Exercises
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toExercises"){
+            exercisesWarningLabel.text = ""
             let exercisesVC = segue.destination as! ExercisesController
             print("toExercises Segue...")
             
@@ -78,33 +87,82 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    var finishClicked = false
     
-    
-    
+    //MARK: Finish Button
     @IBAction func finishButton(_ sender: Any) {
-        
-        
-        
+    
+        missingFields()
+        //to highlight unedited cells when loaded into view via the cellForRowAt function
+        finishClicked = true
         
     }
     
     
     
-    
-    
-    
+    func missingFields(){
+        
+        var missingFields = false
+        var missingTextFields = false
+        guard let visibleIndexes = self.editTable.indexPathsForVisibleRows else { return  }
+        
+        if hoursField.text == nil || hoursField.text == "" {
+            durationWarningLabel.text = "* Missing Duration *"
+            missingFields = true
+        }
+        if woTypeLabel.text == nil || woTypeLabel.text == "" || woTypeLabel.text == "Select" {
+            typeWarningLabel.text = "* Missing Type *"
+            missingFields = true
+        }
+        
+        //loops through all visible indexPaths and adds background colour if textfield doesnt contain text
+        for index in visibleIndexes {
+            if index.row > 0 {
+                let cell = self.tableView(self.editTable, cellForRowAt: index) as? AddExInfoTableCell
+                
+                //missing text in Reps textfield at index (IndexPath)
+                if cell?.inputReps.text == nil || cell?.inputReps.text == "" {
+                    cell?.inputReps.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                    self.editTable.reloadData()
+                    missingTextFields = true
+                }
+                //missing text in Weights textfield at index (IndexPath)
+                if cell?.inputWeight.text == nil || cell?.inputWeight.text == "" {
+                    cell?.inputWeight.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                    self.editTable.reloadData()
+                    missingTextFields = true
+                }
+            }
+            
+        }
+        print("missingTextFields = \(missingTextFields) missingFields = \(missingFields)")
+        if missingTextFields {
+            exercisesWarningLabel.text = "* Missing Fields *"
+            missingFields = true
+        } else if self.editTable.isHidden == true {
+            exercisesWarningLabel.text = "* Add Exercises *"
+            missingFields = true
+        }
+        
+        if !missingFields {
+            exercisesWarningLabel.text = ""
+            if let workoutVC = self.presentingViewController as? WorkoutController {
+                workoutVC.selectedExercises = self.selectedExercises
+                
+                //workoutVC.historyTable.isHidden = false
+                //workoutVC.historyTable.reloadData()
+            }
+            self.dismiss(animated: true, completion: nil)
+            print("Passed selectedExercises to WorkoutVC")
+        }
+        
+    }
     
     
     //MARK: Cancel Button
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
-    
     
     
     //MARK: viewDidLoad
@@ -146,7 +204,12 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         //editTable.register(UINib(nibName: "AddExInfoTableCell", bundle: nil), forCellReuseIdentifier: "AddExInfoTableCell")
         self.hideKeyboardWhenTappedAround()
         
+        
+        registerNotifications()
+        
     }
+    
+    
 }
 
 
@@ -188,6 +251,7 @@ extension AddWorkoutController: UIPickerViewDelegate, UIPickerViewDataSource {
         hoursField.textAlignment = .center
         hoursField.font!.withSize(22.0)
         hoursField.text = "\(selectedHours) hours   \(selectedMins) mins"
+        durationWarningLabel.text = ""
         
     }
     
@@ -226,8 +290,6 @@ extension AddWorkoutController: UIPickerViewDelegate, UIPickerViewDataSource {
 //MARK: Exercise Table
 extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
     
-    
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return selectedExercises.count
     }
@@ -262,22 +324,32 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
             
             //if array returned above is empty, indexPath is not in exerciseSets for the current selectedExercise
             if getSetCell?.count == 0 {
-                print("Index NOT in exerciseSets for exercise: \(selectedExercises[indexPath.section].exerciseName!)")
+                //print("Index NOT in exerciseSets for exercise: \(selectedExercises[indexPath.section].exerciseName!)")
                 
-                var getSetForExercise = thisExercise.exerciseSets?.first(where: {$0.set == indexPath.row})
+                let getSetForExercise = thisExercise.exerciseSets?.first(where: {$0.set == indexPath.row})
                 
                 getSetForExercise?.indexPath = indexPath
-                print("Index \(getSetForExercise?.indexPath) added to exerciseSets: \(String(describing: getSetForExercise?.set))")
+                //print("Index \(String(describing: getSetForExercise?.indexPath)) added to exerciseSets: \(String(describing: getSetForExercise?.set))")
                 
             } else {
                 //index in selectedExercises for the given exerciseSet
-                var getSetForExercise = thisExercise.exerciseSets?.first(where: {$0.set == indexPath.row})
-                print("Index IN exerciseSets for exercise: \(thisExercise.exerciseName!) \(getSetForExercise?.indexPath)")
+                let getSetForExercise = thisExercise.exerciseSets?.first(where: {$0.set == indexPath.row})
+                //print("Index IN exerciseSets for exercise: \(thisExercise.exerciseName!) \(String(describing: getSetForExercise?.indexPath))")
                 if getSetForExercise?.reps != nil {
                     cell.inputReps.text = String(describing: (getSetForExercise?.reps)!)
+                    //cell.inputReps.backgroundColor = .lightGray
+                } else {
+                    if finishClicked {
+                        cell.inputReps.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                    }
                 }
                 if getSetForExercise?.weight != nil {
                     cell.inputWeight.text = String(describing: (getSetForExercise?.weight)!)
+                    //cell.inputWeight.backgroundColor = .lightGray
+                } else {
+                    if finishClicked {
+                        cell.inputWeight.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                    }
                 }
             }
             
@@ -307,7 +379,7 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
     //prevents colour change of cell when clicked
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.contentView.backgroundColor = .white
-        print("clicked!")
+        //print("clicked!")
         
     }
     
@@ -322,44 +394,84 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
         self.activeTextField = textField
     }
     
+    //gets text in activeTextField and assigns it to either reps or weight for the correct set by retrieving the indexPath for the activeTextField
     func textFieldDidEndEditing(_ textField: UITextField) {
         
+        //Retrieves CGPoint of activeTextField within tableView, then uses the CGPoint to get indexPath within tableView
         let pointInTable = activeTextField.convert(activeTextField.bounds.origin, to: self.editTable)
         let textFieldIndexPath = self.editTable.indexPathForRow(at: pointInTable)
         
-        
-        print(textFieldIndexPath!)
-        
-        //tag = 0 --> Reps textField, tag = 1 --> Weight textField
+        //tag = 0 Reps textField | tag = 1 Weight textField
         if activeTextField.tag == 0 {
             
             if isStringAnInt(string: activeTextField.text!) {
                 let textToInt = Int(activeTextField.text!)
                 selectedExercises[textFieldIndexPath!.section].exerciseSets?[textFieldIndexPath!.row - 1].reps = textToInt!
-                print("Added Reps")
+                //print("Added Reps")
             }
-            
         } else if activeTextField.tag == 1 {
             
             if isStringAnInt(string: activeTextField.text!) {
                 let textToInt = Int(activeTextField.text!)
                 selectedExercises[textFieldIndexPath!.section].exerciseSets?[textFieldIndexPath!.row - 1].weight = textToInt!
-                print("Added weight")
+                //print("Added weight")
             }
-            
         }
         
-        if let activeTextFieldtext = self.activeTextField.text {
-            print("Active Text Field: \(activeTextFieldtext)")
-            return
-        }
-        print("Active Text Field: Empty")
+//        if let activeTextFieldtext = self.activeTextField.text {
+//            print("Active Text Field: \(activeTextFieldtext)")
+//            return
+//        }
+//        print("Active Text Field: Empty")
     }
     
     
+    //closes keyboard if return key is pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     
-}
+    //checks whether keyboard did show or did hide in the current view
+    func registerNotifications(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    
+    //changes position of scrollview when keyboard shown
+    @objc func keyboardWillShow(notification: NSNotification){
+        
+        let userInfo = notification.userInfo!
+        var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        
+        let activeTextFieldY = self.activeTextField.convert(activeTextField.bounds.origin, to: self.view)
+        //print("textfield: \(activeTextFieldY.y + 100.0) keyboard: \(keyboardFrame.origin.y-keyboardFrame.size.height)")
+        
+        if activeTextFieldY.y + 100.0 > keyboardFrame.origin.y-keyboardFrame.size.height {
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
+                //want scrollview to move all the way above the keyboard, so use contentOffset
+                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height+keyboardFrame.size.height)
+                self.scrollView.contentOffset = CGPoint(x: 0, y: keyboardFrame.size.height)
+            }, completion: nil)
+        }
+        
+        
+    }
+    
+    //changes position back to normal when keyboard not shown
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
+            self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+            self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
+        }, completion: nil)
+    }
+    
+    
+} //end of AddWorkoutClass extension
+
 
 class SelectedExercises {
     var exerciseName: String?

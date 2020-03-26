@@ -90,22 +90,19 @@ class ExercisesController: UIViewController {
             print("...Exercises saved...")
             
             if let addVC = self.presentingViewController as? AddWorkoutController {
-                //addVC.exList = self.selectedExList
-                
-                
-                #warning("Add to selectedExercises from exList here...")
-                
-                addVC.selectedExercises.append(SelectedExercises.init(exerciseName: "name1", exerciseType: "type1", exerciseInfo: "info1", exerciseSets: [SetRepsWeights(set: 1, reps: nil, weight: nil, indexpath: IndexPath())]))
-                addVC.selectedExercises.append(SelectedExercises.init(exerciseName: "name2", exerciseType: "type2", exerciseInfo: "info2", exerciseSets: [SetRepsWeights(set: 1, reps: nil, weight: nil, indexpath: IndexPath())]))
-                
+               
+                //adds exercises from selectedExList to selectedExercises within the AddWorkoutVC
+                for exercise in self.selectedExList {
+                    addVC.selectedExercises.append(SelectedExercises.init(exerciseName: exercise.name!, exerciseType: exercise.type!, exerciseInfo: exercise.info!, exerciseSets: [SetRepsWeights(set: 1, reps: nil, weight: nil, indexpath: IndexPath())]))
+                }
                 
                 addVC.editTable.isHidden = false
-                
-                
-                
                 addVC.editTable.reloadData()
+                
             }
+            
             self.dismiss(animated: true, completion: nil)
+            
         } else {
             warningLabel.text = "* No Exercises Selected *"
         }
@@ -199,13 +196,13 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource {
             //If box ticked, add exercise to selectedExList
             if cell.checked {
                 selectedExList.append(exercise)
-                print("Added: ", exercise)
+                //print("Added: ", exercise)
             } else {
                 //check if exercise in selectedExList, remove
                 if selectedExList.contains(where: {$0.name == exercise.name}) {
                     let getIndex = selectedExList.firstIndex(where: {$0.name == exercise.name})
                     selectedExList.remove(at: getIndex!)
-                    print("Removed: ", exercise)
+                    //print("Removed: ", exercise)
                 }
             }
         } else {

@@ -16,6 +16,7 @@ class WorkoutController: UIViewController {
     
     //MARK: Attributes
     
+    var selectedExercises = [SelectedExercises]()
     
     
     //function to pass info to AddWorkoutController

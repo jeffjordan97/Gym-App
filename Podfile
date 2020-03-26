@@ -7,5 +7,6 @@ target 'gym-app' do
   # pod 'SVProgressHUD'
   pod 'DropDown'
   pod 'SOTabBar'
+  # pod 'ScrollViewController', '~> 1.1'
 
 end

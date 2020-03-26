@@ -39,12 +39,7 @@ class ExerciseHeaderCell: UITableViewHeaderFooterView {
     
     
     @IBAction func addSetButton(_ sender: Any) {
-        self.titleLabel.text = "clicked"
-        
-        
-       //add exercise set
-        
-        
+        //self.titleLabel.text = "clicked"
         
         let rows = table.numberOfRows(inSection: tableSection)
         
@@ -52,11 +47,6 @@ class ExerciseHeaderCell: UITableViewHeaderFooterView {
         
         #warning("Fix inserting Row to Section, reloadData clears each textfield")
         table.insertRows(at: [IndexPath(row: rows, section: tableSection)], with: .bottom)
-        
-        //table.reloadData()
-        
-        
-        
         
     }
     
