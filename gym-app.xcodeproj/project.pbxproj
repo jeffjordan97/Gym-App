@@ -10,6 +10,10 @@
 		1F10FEA524267C9E0089F5C3 /* ExerciseHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F10FEA324267C9E0089F5C3 /* ExerciseHeaderCell.swift */; };
 		1F10FEA624267C9E0089F5C3 /* ExerciseHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F10FEA424267C9E0089F5C3 /* ExerciseHeaderCell.xib */; };
 		1FA9B5D72423B2D500182CBE /* testJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9B5D62423B2D500182CBE /* testJSON.json */; };
+		1FAB97682434E43F000F6399 /* WorkoutTableHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAB97662434E43F000F6399 /* WorkoutTableHeaderCell.swift */; };
+		1FAB97692434E43F000F6399 /* WorkoutTableHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAB97672434E43F000F6399 /* WorkoutTableHeaderCell.xib */; };
+		1FAB976C2434E45C000F6399 /* WorkoutTableInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAB976A2434E45C000F6399 /* WorkoutTableInfoCell.swift */; };
+		1FAB976D2434E45C000F6399 /* WorkoutTableInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FAB976B2434E45C000F6399 /* WorkoutTableInfoCell.xib */; };
 		1FB8647E2426A93500E6DD60 /* BelowExerciseHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB8647C2426A93500E6DD60 /* BelowExerciseHeaderCell.swift */; };
 		1FB8647F2426A93500E6DD60 /* BelowExerciseHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB8647D2426A93500E6DD60 /* BelowExerciseHeaderCell.xib */; };
 		636614689020312480C3E841 /* Pods_gym_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF00BF6B3221EA5BCF233A5F /* Pods_gym_app.framework */; };
@@ -49,6 +53,10 @@
 		1F10FEA324267C9E0089F5C3 /* ExerciseHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseHeaderCell.swift; sourceTree = "<group>"; };
 		1F10FEA424267C9E0089F5C3 /* ExerciseHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExerciseHeaderCell.xib; sourceTree = "<group>"; };
 		1FA9B5D62423B2D500182CBE /* testJSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = testJSON.json; path = "../../../Dropbox/Uni Work/Year 3/Comp39X/3. Software Demo/testJSON.json"; sourceTree = "<group>"; };
+		1FAB97662434E43F000F6399 /* WorkoutTableHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableHeaderCell.swift; sourceTree = "<group>"; };
+		1FAB97672434E43F000F6399 /* WorkoutTableHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutTableHeaderCell.xib; sourceTree = "<group>"; };
+		1FAB976A2434E45C000F6399 /* WorkoutTableInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableInfoCell.swift; sourceTree = "<group>"; };
+		1FAB976B2434E45C000F6399 /* WorkoutTableInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutTableInfoCell.xib; sourceTree = "<group>"; };
 		1FB8647C2426A93500E6DD60 /* BelowExerciseHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BelowExerciseHeaderCell.swift; sourceTree = "<group>"; };
 		1FB8647D2426A93500E6DD60 /* BelowExerciseHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BelowExerciseHeaderCell.xib; sourceTree = "<group>"; };
 		9020E58C241A6EBF00503674 /* AddGoalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalController.swift; sourceTree = "<group>"; };
@@ -103,6 +111,24 @@
 			children = (
 				9068C9C1242285C40070346D /* AddExInfoTableCell.swift */,
 				9068C9C2242285C40070346D /* AddExInfoTableCell.xib */,
+			);
+			path = TableInfoCells;
+			sourceTree = "<group>";
+		};
+		1FAB97642434E3D0000F6399 /* TableHeaderCell */ = {
+			isa = PBXGroup;
+			children = (
+				1FAB97662434E43F000F6399 /* WorkoutTableHeaderCell.swift */,
+				1FAB97672434E43F000F6399 /* WorkoutTableHeaderCell.xib */,
+			);
+			path = TableHeaderCell;
+			sourceTree = "<group>";
+		};
+		1FAB97652434E3EA000F6399 /* TableInfoCells */ = {
+			isa = PBXGroup;
+			children = (
+				1FAB976A2434E45C000F6399 /* WorkoutTableInfoCell.swift */,
+				1FAB976B2434E45C000F6399 /* WorkoutTableInfoCell.xib */,
 			);
 			path = TableInfoCells;
 			sourceTree = "<group>";
@@ -182,6 +208,8 @@
 			isa = PBXGroup;
 			children = (
 				90620C322411880100A98138 /* WorkoutController.swift */,
+				1FAB97642434E3D0000F6399 /* TableHeaderCell */,
+				1FAB97652434E3EA000F6399 /* TableInfoCells */,
 				908169C0241FDD8000FF81CE /* AddWorkout */,
 				908169BF241FDD4B00FF81CE /* Exercises */,
 				908169BC241FDCD900FF81CE /* Routines */,
@@ -351,9 +379,11 @@
 				90E1D21B240D3B0400F229F1 /* LaunchScreen.storyboard in Resources */,
 				9039C78C241173BB00A739F8 /* Home.storyboard in Resources */,
 				908169B1241FD40000FF81CE /* RoutinesTableCell.xib in Resources */,
+				1FAB976D2434E45C000F6399 /* WorkoutTableInfoCell.xib in Resources */,
 				9039C78E241173CB00A739F8 /* Workouts.storyboard in Resources */,
 				9068C9C4242285C40070346D /* AddExInfoTableCell.xib in Resources */,
 				908169B3241FD82D00FF81CE /* Routines.storyboard in Resources */,
+				1FAB97692434E43F000F6399 /* WorkoutTableHeaderCell.xib in Resources */,
 				90E1D218240D3B0400F229F1 /* Assets.xcassets in Resources */,
 				1F10FEA624267C9E0089F5C3 /* ExerciseHeaderCell.xib in Resources */,
 				1FB8647F2426A93500E6DD60 /* BelowExerciseHeaderCell.xib in Resources */,
@@ -417,6 +447,7 @@
 				90E1D210240D3B0300F229F1 /* ViewController.swift in Sources */,
 				90620C39241189B900A98138 /* AddWorkoutController.swift in Sources */,
 				1F10FEA524267C9E0089F5C3 /* ExerciseHeaderCell.swift in Sources */,
+				1FAB97682434E43F000F6399 /* WorkoutTableHeaderCell.swift in Sources */,
 				9020E58D241A6EBF00503674 /* AddGoalController.swift in Sources */,
 				90E1D216240D3B0300F229F1 /* gym_app.xcdatamodeld in Sources */,
 				907FF2262412D1B800D943B4 /* ExercisesController.swift in Sources */,
@@ -429,6 +460,7 @@
 				9068C9C3242285C40070346D /* AddExInfoTableCell.swift in Sources */,
 				90620C332411880100A98138 /* WorkoutController.swift in Sources */,
 				90E1D20C240D3B0300F229F1 /* AppDelegate.swift in Sources */,
+				1FAB976C2434E45C000F6399 /* WorkoutTableInfoCell.swift in Sources */,
 				90E1D20E240D3B0300F229F1 /* SceneDelegate.swift in Sources */,
 				1FB8647E2426A93500E6DD60 /* BelowExerciseHeaderCell.swift in Sources */,
 				908169B0241FD40000FF81CE /* RoutinesTableCell.swift in Sources */,

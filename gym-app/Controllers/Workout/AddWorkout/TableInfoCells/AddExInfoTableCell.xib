@@ -23,6 +23,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textField opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KmH-35-ZCh">
+                        <rect key="frame" x="159" y="13" width="235" height="34"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wUV-k0-1p3">
                         <rect key="frame" x="159" y="13" width="97" height="34"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -40,6 +46,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="inputReps" destination="wUV-k0-1p3" id="lyf-AM-39d"/>
+                <outlet property="inputTime" destination="KmH-35-ZCh" id="9Mc-64-GzF"/>
                 <outlet property="inputWeight" destination="CA1-u1-3SO" id="qyr-z9-ZUV"/>
                 <outlet property="titleLabel" destination="BNu-fr-rft" id="0qv-nK-t2n"/>
             </connections>

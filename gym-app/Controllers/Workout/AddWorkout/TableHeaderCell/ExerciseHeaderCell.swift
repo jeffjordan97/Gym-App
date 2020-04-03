@@ -43,9 +43,8 @@ class ExerciseHeaderCell: UITableViewHeaderFooterView {
         
         let rows = table.numberOfRows(inSection: tableSection)
         
-        selectedExercises[tableSection].exerciseSets?.append(SetRepsWeights(set: rows, reps: nil, weight: nil, indexpath: IndexPath()))
+        selectedExercises[tableSection].exerciseSets?.append(SetRepsWeights(set: rows, reps: nil, weight: nil, time: nil, indexpath: IndexPath()))
         
-        #warning("Fix inserting Row to Section, reloadData clears each textfield")
         table.insertRows(at: [IndexPath(row: rows, section: tableSection)], with: .bottom)
         
     }

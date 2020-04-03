@@ -24,9 +24,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2e-qN-1zm">
-                                <rect key="frame" x="159" y="655" width="96" height="30"/>
+                                <rect key="frame" x="144" y="655" width="126" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Start Workout"/>
+                                <state key="normal" title="START WORKOUT"/>
                                 <connections>
                                     <segue destination="QHJ-NU-Wah" kind="presentation" identifier="toAddWorkout" id="oNw-cV-oxE"/>
                                 </connections>

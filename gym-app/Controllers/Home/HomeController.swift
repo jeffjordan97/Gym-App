@@ -17,8 +17,6 @@ class HomeController: UIViewController {
     //MARK: Outlets
     
     
-    
-    
     //MARK: Attributes
     
     
@@ -50,7 +48,6 @@ class HomeController: UIViewController {
     
     
     
-    
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,20 +56,10 @@ class HomeController: UIViewController {
         print("Home Loaded")
         
         
-       
-
-        
-        
-        
         
 
         // Will set a custom width instead of the anchor view width
         //dropDownLeft.width = 200
-        
-        //
-        
-        
-        
         
         
     }

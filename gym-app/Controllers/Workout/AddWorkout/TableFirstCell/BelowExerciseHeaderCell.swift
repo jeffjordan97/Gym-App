@@ -12,6 +12,35 @@ class BelowExerciseHeaderCell: UITableViewCell {
 
     @IBOutlet weak var setLabel: UILabel!
     
+    @IBOutlet weak var repsLabel: UILabel!
+    
+    @IBOutlet weak var weightLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
+    
+    
+    func changeInputLabels(_ exerciseType: String){
+        
+        if exerciseType == "Weights" {
+            
+            //for weights (ONLY REPS, WEIGHT)
+            timeLabel.isHidden = true
+            
+        } else if exerciseType == "Cardio" || exerciseType == "Circuits" {
+            
+            //for cardio/circuits (ONLY TIME)
+            repsLabel.isHidden = true
+            weightLabel.isHidden = true
+            
+        } else {
+            
+            //for bodyweight (ONLY REPS)
+            timeLabel.isHidden = true
+            weightLabel.isHidden = true
+            
+        }
+        
+    }
     
     
     override func awakeFromNib() {

@@ -93,7 +93,7 @@ class ExercisesController: UIViewController {
                
                 //adds exercises from selectedExList to selectedExercises within the AddWorkoutVC
                 for exercise in self.selectedExList {
-                    addVC.selectedExercises.append(SelectedExercises.init(exerciseName: exercise.name!, exerciseType: exercise.type!, exerciseInfo: exercise.info!, exerciseSets: [SetRepsWeights(set: 1, reps: nil, weight: nil, indexpath: IndexPath())]))
+                    addVC.selectedExercises.append(SelectedExercises.init(exerciseName: exercise.name!, exerciseType: exercise.type!, exerciseInfo: exercise.info!, exerciseSets: [SetRepsWeights(set: 1, reps: nil, weight: nil, time: nil, indexpath: IndexPath())]))
                 }
                 
                 addVC.editTable.isHidden = false

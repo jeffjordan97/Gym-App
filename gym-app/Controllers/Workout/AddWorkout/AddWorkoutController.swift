@@ -11,6 +11,11 @@ import UIKit
 import CoreData
 import DropDown
 
+
+protocol isAbleToReceiveData {
+    func pass(thisWorkout: WorkoutSession)
+}
+
 class AddWorkoutController: UIViewController, UITextFieldDelegate {
     
     //MARK: Outlets
@@ -30,18 +35,29 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
+    
+    
     //MARK: Attributes
     
     var durationPicker = UIPickerView()
+    var durationAsMinsInput: Int?
+    var typeInput: String?
+    var minsPickList = [String]()
     
     //constants for duration picker view
     let hoursPickList = ["0","1","2", "3", "4", "5"]
-    let minsPickList = ["0","1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11","12","13","14","15"]
     let titlePickList = ["hours", "mins"]
     
     //Stores all selectedExercises from ExercisesController, used in TableView
     var selectedExercises = [SelectedExercises]()
     var activeTextField = UITextField()
+    
+    var finishClicked = false
+    
+    var delegate: isAbleToReceiveData?
+    var workoutToPass: WorkoutSession?
+    var canPassData = false
+    
     
     
     
@@ -61,13 +77,19 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         
         // Action triggered on selection
         typeDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-          print("Selected item: \(item) at index: \(index)")
-            self.woTypeLabel.isHidden = false
-            self.woTypeLabel.text = item
-            self.woTypeLabel.textColor = .black
-            self.woTypeLabel.textAlignment = .center
-            self.woTypeLabel.font = self.woTypeLabel.font.withSize(22.0)
-            self.typeWarningLabel.text = ""
+          //print("Selected item: \(item) at index: \(index)")
+            
+            //checks if item has been selected from dropDown, as user may click off before selecting
+            if item != "" {
+                self.woTypeLabel.isHidden = false
+                self.woTypeLabel.text = item
+                self.typeInput = item
+                self.woTypeLabel.textColor = .black
+                self.woTypeLabel.textAlignment = .center
+                self.woTypeLabel.font = self.woTypeLabel.font.withSize(22.0)
+                self.typeWarningLabel.text = ""
+            }
+            
         }
         
         typeDropDown.show()
@@ -87,12 +109,13 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    var finishClicked = false
+    
+    
     
     //MARK: Finish Button
     @IBAction func finishButton(_ sender: Any) {
     
-        missingFields()
+        validateBeforeFinish()
         //to highlight unedited cells when loaded into view via the cellForRowAt function
         finishClicked = true
         
@@ -100,38 +123,70 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     
     
     
-    func missingFields(){
+    func validateBeforeFinish(){
         
         var missingFields = false
         var missingTextFields = false
         guard let visibleIndexes = self.editTable.indexPathsForVisibleRows else { return  }
         
+        //validation for duration input field
         if hoursField.text == nil || hoursField.text == "" {
             durationWarningLabel.text = "* Missing Duration *"
             missingFields = true
         }
+        
+        //validation for type input field
         if woTypeLabel.text == nil || woTypeLabel.text == "" || woTypeLabel.text == "Select" {
             typeWarningLabel.text = "* Missing Type *"
             missingFields = true
         }
+        
+        //returns true if missing text fields in selected exercise list
+        missingTextFields = validateSelectedExercises(missingTextFields: missingTextFields, selectedExercises)
         
         //loops through all visible indexPaths and adds background colour if textfield doesnt contain text
         for index in visibleIndexes {
             if index.row > 0 {
                 let cell = self.tableView(self.editTable, cellForRowAt: index) as? AddExInfoTableCell
                 
-                //missing text in Reps textfield at index (IndexPath)
-                if cell?.inputReps.text == nil || cell?.inputReps.text == "" {
-                    cell?.inputReps.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
-                    self.editTable.reloadData()
-                    missingTextFields = true
+                let thisExerciseInfo = selectedExercises[index.section].exerciseInfo
+                
+                if thisExerciseInfo == "Weights" {
+                    
+                    //missing text in Reps textfield at index (IndexPath)
+                    if cell?.inputReps.text == nil || cell?.inputReps.text == "" {
+                        cell?.inputReps.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                        self.editTable.reloadData()
+                        missingTextFields = true
+                    }
+                    //missing text in Weights textfield at index (IndexPath)
+                    if cell?.inputWeight.text == nil || cell?.inputWeight.text == "" {
+                        cell?.inputWeight.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                        self.editTable.reloadData()
+                        missingTextFields = true
+                    }
+                    
+                } else if thisExerciseInfo == "Cardio" || thisExerciseInfo == "Circuits" {
+                    
+                    //missing text in time textfield at index (IndexPath)
+                    if cell?.inputTime.text == nil || cell?.inputTime.text == "" {
+                        cell?.inputTime.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                        self.editTable.reloadData()
+                        missingTextFields = true
+                    }
+                    
+                } else {    //for Bodyweight
+                    
+                    //missing text in Reps textfield at index (IndexPath)
+                    if cell?.inputReps.text == nil || cell?.inputReps.text == "" {
+                        cell?.inputReps.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                        self.editTable.reloadData()
+                        missingTextFields = true
+                    }
+                    
                 }
-                //missing text in Weights textfield at index (IndexPath)
-                if cell?.inputWeight.text == nil || cell?.inputWeight.text == "" {
-                    cell?.inputWeight.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
-                    self.editTable.reloadData()
-                    missingTextFields = true
-                }
+                
+                
             }
             
         }
@@ -145,23 +200,87 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         }
         
         if !missingFields {
+            
             exercisesWarningLabel.text = ""
-            if let workoutVC = self.presentingViewController as? WorkoutController {
-                workoutVC.selectedExercises = self.selectedExercises
-                
-                //workoutVC.historyTable.isHidden = false
-                //workoutVC.historyTable.reloadData()
-            }
+            
+            //passes workout info to WorkoutVC //NEED TO ADD FOR HomeVC
+            
+            canPassData = true
+            workoutToPass = WorkoutSession(duration: durationAsMinsInput!, type: self.typeInput!, date: Date(), workoutExercises: self.selectedExercises)
+            
             self.dismiss(animated: true, completion: nil)
             print("Passed selectedExercises to WorkoutVC")
         }
         
     }
     
+    //validates selectedExercises
+    func validateSelectedExercises(missingTextFields: Bool, _ selectedExercises: [SelectedExercises]) -> Bool {
+        var missingTextFields = missingTextFields
+        
+        //validation for selectedExercises, loop through each exercise (given not all will be showing in tableView)
+        for exercise in selectedExercises {
+            
+            //loop through each set for the exercise
+            for set in exercise.exerciseSets! {
+                
+                if exercise.exerciseInfo == "Weights" {
+                    
+                    //checks if reps input missing
+                    if set.reps == nil {
+                        missingTextFields = true
+                    }
+                    
+                    //checks if weight input missing
+                    if set.weight == nil {
+                        missingTextFields = true
+                    }
+                    
+                } else if exercise.exerciseInfo == "Cardio" || exercise.exerciseInfo == "Circuits" {
+                    
+                    //checks if time input missing
+                    if set.time == nil {
+                        missingTextFields = true
+                    }
+                    
+                } else {    //for Bodyweight
+                    
+                    //checks if reps input missing
+                    if set.reps == nil {
+                        missingTextFields = true
+                    }
+                    
+                }
+                
+            }
+        }
+        
+        return missingTextFields
+    }
+    
     
     //MARK: Cancel Button
     @IBAction func cancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        if canPassData {
+            delegate?.pass(thisWorkout: workoutToPass!)
+            
+            //ADD TO CORE DATA HERE
+            
+        }
+        
+    }
+    
+    //generates numbers 0 to 59 to add to pickerview for duration
+    func minsPickListGenerate(){
+        for i in 0...59 {
+            self.minsPickList.append("\(i)")
+        }
     }
     
     
@@ -173,7 +292,7 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         print("AddWorkout Loaded")
         
         
-        
+        minsPickListGenerate()
         durationPicker.delegate = self
         durationPicker.dataSource = self
         
@@ -182,14 +301,7 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         //hoursField.placeholder = "Select"
         
         //Adds a toolbar to the pickerView, with a 'done' button that closes the pickerView
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red: 50/255, green: 50/255, blue: 200/255, alpha: 1)
-        toolBar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.doneButtonTapped))
-        toolBar.setItems([doneButton], animated: false)
-        self.hoursField.inputAccessoryView = toolBar
+        self.hoursField.inputAccessoryView = pickerViewToolBarStyles()
         
         
         if selectedExercises.isEmpty {
@@ -206,6 +318,7 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         
         
         registerNotifications()
+        
         
     }
     
@@ -245,12 +358,16 @@ extension AddWorkoutController: UIPickerViewDelegate, UIPickerViewDataSource {
     //changes label to number of hours and minutes selected from picker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        var selectedHours = hoursPickList[pickerView.selectedRow(inComponent: 0)]
-        var selectedMins = minsPickList[pickerView.selectedRow(inComponent: 2)]
+        let selectedHours = hoursPickList[pickerView.selectedRow(inComponent: 0)]
+        let selectedMins = minsPickList[pickerView.selectedRow(inComponent: 2)]
         
         hoursField.textAlignment = .center
         hoursField.font!.withSize(22.0)
         hoursField.text = "\(selectedHours) hours   \(selectedMins) mins"
+        
+        let hoursToMins = (Int(selectedHours) ?? 0) * 60
+        durationAsMinsInput = hoursToMins + (Int(selectedMins) ?? 0)
+        
         durationWarningLabel.text = ""
         
     }
@@ -284,7 +401,27 @@ extension AddWorkoutController: UIPickerViewDelegate, UIPickerViewDataSource {
         self.hoursField.resignFirstResponder()
     }
     
+    //toolbar above picker view
+    func pickerViewToolBarStyles() -> UIToolbar{
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 50/255, green: 50/255, blue: 200/255, alpha: 1)
+        toolBar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.doneButtonTapped))
+        toolBar.setItems([doneButton], animated: false)
+        
+        return toolBar
+    }
+    
 }
+
+
+
+
+
+
 
 
 //MARK: Exercise Table
@@ -304,57 +441,96 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
         
         let thisExercise = selectedExercises[indexPath.section]
         
-        //cell to display row headings -> Set Reps Weight
+        //cell to display row headings -> Set Reps/Weight/Time
         if indexPath.row == 0  {
             let cell = Bundle.main.loadNibNamed("BelowExerciseHeaderCell", owner: self, options: nil)?.first as! BelowExerciseHeaderCell
             
+            let thisExerciseInfo = thisExercise.exerciseInfo
+            
+            //changes labels for reps/weight/time
+            cell.changeInputLabels(thisExerciseInfo!)
+            
             return cell
+            
         } else {
             let cell = Bundle.main.loadNibNamed("AddExInfoTableCell", owner: self, options: nil)?.first as! AddExInfoTableCell
             
+            //changes label according to the current set
             cell.setLabels("\(indexPath.row)")
             
+            
+            //changes visible text fields given the current exercise type
+            cell.changeTextFieldsForType(thisExercise.exerciseInfo!)
             
             //this class becomes the delegate, by extending the class with UITextFieldDelegate
             cell.inputReps.delegate = self
             cell.inputWeight.delegate = self
+            cell.inputTime.delegate = self
             
             //checks whether exerciseSet has already been assigned the current indexPath, if so, getSetCell will be an array with one element
             let getSetCell = thisExercise.exerciseSets?.filter( { $0.indexPath == indexPath } )
+            let getSetForExercise = thisExercise.exerciseSets?.first(where: {$0.set == indexPath.row})
             
-            //if array returned above is empty, indexPath is not in exerciseSets for the current selectedExercise
+            //if array returned above is empty, indexPath is NOT in exerciseSets for the current selectedExercise
             if getSetCell?.count == 0 {
-                //print("Index NOT in exerciseSets for exercise: \(selectedExercises[indexPath.section].exerciseName!)")
                 
-                let getSetForExercise = thisExercise.exerciseSets?.first(where: {$0.set == indexPath.row})
-                
+                //IndexPath ADDED to exerciseSets (for current set)
                 getSetForExercise?.indexPath = indexPath
-                //print("Index \(String(describing: getSetForExercise?.indexPath)) added to exerciseSets: \(String(describing: getSetForExercise?.set))")
                 
             } else {
-                //index in selectedExercises for the given exerciseSet
-                let getSetForExercise = thisExercise.exerciseSets?.first(where: {$0.set == indexPath.row})
-                //print("Index IN exerciseSets for exercise: \(thisExercise.exerciseName!) \(String(describing: getSetForExercise?.indexPath))")
-                if getSetForExercise?.reps != nil {
-                    cell.inputReps.text = String(describing: (getSetForExercise?.reps)!)
-                    //cell.inputReps.backgroundColor = .lightGray
-                } else {
-                    if finishClicked {
-                        cell.inputReps.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                
+                if thisExercise.exerciseInfo == "Weights" {
+                    //Weights - REPS, WEIGHT
+                    
+                    //checks whether REPS has been entered for the given set for an exercise, when cell loaded
+                    if getSetForExercise?.reps != nil {
+                        cell.inputReps.text = String(describing: (getSetForExercise?.reps)!)
+                        
+                    } else {
+                        if finishClicked {
+                            cell.inputReps.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                        }
                     }
-                }
-                if getSetForExercise?.weight != nil {
-                    cell.inputWeight.text = String(describing: (getSetForExercise?.weight)!)
-                    //cell.inputWeight.backgroundColor = .lightGray
-                } else {
-                    if finishClicked {
-                        cell.inputWeight.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                    
+                    //checks whether WEIGHT has been entered for the given set for an exercise, when cell loaded
+                    if getSetForExercise?.weight != nil {
+                        cell.inputWeight.text = String(describing: (getSetForExercise?.weight)!)
+                        
+                    } else {
+                        if finishClicked {
+                            cell.inputWeight.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                        }
                     }
+                    
+                } else if thisExercise.exerciseInfo == "Cardio" || thisExercise.exerciseInfo == "Circuits" {
+                    //Cardio/Circuits - TIME
+                    
+                    //checks whether weight has been entered for the given set for an exercise, when cell loaded
+                    if getSetForExercise?.time != nil {
+                        cell.inputTime.text = String(describing: (getSetForExercise?.time)!)
+                        
+                    } else {
+                        if finishClicked {
+                            cell.inputTime.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                        }
+                    }
+                    
+                } else {
+                    //Bodyweight - REPS
+                    
+                    //checks whether REPS has been entered for the given set for an exercise, when cell loaded
+                    if getSetForExercise?.reps != nil {
+                        cell.inputReps.text = String(describing: (getSetForExercise?.reps)!)
+                        
+                    } else {
+                        if finishClicked {
+                            cell.inputReps.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
+                        }
+                    }
+                    
                 }
+                
             }
-            
-            //check if reps and weight for exerciseSet in selectedExercises where indexpaht
-            //if indexPathForTextField()
             
             return cell
         }
@@ -379,13 +555,25 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
     //prevents colour change of cell when clicked
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.contentView.backgroundColor = .white
-        //print("clicked!")
         
+    }
+    
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.contentView.backgroundColor = .white
     }
     
     //checks whether a string can be converted to an Int
     func isStringAnInt(string: String) -> Bool {
         return Int(string) != nil
+    }
+    
+    func isStringADouble(string: String) -> Bool {
+        if string.contains(".") {
+            return Double(string) != nil
+        } else {
+            let stringWithDecimal = string + ".0"
+            return Double(stringWithDecimal) != nil
+        }
     }
     
     
@@ -394,14 +582,15 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
         self.activeTextField = textField
     }
     
-    //gets text in activeTextField and assigns it to either reps or weight for the correct set by retrieving the indexPath for the activeTextField
+    //gets text in activeTextField and assigns it to either reps, weight, time for the correct set by retrieving the indexPath for the activeTextField
     func textFieldDidEndEditing(_ textField: UITextField) {
         
+        textField.backgroundColor = .white
         //Retrieves CGPoint of activeTextField within tableView, then uses the CGPoint to get indexPath within tableView
         let pointInTable = activeTextField.convert(activeTextField.bounds.origin, to: self.editTable)
         let textFieldIndexPath = self.editTable.indexPathForRow(at: pointInTable)
         
-        //tag = 0 Reps textField | tag = 1 Weight textField
+        //tag = 0 Reps textField | tag = 1 Weight textField | tag = 2 Time textField
         if activeTextField.tag == 0 {
             
             if isStringAnInt(string: activeTextField.text!) {
@@ -409,6 +598,7 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
                 selectedExercises[textFieldIndexPath!.section].exerciseSets?[textFieldIndexPath!.row - 1].reps = textToInt!
                 //print("Added Reps")
             }
+            
         } else if activeTextField.tag == 1 {
             
             if isStringAnInt(string: activeTextField.text!) {
@@ -416,13 +606,23 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
                 selectedExercises[textFieldIndexPath!.section].exerciseSets?[textFieldIndexPath!.row - 1].weight = textToInt!
                 //print("Added weight")
             }
+            
+        } else if activeTextField.tag == 2 {
+            
+            if isStringADouble(string: activeTextField.text!) {
+                var textToDouble:Double
+                if activeTextField.text!.contains(".") {
+                    textToDouble = Double(activeTextField.text!)!
+                } else {
+                    let makeTextDouble = activeTextField.text! + ".0"
+                    textToDouble = Double(makeTextDouble)!
+                }
+                selectedExercises[textFieldIndexPath!.section].exerciseSets?[textFieldIndexPath!.row - 1].time = textToDouble
+                //print("Added Time")
+            }
+            
         }
-        
-//        if let activeTextFieldtext = self.activeTextField.text {
-//            print("Active Text Field: \(activeTextFieldtext)")
-//            return
-//        }
-//        print("Active Text Field: Empty")
+    
     }
     
     
@@ -470,8 +670,31 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-} //end of AddWorkoutClass extension
+} //end of AddWorkoutClass extension for tableView
 
+
+
+
+
+
+
+
+
+
+
+class WorkoutSession {
+    var duration: Int?
+    var type: String?
+    var date: Date?
+    var workoutExercises: [SelectedExercises]?
+    
+    init(duration:Int, type:String, date:Date, workoutExercises:[SelectedExercises]){
+        self.duration = duration
+        self.type = type
+        self.date = date
+        self.workoutExercises = workoutExercises
+    }
+}
 
 class SelectedExercises {
     var exerciseName: String?
@@ -492,14 +715,34 @@ class SetRepsWeights {
     var set: Int?
     var reps: Int?
     var weight: Int?
+    var time: Double?
     var indexPath: IndexPath?
     
-    init(set:Int, reps:Int?, weight:Int?, indexpath:IndexPath){
+    
+    //for weights
+    init(set:Int, reps:Int?, weight:Int?, time: Double?, indexpath:IndexPath){
         self.set = set
         self.reps = reps
         self.weight = weight
+        self.time = time
         self.indexPath = indexpath
     }
+    
+    //if added - NEED TO CHANGE 'ADD SET' BUTTON FOR ADDWORKOUT TABLEHEADERCELL (append statement)
+    //for cardio/circuits
+//    init(set: Int, time: Double, indexPath: IndexPath) {
+//        self.set = set
+//        self.time = time
+//        self.indexPath = indexPath
+//    }
+    
+    //for bodyweight
+//    init(set:Int, reps: Int, indexPath: IndexPath){
+//        self.set = set
+//        self.reps = reps
+//        self.indexPath = indexPath
+//    }
+    
 }
 
 class SetTimeCardio {
