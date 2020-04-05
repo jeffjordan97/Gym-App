@@ -60,6 +60,13 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     
     
     
+    //generates numbers 0 to 59 to add to pickerview for duration
+    func minsPickListGenerate(){
+        for i in 0...59 {
+            self.minsPickList.append("\(i)")
+        }
+    }
+    
     
     //MARK: Type Input
     //To show dropdown for user to select workout type
@@ -265,22 +272,18 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     }
     
     
+    //MARK: ViewDisappear Confirm
     override func viewDidDisappear(_ animated: Bool) {
         
         if canPassData {
+            
             delegate?.pass(thisWorkout: workoutToPass!)
             
-            //ADD TO CORE DATA HERE
+            //ADD TO CORE DATA
+            createCoreData(workoutToPass!)
             
         }
         
-    }
-    
-    //generates numbers 0 to 59 to add to pickerview for duration
-    func minsPickListGenerate(){
-        for i in 0...59 {
-            self.minsPickList.append("\(i)")
-        }
     }
     
     
@@ -475,6 +478,7 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
             if getSetCell?.count == 0 {
                 
                 //IndexPath ADDED to exerciseSets (for current set)
+                getSetForExercise?.set = indexPath.row
                 getSetForExercise?.indexPath = indexPath
                 
             } else {
@@ -673,88 +677,34 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
 } //end of AddWorkoutClass extension for tableView
 
 
-
-
-
-
-
-
-
-
-
-class WorkoutSession {
-    var duration: Int?
-    var type: String?
-    var date: Date?
-    var workoutExercises: [SelectedExercises]?
+//MARK: Core Data - Add
+extension AddWorkoutController {
     
-    init(duration:Int, type:String, date:Date, workoutExercises:[SelectedExercises]){
-        self.duration = duration
-        self.type = type
-        self.date = date
-        self.workoutExercises = workoutExercises
-    }
-}
-
-class SelectedExercises {
-    var exerciseName: String?
-    var exerciseType: String?
-    var exerciseInfo: String?
-    var exerciseSets: [SetRepsWeights]?
-    
-    init(exerciseName:String, exerciseType:String, exerciseInfo: String, exerciseSets:[SetRepsWeights]) {
-        self.exerciseName = exerciseName
-        self.exerciseType = exerciseType
-        self.exerciseInfo = exerciseInfo
-        self.exerciseSets = exerciseSets
-    }
-}
-
-
-class SetRepsWeights {
-    var set: Int?
-    var reps: Int?
-    var weight: Int?
-    var time: Double?
-    var indexPath: IndexPath?
-    
-    
-    //for weights
-    init(set:Int, reps:Int?, weight:Int?, time: Double?, indexpath:IndexPath){
-        self.set = set
-        self.reps = reps
-        self.weight = weight
-        self.time = time
-        self.indexPath = indexpath
-    }
-    
-    //if added - NEED TO CHANGE 'ADD SET' BUTTON FOR ADDWORKOUT TABLEHEADERCELL (append statement)
-    //for cardio/circuits
-//    init(set: Int, time: Double, indexPath: IndexPath) {
-//        self.set = set
-//        self.time = time
-//        self.indexPath = indexPath
-//    }
-    
-    //for bodyweight
-//    init(set:Int, reps: Int, indexPath: IndexPath){
-//        self.set = set
-//        self.reps = reps
-//        self.indexPath = indexPath
-//    }
-    
-}
-
-class SetTimeCardio {
-    var set: Int?
-    var time: Int
-    
-    init(set: Int, time: Int) {
-        self.set = set
-        self.time = time
+    func createCoreData(_ workoutSession: WorkoutSession){
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let userEntity = NSEntityDescription.entity(forEntityName: "WorkoutList", in: managedContext)!
+        
+        let newWorkout = WorkoutList(entity: userEntity, insertInto: managedContext)
+        newWorkout.workoutSession = workoutSession
+        
+        //NSManagedObject(entity: userEntity, insertInto: managedContext) as! WorkoutList
+        //cmsg.setValue(workoutSession, forKey: "workoutSession")
+        
+        //objects added to context saved to persistent store
+        do {
+            try managedContext.save()
+            print("Saved to persistent store")
+        } catch {
+            print("Failed to save to persistent store: \(error)")
+        }
     }
     
 }
+
+
+
 
 
 extension UIViewController {

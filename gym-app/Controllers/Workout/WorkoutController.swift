@@ -16,8 +16,9 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
     
     //MARK: Outlets
     @IBOutlet weak var workoutsTable: UITableView!
-    
     @IBOutlet weak var noWorkoutsView: UIView!
+    @IBOutlet weak var calendarButton: UIButton!
+    @IBOutlet weak var settingsButton: UIButton!
     
     
     //MARK: Attributes
@@ -32,6 +33,118 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
             addWorkoutVC.isModalInPresentation = true
             addWorkoutVC.delegate = self
         }
+        
+        if (segue.identifier == "toCalendar"){
+            let calenderVC = segue.destination as! CalendarController
+            print("toCalendar Segue...")
+            calenderVC.isModalInPresentation = true
+            calenderVC.allWorkoutSessions = self.allWorkoutSessions
+        }
+        
+        if (segue.identifier == "toSettings"){
+            let settingsVC = segue.destination as! SettingsController
+            print("toSettings segue...")
+            settingsVC.isModalInPresentation = true
+            clearCoreData()
+        }
+    }
+    
+    
+    
+    
+    
+    
+    //implements protocol to get data from AddWorkout
+    func pass(thisWorkout: WorkoutSession) {
+        self.allWorkoutSessions.append(thisWorkout)
+        self.allWorkoutSessions = self.allWorkoutSessions.sorted(by: { $0.date! < $1.date! }).reversed()
+        self.noWorkoutsView.isHidden = true
+        self.workoutsTable.isHidden = false
+        self.workoutsTable.reloadData()
+    }
+    
+    
+    func retrieveCoreData(){
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "WorkoutList")
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let fetchedResults = try managedContext.fetch(fetchRequest)
+            
+            for result in fetchedResults as! [NSManagedObject] {
+
+                let workoutSession = result.value(forKey: "workoutSession") as! WorkoutSession
+                
+                self.allWorkoutSessions.append(workoutSession)
+            }
+            if self.allWorkoutSessions.count > 0 {
+                
+                self.allWorkoutSessions = self.allWorkoutSessions.sorted(by: { $0.date! < $1.date! }).reversed()
+                
+            }
+            
+            checkCoreDataIsEmpty()
+            
+        } catch {
+            print("Failed to Retrieve Core Data")
+        }
+    }
+    
+    
+    func checkCoreDataIsEmpty(){
+        if allWorkoutSessions.count == 0 {
+            workoutsTable.isHidden = true
+            addStylesToNoWorkoutView()
+            
+        } else {
+            noWorkoutsView.isHidden = true
+            workoutsTable.isHidden = false
+        }
+    }
+    
+    
+    func clearCoreData(){
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "WorkoutList")
+        
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            
+            if results.count > 0 {
+                for result in results as! [NSManagedObject] {
+                    managedContext.delete(result)
+                }
+                do {
+                    try managedContext.save()
+                    print("Removed ALL core data")
+                    self.allWorkoutSessions.removeAll()
+                    self.workoutsTable.reloadData()
+                    workoutsTable.isHidden = true
+                    addStylesToNoWorkoutView()
+                    noWorkoutsView.isHidden = false
+                } catch {
+                    print("Error saving context from delete: ", error)
+                }
+            }
+        } catch {
+            print("Error fetching results: ",error)
+        }
+        
+    }
+    
+    
+    func addStylesToNoWorkoutView() {
+        noWorkoutsView.layer.borderWidth = 1
+        noWorkoutsView.layer.borderColor = UIColor.lightGray.cgColor
+        noWorkoutsView.layer.cornerRadius = 20
+        let label = noWorkoutsView.subviews.first as? UILabel
+        label?.text = "No Workout History 😢"
     }
     
     
@@ -50,15 +163,6 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
     }
     
     
-    //implements protocol to get data from AddWorkout
-    func pass(thisWorkout: WorkoutSession) {
-        self.allWorkoutSessions.append(thisWorkout)
-        self.noWorkoutsView.isHidden = true
-        self.workoutsTable.isHidden = false
-        self.workoutsTable.reloadData()
-    }
-    
-    
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,23 +171,19 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
         print("Workout Loaded")
         
         
-        //LOAD CORE DATA HERE
-        
-        
-        if allWorkoutSessions.isEmpty {
-            workoutsTable.isHidden = true
-            
-            noWorkoutsView.layer.borderWidth = 1
-            noWorkoutsView.layer.borderColor = UIColor.lightGray.cgColor
-            noWorkoutsView.layer.cornerRadius = 20
-            let label = noWorkoutsView.subviews.first as? UILabel
-            label?.text = "No Workout History 😢"
-            
-        }
-        
         workoutsTable.delegate = self
-        
         workoutsTable.register(UITableViewCell.self, forCellReuseIdentifier: "WorkoutTableInfoCell")
+        
+        
+        //LOAD CORE DATA
+        retrieveCoreData()
+        
+        
+        //changes settingsButton image when button is clicked/highlighted
+        settingsButton.setImage(UIImage(named: "icons8-settings-dark"), for: .highlighted)
+        
+        //changes calendarButton image when button is clicked/highlighted
+        calendarButton.setImage(UIImage(named: "icons8-calendar-100 filled"), for: .highlighted)
         
         
     }
@@ -182,7 +282,7 @@ extension WorkoutController: UITableViewDelegate, UITableViewDataSource {
             if (sets[i].time! < bestTime) { bestTime = sets[i].time! }
         }
         
-        return "\(bestTime)"
+        return "\(bestTime) mins"
     }
     
     //functionality when row is clicked - MODAL?

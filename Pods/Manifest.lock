@@ -1,20 +1,24 @@
 PODS:
   - DropDown (2.3.13)
+  - FSCalendar (2.8.1)
   - SOTabBar (1.1.3)
 
 DEPENDENCIES:
   - DropDown
+  - FSCalendar
   - SOTabBar
 
 SPEC REPOS:
   trunk:
     - DropDown
+    - FSCalendar
     - SOTabBar
 
 SPEC CHECKSUMS:
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
   SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
 
-PODFILE CHECKSUM: 59686cce644df210a13115b887e813acd9167d23
+PODFILE CHECKSUM: 0ce8f2a837b44a466ed46af4a4e0cef725e0d0c1
 
 COCOAPODS: 1.9.1

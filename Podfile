@@ -8,5 +8,6 @@ target 'gym-app' do
   pod 'DropDown'
   pod 'SOTabBar'
   # pod 'ScrollViewController', '~> 1.1'
+  pod 'FSCalendar'
 
 end

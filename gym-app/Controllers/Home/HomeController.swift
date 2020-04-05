@@ -15,21 +15,11 @@ import DropDown
 class HomeController: UIViewController {
     
     //MARK: Outlets
+    @IBOutlet weak var settingsButton: UIButton!
     
     
     //MARK: Attributes
     
-    
-    @IBAction func settingsButton(_ sender: UIButton) {
-//        UIView.animate(withDuration: 0.05, animations: {
-//               sender.alpha = 0.0
-//           }, completion:{(finished) in
-//            sender.setImage(UIImage(named: "icons8-settings-dark"), for: .normal)
-//            UIView.animate(withDuration: 0.05,animations:{
-//               sender.alpha = 1.0
-//               },completion:nil)
-//        })
-    }
     
     
     
@@ -56,10 +46,8 @@ class HomeController: UIViewController {
         print("Home Loaded")
         
         
-        
-
-        // Will set a custom width instead of the anchor view width
-        //dropDownLeft.width = 200
+        //changes settingsButton image when button is clicked/highlighted
+        settingsButton.setImage(UIImage(named: "icons8-settings-dark"), for: .highlighted)
         
         
     }

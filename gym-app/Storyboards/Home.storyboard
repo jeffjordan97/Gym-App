@@ -40,7 +40,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="icons8-settings"/>
                                 <connections>
-                                    <action selector="settingsButton:" destination="oZ3-B3-iB0" eventType="touchUpInside" id="vhN-rF-tBJ"/>
                                     <segue destination="xOP-Ep-lc8" kind="presentation" modalPresentationStyle="fullScreen" id="Abp-qR-jgz"/>
                                 </connections>
                             </button>
@@ -56,6 +55,9 @@
                         <viewLayoutGuide key="safeArea" id="7Gl-EA-t6m"/>
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="settingsButton" destination="sN2-nK-kJo" id="B5p-e1-1kg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="irV-Mr-h1E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

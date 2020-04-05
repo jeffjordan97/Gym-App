@@ -59,6 +59,10 @@ class ViewController: SOTabBarController {
                 //iterate through array to get value for specific key
                 for result in results as! [NSManagedObject] {
                     
+                    if let workoutSession = result.value(forKey: "workoutSession") as? WorkoutSession {
+                        print("CoreData: WorkoutSession = "+workoutSession.type!)
+                    }
+                    
                     if let date = result.value(forKey: "date") as? Date {
                         print("CoreData: Date = "+getFormattedDate(date))
                     }
@@ -82,23 +86,20 @@ class ViewController: SOTabBarController {
     
     
     //MARK: Update Core Data
-    func updateCoreData(date: Date, duration:Int, type:String){
+    func updateCoreData(workoutSession: WorkoutSession){
        
-        if duration != 0 && type != "" {
-            let entity = NSEntityDescription.entity(forEntityName: "WorkoutList", in: context!)
-            let newWorkout = NSManagedObject(entity: entity!, insertInto: context)
-            newWorkout.setValue(date, forKey: "date")
-            newWorkout.setValue(duration, forKey: "duration")
-            newWorkout.setValue(type, forKey: "type")
+        let entity = NSEntityDescription.entity(forEntityName: "WorkoutList", in: context!)
+        let newWorkout = NSManagedObject(entity: entity!, insertInto: context)
+        newWorkout.setValue(workoutSession, forKey: "workoutSession")
             
-            //objects added to context are saved to persistent store
-            do {
-                try context!.save()
-                print("Saved to persistent store")
-            } catch {
-                print("Failed to save to persistent store",error)
-            }
+        //objects added to context are saved to persistent store
+        do {
+            try context!.save()
+            print("Saved to persistent store")
+        } catch let error as NSError{
+            print("Failed to save to persistent store",error.userInfo)
         }
+        
         
     }
     
@@ -143,7 +144,7 @@ class ViewController: SOTabBarController {
         let formatDate = getFormattedDate(dateToday)
         valueLabel.text = "Date: "+formatDate+"\n Duration: "+String(duration)+"\n Type: "+activityType
         
-        updateCoreData(date: dateToday, duration: duration, type: activityType)
+        //updateCoreData(date: dateToday, duration: duration, type: activityType)
         
     }
     
