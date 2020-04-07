@@ -1,24 +1,73 @@
 PODS:
   - DropDown (2.3.13)
   - FSCalendar (2.8.1)
+  - MaterialComponents/AnimationTiming (107.4.0)
+  - MaterialComponents/Availability (107.4.0)
+  - MaterialComponents/Buttons (107.4.0):
+    - MaterialComponents/Elevation
+    - MaterialComponents/Ink
+    - MaterialComponents/private/Math
+    - MaterialComponents/Ripple
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Shapes
+    - MaterialComponents/Typography
+    - MDFInternationalization
+    - MDFTextAccessibility
+  - MaterialComponents/Elevation (107.4.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/Ink (107.4.0):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/private/Application (107.4.0)
+  - MaterialComponents/private/Color (107.4.0):
+    - MaterialComponents/Availability
+  - MaterialComponents/private/Math (107.4.0)
+  - MaterialComponents/Ripple (107.4.0):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+  - MaterialComponents/ShadowElevations (107.4.0)
+  - MaterialComponents/ShadowLayer (107.4.0):
+    - MaterialComponents/ShadowElevations
+  - MaterialComponents/Shapes (107.4.0):
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowLayer
+  - MaterialComponents/Typography (107.4.0):
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/Math
+  - MDFInternationalization (2.0.0)
+  - MDFTextAccessibility (2.0.0)
   - SOTabBar (1.1.3)
 
 DEPENDENCIES:
   - DropDown
   - FSCalendar
+  - MaterialComponents/Buttons
   - SOTabBar
 
 SPEC REPOS:
   trunk:
     - DropDown
     - FSCalendar
+    - MaterialComponents
+    - MDFInternationalization
+    - MDFTextAccessibility
     - SOTabBar
 
 SPEC CHECKSUMS:
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
+  MaterialComponents: 52e2ade4684e3017eff7f62587b37522d217ea50
+  MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
+  MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
 
-PODFILE CHECKSUM: 0ce8f2a837b44a466ed46af4a4e0cef725e0d0c1
+PODFILE CHECKSUM: c856040fd8c3fb2befc01a3a1a869ced4a1cc622
 
 COCOAPODS: 1.9.1

@@ -12,8 +12,7 @@ class WorkoutTableInfoCell: UITableViewCell {
     
     //MARK: Outlets
     @IBOutlet weak var exerciseNameLabel: UILabel!
-    @IBOutlet weak var exerciseSetsLabel: UILabel!
-    @IBOutlet weak var exerciseRepsOrTimeLabel: UILabel!
+    @IBOutlet weak var exerciseSummaryLabel: UILabel!
     
     
     

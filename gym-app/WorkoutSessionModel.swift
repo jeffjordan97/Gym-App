@@ -100,7 +100,7 @@ public class SetRepsWeights: NSObject, NSCoding {
     var set: Int?
     var reps: Int?
     var weight: Int?
-    var time: Double?
+    var time: Int?
     var indexPath: IndexPath?
     
     enum Key:String{
@@ -111,7 +111,7 @@ public class SetRepsWeights: NSObject, NSCoding {
         case indexPath = "indexPathOfSet"
     }
     
-    init(set:Int?, reps:Int?, weight:Int?, time: Double?, indexpath:IndexPath?){
+    init(set:Int?, reps:Int?, weight:Int?, time: Int?, indexpath:IndexPath?){
         self.set = set
         self.reps = reps
         self.weight = weight
@@ -131,7 +131,7 @@ public class SetRepsWeights: NSObject, NSCoding {
         let gotSet = coder.decodeObject(forKey: Key.set.rawValue) as! Int?
         let gotReps = coder.decodeObject(forKey: Key.reps.rawValue) as! Int?
         let gotWeight = coder.decodeObject(forKey: Key.weight.rawValue) as! Int?
-        let gotTime = coder.decodeObject(forKey: Key.time.rawValue) as! Double?
+        let gotTime = coder.decodeObject(forKey: Key.time.rawValue) as! Int?
         let gotIndexPath = coder.decodeObject(forKey: Key.indexPath.rawValue) as! IndexPath?
         
         self.init(set: gotSet, reps: gotReps, weight: gotWeight, time: gotTime, indexpath: gotIndexPath)

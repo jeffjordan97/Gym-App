@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1F0727722436C10B001607D3 /* WorkoutSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0727712436C10B001607D3 /* WorkoutSessionModel.swift */; };
 		1F0727742437E2AE001607D3 /* CalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0727732437E2AE001607D3 /* CalendarController.swift */; };
+		1F072778243B66CD001607D3 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F072776243B66CD001607D3 /* HomeTableViewCell.swift */; };
+		1F072779243B66CD001607D3 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F072777243B66CD001607D3 /* HomeTableViewCell.xib */; };
+		1F07277B243BAA5D001607D3 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F07277A243BAA5D001607D3 /* HelperFunctions.swift */; };
 		1F10FEA524267C9E0089F5C3 /* ExerciseHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F10FEA324267C9E0089F5C3 /* ExerciseHeaderCell.swift */; };
 		1F10FEA624267C9E0089F5C3 /* ExerciseHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F10FEA424267C9E0089F5C3 /* ExerciseHeaderCell.xib */; };
 		1FA9B5D72423B2D500182CBE /* testJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9B5D62423B2D500182CBE /* testJSON.json */; };
@@ -54,6 +57,9 @@
 		14C67B0FCB032E7283653924 /* Pods-gym-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gym-app.release.xcconfig"; path = "Target Support Files/Pods-gym-app/Pods-gym-app.release.xcconfig"; sourceTree = "<group>"; };
 		1F0727712436C10B001607D3 /* WorkoutSessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionModel.swift; sourceTree = "<group>"; };
 		1F0727732437E2AE001607D3 /* CalendarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarController.swift; sourceTree = "<group>"; };
+		1F072776243B66CD001607D3 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		1F072777243B66CD001607D3 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
+		1F07277A243BAA5D001607D3 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		1F10FEA324267C9E0089F5C3 /* ExerciseHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseHeaderCell.swift; sourceTree = "<group>"; };
 		1F10FEA424267C9E0089F5C3 /* ExerciseHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExerciseHeaderCell.xib; sourceTree = "<group>"; };
 		1FA9B5D62423B2D500182CBE /* testJSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = testJSON.json; path = "../../../Dropbox/Uni Work/Year 3/Comp39X/3. Software Demo/testJSON.json"; sourceTree = "<group>"; };
@@ -110,6 +116,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F072775243B667F001607D3 /* TableCell */ = {
+			isa = PBXGroup;
+			children = (
+				1F072776243B66CD001607D3 /* HomeTableViewCell.swift */,
+				1F072777243B66CD001607D3 /* HomeTableViewCell.xib */,
+			);
+			path = TableCell;
+			sourceTree = "<group>";
+		};
 		1F45638B2426B7D60097D296 /* TableInfoCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +219,7 @@
 			children = (
 				90E1D20F240D3B0300F229F1 /* ViewController.swift */,
 				90620C302411871100A98138 /* HomeController.swift */,
+				1F072775243B667F001607D3 /* TableCell */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -300,6 +316,7 @@
 				90E1D21C240D3B0400F229F1 /* Info.plist */,
 				90E1D214240D3B0300F229F1 /* gym_app.xcdatamodeld */,
 				1F0727712436C10B001607D3 /* WorkoutSessionModel.swift */,
+				1F07277A243BAA5D001607D3 /* HelperFunctions.swift */,
 			);
 			path = "gym-app";
 			sourceTree = "<group>";
@@ -385,6 +402,7 @@
 				90E1D21B240D3B0400F229F1 /* LaunchScreen.storyboard in Resources */,
 				9039C78C241173BB00A739F8 /* Home.storyboard in Resources */,
 				908169B1241FD40000FF81CE /* RoutinesTableCell.xib in Resources */,
+				1F072779243B66CD001607D3 /* HomeTableViewCell.xib in Resources */,
 				1FAB976D2434E45C000F6399 /* WorkoutTableInfoCell.xib in Resources */,
 				9039C78E241173CB00A739F8 /* Workouts.storyboard in Resources */,
 				9068C9C4242285C40070346D /* AddExInfoTableCell.xib in Resources */,
@@ -456,11 +474,13 @@
 				1F10FEA524267C9E0089F5C3 /* ExerciseHeaderCell.swift in Sources */,
 				1FAB97682434E43F000F6399 /* WorkoutTableHeaderCell.swift in Sources */,
 				1F0727742437E2AE001607D3 /* CalendarController.swift in Sources */,
+				1F072778243B66CD001607D3 /* HomeTableViewCell.swift in Sources */,
 				9020E58D241A6EBF00503674 /* AddGoalController.swift in Sources */,
 				90E1D216240D3B0300F229F1 /* gym_app.xcdatamodeld in Sources */,
 				907FF2262412D1B800D943B4 /* ExercisesController.swift in Sources */,
 				90620C312411871100A98138 /* HomeController.swift in Sources */,
 				907F92BF24196C4A001D5C48 /* SettingsController.swift in Sources */,
+				1F07277B243BAA5D001607D3 /* HelperFunctions.swift in Sources */,
 				90620C37241188AF00A98138 /* CommunityController.swift in Sources */,
 				908169B9241FDC2500FF81CE /* AddRoutineController.swift in Sources */,
 				90620C352411885F00A98138 /* ProgressController.swift in Sources */,

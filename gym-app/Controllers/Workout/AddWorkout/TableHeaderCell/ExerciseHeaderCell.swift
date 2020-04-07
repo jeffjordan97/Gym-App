@@ -17,11 +17,16 @@ class ExerciseHeaderCell: UITableViewHeaderFooterView {
     
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var setButton: UIButton!
     
     
     func setTitle(_ title: String){
         self.titleLabel.text = title
+    }
+    
+    func setType(_ type: String){
+        self.typeLabel.text = type
     }
     
     

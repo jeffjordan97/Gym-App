@@ -23,7 +23,7 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var woTypeLabel: UILabel!
     
-    @IBOutlet weak var hoursField: UITextField!
+    @IBOutlet weak var durationField: UITextField!
     
     @IBOutlet weak var durationWarningLabel: UILabel!
     
@@ -40,13 +40,15 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     //MARK: Attributes
     
     var durationPicker = UIPickerView()
-    var durationAsMinsInput: Int?
+    var durationAsSecondsInput: Int?
     var typeInput: String?
     var minsPickList = [String]()
+    var secondsPickList = [String]()
     
     //constants for duration picker view
     let hoursPickList = ["0","1","2", "3", "4", "5"]
-    let titlePickList = ["hours", "mins"]
+    let titlePickList = ["hours", "mins","seconds"]
+    var pickerTimePicked = (0,0,0)
     
     //Stores all selectedExercises from ExercisesController, used in TableView
     var selectedExercises = [SelectedExercises]()
@@ -61,9 +63,10 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     
     
     //generates numbers 0 to 59 to add to pickerview for duration
-    func minsPickListGenerate(){
+    func minsSecondsPickListGenerate(){
         for i in 0...59 {
             self.minsPickList.append("\(i)")
+            self.secondsPickList.append("\(i)")
         }
     }
     
@@ -137,7 +140,7 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         guard let visibleIndexes = self.editTable.indexPathsForVisibleRows else { return  }
         
         //validation for duration input field
-        if hoursField.text == nil || hoursField.text == "" {
+        if durationField.text == nil || durationField.text == "" {
             durationWarningLabel.text = "* Missing Duration *"
             missingFields = true
         }
@@ -213,7 +216,7 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
             //passes workout info to WorkoutVC //NEED TO ADD FOR HomeVC
             
             canPassData = true
-            workoutToPass = WorkoutSession(duration: durationAsMinsInput!, type: self.typeInput!, date: Date(), workoutExercises: self.selectedExercises)
+            workoutToPass = WorkoutSession(duration: durationAsSecondsInput!, type: self.typeInput!, date: Date(), workoutExercises: self.selectedExercises)
             
             self.dismiss(animated: true, completion: nil)
             print("Passed selectedExercises to WorkoutVC")
@@ -295,16 +298,16 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         print("AddWorkout Loaded")
         
         
-        minsPickListGenerate()
+        minsSecondsPickListGenerate()
         durationPicker.delegate = self
         durationPicker.dataSource = self
         
-        hoursField.inputView = durationPicker
-        //hoursField.textAlignment = .center
-        //hoursField.placeholder = "Select"
+        durationField.delegate = self
+        durationField.inputView = durationPicker
+        
         
         //Adds a toolbar to the pickerView, with a 'done' button that closes the pickerView
-        self.hoursField.inputAccessoryView = pickerViewToolBarStyles()
+        self.durationField.inputAccessoryView = pickerViewToolBarStyles()
         
         
         if selectedExercises.isEmpty {
@@ -313,6 +316,8 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         
         editTable.delegate = self
         editTable.rowHeight = 60
+        
+        
         
         editTable.register(UITableViewCell.self, forCellReuseIdentifier: "BelowExerciseHeaderCell")
         editTable.register(UITableViewCell.self, forCellReuseIdentifier: "AddExInfoTableCell")
@@ -335,77 +340,74 @@ extension AddWorkoutController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     //number of columns in picker view
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 4
+        return 3
     }
     
     //sets number of rows for each column in picker view
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return hoursPickList.count
-        }else {
-            if component == 1 {
-                return 1
-            }else {
-                if component == 2 {
-                    return minsPickList.count
-                }else {
-                    if component == 3 {
-                        return 1
-                    }
-                }
-            }
+        
+        switch component {
+        case 0:
+            return 6
+        case 1,2:
+            return 60
+            
+        default:
+            return 0
         }
-        return 1
     }
     
-    //changes label to number of hours and minutes selected from picker
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return pickerView.frame.size.width/3
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch component {
+        case 0:
+            return "\(row) Hour"
+        case 1:
+            return "\(row) Minute"
+        case 2:
+            return "\(row) Second"
+        default:
+            return ""
+        }
+    }
+    
+    //changes label to Hours:Minutes:Seconds selected from picker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        let selectedHours = hoursPickList[pickerView.selectedRow(inComponent: 0)]
-        let selectedMins = minsPickList[pickerView.selectedRow(inComponent: 2)]
+        switch component {
+        case 0:
+            pickerTimePicked.0 = row
+        case 1:
+            pickerTimePicked.1 = row
+        case 2:
+            pickerTimePicked.2 = row
+            
+        default:
+            print("pickerView - no component case")
+        }
         
-        hoursField.textAlignment = .center
-        hoursField.font!.withSize(22.0)
-        hoursField.text = "\(selectedHours) hours   \(selectedMins) mins"
+        if activeTextField.tag == 3 {
+            print("active")
+            activeTextField.textAlignment = .center
+            activeTextField.font = UIFont(name: "HelveticaNeue", size: 22.0)
+        }
         
-        let hoursToMins = (Int(selectedHours) ?? 0) * 60
-        durationAsMinsInput = hoursToMins + (Int(selectedMins) ?? 0)
-        
-        durationWarningLabel.text = ""
+        activeTextField.text = Helper.displayZeroInTime(pickerTimePicked)
+
         
     }
     
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        if component == 0 {
-            let str = hoursPickList[row]
-            pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-            return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
-        }else {
-            if component == 1 {
-                let str = titlePickList[0]
-                pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-                return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
-            }else {
-                if component == 2 {
-                    let str = minsPickList[row]
-                    pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-                    return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
-                }else {
-                    let str = titlePickList[1]
-                    pickerView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-                    return NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor:UIColor.white])
-                }
-            }
-        }
-    }
     
     //closes Duration picker view
     @objc private func doneButtonTapped(){
-        self.hoursField.resignFirstResponder()
+        self.activeTextField.resignFirstResponder()
     }
     
     //toolbar above picker view
-    func pickerViewToolBarStyles() -> UIToolbar{
+    func pickerViewToolBarStyles() -> UIToolbar {
         
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
@@ -422,11 +424,6 @@ extension AddWorkoutController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 
 
-
-
-
-
-
 //MARK: Exercise Table
 extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
     
@@ -439,6 +436,9 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
         return (selectedExercises[section].exerciseSets?.count ?? 0) + 1
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60.0
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -458,6 +458,7 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = Bundle.main.loadNibNamed("AddExInfoTableCell", owner: self, options: nil)?.first as! AddExInfoTableCell
             
+            
             //changes label according to the current set
             cell.setLabels("\(indexPath.row)")
             
@@ -469,6 +470,7 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
             cell.inputReps.delegate = self
             cell.inputWeight.delegate = self
             cell.inputTime.delegate = self
+            //cell.inputTime.inputAccessoryView = pickerViewToolBarStyles()
             
             //checks whether exerciseSet has already been assigned the current indexPath, if so, getSetCell will be an array with one element
             let getSetCell = thisExercise.exerciseSets?.filter( { $0.indexPath == indexPath } )
@@ -531,14 +533,11 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
                             cell.inputReps.backgroundColor = #colorLiteral(red: 1, green: 0.2366749612, blue: 0.1882926814, alpha: 0.6023877641)
                         }
                     }
-                    
                 }
-                
             }
             
             return cell
         }
-        
     }
     
     
@@ -548,7 +547,7 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
         
         exHeaderCell.setButton.setTitleColor(.gray, for: .highlighted)
         exHeaderCell.setTitle(selectedExercises[section].exerciseName!)
-        
+        exHeaderCell.setType(selectedExercises[section].exerciseType!)
         exHeaderCell.getTable(editTable, section: section, rowsInSection: editTable.numberOfRows(inSection: section))
         
         exHeaderCell.getSelectedExercises(selectedExercises)
@@ -571,15 +570,26 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
         return Int(string) != nil
     }
     
-    func isStringADouble(string: String) -> Bool {
-        if string.contains(".") {
-            return Double(string) != nil
-        } else {
-            let stringWithDecimal = string + ".0"
-            return Double(stringWithDecimal) != nil
-        }
-    }
     
+} //end of AddWorkoutClass extension for tableView
+
+
+
+//MARK: TextFields
+extension AddWorkoutController {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        switch textField.tag {
+        case 2:
+            textField.inputView = durationPicker
+            textField.inputAccessoryView = pickerViewToolBarStyles()
+        default:
+            print("activeTextField: \(activeTextField.tag)")
+        }
+        
+        return true
+    }
     
     //assigns the current textfield to activeTextField within this VC
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -590,12 +600,13 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         textField.backgroundColor = .white
-        //Retrieves CGPoint of activeTextField within tableView, then uses the CGPoint to get indexPath within tableView
-        let pointInTable = activeTextField.convert(activeTextField.bounds.origin, to: self.editTable)
-        let textFieldIndexPath = self.editTable.indexPathForRow(at: pointInTable)
         
-        //tag = 0 Reps textField | tag = 1 Weight textField | tag = 2 Time textField
-        if activeTextField.tag == 0 {
+        //tag = 0 Reps textField | tag = 1 Weight textField | tag = 2 Time textField | tag = 3 Duration textField
+        switch activeTextField.tag {
+        case 0: //REPS
+            //Retrieves CGPoint of activeTextField within tableView, then uses the CGPoint to get indexPath within tableView
+            let pointInTable = activeTextField.convert(activeTextField.bounds.origin, to: self.editTable)
+            let textFieldIndexPath = self.editTable.indexPathForRow(at: pointInTable)
             
             if isStringAnInt(string: activeTextField.text!) {
                 let textToInt = Int(activeTextField.text!)
@@ -603,7 +614,11 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
                 //print("Added Reps")
             }
             
-        } else if activeTextField.tag == 1 {
+        case 1: //WEIGHT
+            
+            //Retrieves CGPoint of activeTextField within tableView, then uses the CGPoint to get indexPath within tableView
+            let pointInTable = activeTextField.convert(activeTextField.bounds.origin, to: self.editTable)
+            let textFieldIndexPath = self.editTable.indexPathForRow(at: pointInTable)
             
             if isStringAnInt(string: activeTextField.text!) {
                 let textToInt = Int(activeTextField.text!)
@@ -611,21 +626,42 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
                 //print("Added weight")
             }
             
-        } else if activeTextField.tag == 2 {
             
-            if isStringADouble(string: activeTextField.text!) {
-                var textToDouble:Double
-                if activeTextField.text!.contains(".") {
-                    textToDouble = Double(activeTextField.text!)!
-                } else {
-                    let makeTextDouble = activeTextField.text! + ".0"
-                    textToDouble = Double(makeTextDouble)!
-                }
-                selectedExercises[textFieldIndexPath!.section].exerciseSets?[textFieldIndexPath!.row - 1].time = textToDouble
-                //print("Added Time")
+        case 2: //TIME
+            //Retrieves CGPoint of activeTextField within tableView, then uses the CGPoint to get indexPath within tableView
+            let pointInTable = activeTextField.convert(activeTextField.bounds.origin, to: self.editTable)
+            let textFieldIndexPath = self.editTable.indexPathForRow(at: pointInTable)
+            
+            if activeTextField.text! != "" {
+                let hoursMinsSecondsArr = activeTextField.text!.split{$0 == ":"}.map(String.init)
+                
+                //changes durationAsSecondsInput variable for when the workout is finished
+                let hoursToSeconds = (Int(hoursMinsSecondsArr[0])! * 60) * 60
+                let minsToSeconds = Int(hoursMinsSecondsArr[1])!  * 60
+                let seconds = Int(hoursMinsSecondsArr[2])!
+                
+                selectedExercises[textFieldIndexPath!.section].exerciseSets?[textFieldIndexPath!.row - 1].time = hoursToSeconds + minsToSeconds + seconds
             }
             
+        case 3: //DURATION
+            
+            if activeTextField.text! != "" {
+                //[0] = hours | [1] = mins | [2] = seconds
+                let hoursMinsSecondsArr = activeTextField.text!.split{$0 == ":"}.map(String.init)
+                
+                //changes durationAsSecondsInput variable for when the workout is finished
+                let minsToSeconds = Int(hoursMinsSecondsArr[1])!  * 60
+                let hoursToSeconds = (Int(hoursMinsSecondsArr[0])! * 60) * 60
+                durationAsSecondsInput = hoursToSeconds + minsToSeconds + Int(hoursMinsSecondsArr[2])!
+                
+                durationWarningLabel.text = ""
+            }
+            
+        default:
+            print("TextfieldDidEndEditing - no activetextfield.tag case")
         }
+        
+        
     
     }
     
@@ -673,11 +709,13 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
         }, completion: nil)
     }
     
-    
-} //end of AddWorkoutClass extension for tableView
+} //end of extension for TextFields
 
 
-//MARK: Core Data - Add
+
+
+
+//MARK: Core Data
 extension AddWorkoutController {
     
     func createCoreData(_ workoutSession: WorkoutSession){
@@ -702,8 +740,6 @@ extension AddWorkoutController {
     }
     
 }
-
-
 
 
 

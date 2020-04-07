@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
-
+import MaterialComponents.MaterialButtons
 
 
 class WorkoutController: UIViewController, isAbleToReceiveData {
@@ -50,10 +50,6 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
     }
     
     
-    
-    
-    
-    
     //implements protocol to get data from AddWorkout
     func pass(thisWorkout: WorkoutSession) {
         self.allWorkoutSessions.append(thisWorkout)
@@ -63,7 +59,7 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
         self.workoutsTable.reloadData()
     }
     
-    
+    //retrieves previously recorded workouts from core data and adds to addWorkoutSessions
     func retrieveCoreData(){
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -148,21 +144,6 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
     }
     
     
-    //MARK: Formatted Date
-    //returns today's date in the format: Month Day, Year
-    func getFormattedDate(_ thisDate: Date) -> String {
-        
-        //gets the date String of the date object
-        let format = DateFormatter()
-        format.dateStyle = .medium
-        
-        //gets the date String from the date object
-        let dateString = format.string(from: thisDate)
-        
-        return dateString
-    }
-    
-    
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -183,13 +164,17 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
         settingsButton.setImage(UIImage(named: "icons8-settings-dark"), for: .highlighted)
         
         //changes calendarButton image when button is clicked/highlighted
-        calendarButton.setImage(UIImage(named: "icons8-calendar-100 filled"), for: .highlighted)
+        let calendarButtonImage = UIImage(named: "icons8-calendar-100")
+        calendarButton.setImage(calendarButtonImage, for: .normal)
+        let calendarButtonClickedImage = UIImage(named: "icons8-calendar-100 filled")
+        calendarButton.setImage(calendarButtonClickedImage, for: .highlighted)
         
         
     }
 }
 
 
+//MARK: Table View
 //extension for tableview of workouts
 extension WorkoutController: UITableViewDelegate, UITableViewDataSource {
     
@@ -220,8 +205,9 @@ extension WorkoutController: UITableViewDelegate, UITableViewDataSource {
         
         headerCell.setImage(type: thisWorkout.type!)
         headerCell.typeLabel.text = thisWorkout.type!
-        headerCell.dateLabel.text = getFormattedDate(thisWorkout.date!)
-        headerCell.durationLabel.text = "\(thisWorkout.duration!) mins"
+        headerCell.dateLabel.text = Helper.getFormattedDate(thisWorkout.date!)
+        let formattedDuration = Helper.secondsToHoursMinutesSeconds(seconds: thisWorkout.duration!)
+        headerCell.durationLabel.text = Helper.displayZeroInTime(formattedDuration)
         
         
         return headerCell
@@ -239,15 +225,16 @@ extension WorkoutController: UITableViewDelegate, UITableViewDataSource {
         let exerciseSets = thisWorkout.workoutExercises?[indexPath.row].exerciseSets
         let numberOfSets = thisWorkout.workoutExercises?[indexPath.row].exerciseSets?.count
 
-        
+        //adds exercise name and set info to the cell row
         cell.exerciseNameLabel.text = exerciseName
-        cell.exerciseSetsLabel.text = "\(numberOfSets!)"
+        cell.exerciseSummaryLabel.text = "\(numberOfSets!) x "
         
         if exerciseInfo == "Weights" || exerciseInfo == "Bodyweight" {
-            cell.exerciseRepsOrTimeLabel.text = returnRepsRange(exerciseSets!)
+            cell.exerciseSummaryLabel.text?.append(contentsOf: returnRepsRange(exerciseSets!))
             
         } else if exerciseInfo == "Cardio" || exerciseInfo == "Circuits" {
-            cell.exerciseRepsOrTimeLabel.text = returnBestTime(exerciseSets!)
+            let formattedTime = returnBestTime(exerciseSets!)
+            cell.exerciseSummaryLabel.text?.append(contentsOf: Helper.displayZeroInTime(formattedTime))
             
         }
         
@@ -274,15 +261,24 @@ extension WorkoutController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    
-    func returnBestTime(_ sets: [SetRepsWeights]) -> String {
-        var bestTime =  10000.0
+    //returns the best time from all sets, in the format Hour:Min:Seconds
+    func returnBestTime(_ sets: [SetRepsWeights]) -> (Int, Int, Int) {
+        var bestTime =  100000
         
         for i in 0...sets.count-1 {
             if (sets[i].time! < bestTime) { bestTime = sets[i].time! }
         }
         
-        return "\(bestTime) mins"
+        if bestTime != 100000 {
+            let splitTime = secondsToHoursMinutesSeconds(seconds: bestTime)
+            return splitTime
+        
+        } else { return (0,0,0 ) }
+        
+    }
+    
+    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+      return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
     
     //functionality when row is clicked - MODAL?

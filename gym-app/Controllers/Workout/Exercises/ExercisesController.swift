@@ -20,7 +20,6 @@ struct exListJson: Decodable {
 class ExercisesController: UIViewController {
     
     
-    
     //MARK: Outlets
     
     @IBOutlet weak var table: UITableView!
@@ -29,8 +28,6 @@ class ExercisesController: UIViewController {
     
     
     //MARK: Attributes
-    
-    
     
     //stores all exercises from JSON file
     var exList = [exListJson]()
@@ -111,7 +108,6 @@ class ExercisesController: UIViewController {
     }
     
     
-    
     //MARK: Segment Control Tapped
     @IBAction func exSegControlTapped(_ sender: Any) {
         
@@ -129,11 +125,6 @@ class ExercisesController: UIViewController {
     
     
     
-    
-    
-    
-    
-    
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,7 +137,6 @@ class ExercisesController: UIViewController {
         table.dataSource = self
         
         if exSegControl.selectedSegmentIndex == 0 {
-            table.rowHeight = 80
             table.register(UINib(nibName: "ExercisesTableCell", bundle: nil), forCellReuseIdentifier: "ExercisesTableCell")
         } else {
             print("Routines table")
@@ -181,6 +171,10 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80.0
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
         //didSelectRow for Exercises
@@ -196,13 +190,13 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource {
             //If box ticked, add exercise to selectedExList
             if cell.checked {
                 selectedExList.append(exercise)
-                //print("Added: ", exercise)
+                
             } else {
                 //check if exercise in selectedExList, remove
                 if selectedExList.contains(where: {$0.name == exercise.name}) {
                     let getIndex = selectedExList.firstIndex(where: {$0.name == exercise.name})
                     selectedExList.remove(at: getIndex!)
-                    //print("Removed: ", exercise)
+                    
                 }
             }
         } else {

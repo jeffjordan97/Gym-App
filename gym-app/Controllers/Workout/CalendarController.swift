@@ -90,7 +90,7 @@ class CalendarController: UIViewController{
         //show Workout Info for today's date
         if allWorkoutSessions.count > 0 {
             
-            let workoutSessionsForToday = allWorkoutSessions.filter({ getFormattedDate($0.date!) == getFormattedDate(Date()) })
+            let workoutSessionsForToday = allWorkoutSessions.filter({ Helper.getFormattedDate($0.date!) == Helper.getFormattedDate(Date()) })
             
             
             if workoutSessionsForToday.count > 0 {
@@ -182,7 +182,7 @@ extension CalendarController: FSCalendarDataSource, FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         
         var workoutsOnDate = 0
-        let thisDateWorkout = allWorkoutSessions.filter({ getFormattedDate($0.date!) == getFormattedDate(date) })
+        let thisDateWorkout = allWorkoutSessions.filter({ Helper.getFormattedDate($0.date!) == Helper.getFormattedDate(date) })
         
         //prevents the number of events exceeding 3 dots
         if thisDateWorkout.count < 4 {
@@ -204,7 +204,7 @@ extension CalendarController: FSCalendarDataSource, FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print(date)
         
-        let workoutSessionsForDate = allWorkoutSessions.filter( {getFormattedDate($0.date!)  == getFormattedDate(date)} )
+        let workoutSessionsForDate = allWorkoutSessions.filter( { Helper.getFormattedDate($0.date!)  == Helper.getFormattedDate(date)} )
         
         //removes all subviews of displayWorkoutView
         for view in displayWorkoutView.subviews {
@@ -309,7 +309,7 @@ extension CalendarController {
         dateLabel.textAlignment = .left
         dateLabel.font = UIFont(name: "HelveticaNeue-Light", size: 16.0)
         dateLabel.textColor = .lightGray
-        dateLabel.text = getFormattedDate(workoutSession.date!)
+        dateLabel.text = Helper.getFormattedDate(workoutSession.date!)
         workoutView.addSubview(dateLabel)
         
         
@@ -332,9 +332,10 @@ extension CalendarController {
         //Duration Label
         let durationLabel = UILabel(frame: CGRect(x: 270, y: 60, width: 120, height: 20))
         durationLabel.textAlignment = .left
-        durationLabel.font = UIFont(name: "HelveticaNeue", size: 16.0)
-        durationLabel.textColor = .lightGray
-        durationLabel.text = "\(workoutSession.duration!) mins"
+        durationLabel.font = UIFont(name: "HelveticaNeue", size: 18.0)
+        durationLabel.textColor = .black
+        let formattedDuration = Helper.secondsToHoursMinutesSeconds(seconds: workoutSession.duration!)
+        durationLabel.text = Helper.displayZeroInTime(formattedDuration)
         workoutView.addSubview(durationLabel)
         
         
@@ -366,8 +367,8 @@ extension CalendarController {
         
         //Bottom border to separate workouts
         let bottomBorder = UIView(frame: CGRect(x: 0, y: workoutView.frame.height - 2.0, width: workoutView.frame.width, height: 2.0))
-        bottomBorder.backgroundColor = .black
-        workoutView.addSubview(bottomBorder)
+        bottomBorder.backgroundColor = .opaqueSeparator
+        //workoutView.addSubview(bottomBorder)
         
         return workoutView
     }
@@ -477,7 +478,8 @@ extension CalendarController {
         setTimeLabel.font = UIFont(name: "HelveticaNeue", size: 16.0)
         setTimeLabel.textColor = .black
         setTimeLabel.textAlignment = .left
-        setTimeLabel.text = "\(set.set!)              \(set.time!) mins"
+        let formattedTime = Helper.secondsToHoursMinutesSeconds(seconds: set.time!)
+        setTimeLabel.text = "\(set.set!)              "+Helper.displayZeroInTime(formattedTime)
         
         setView.addSubview(setTimeLabel)
         
@@ -500,28 +502,6 @@ extension CalendarController {
         setView.addSubview(setRepsLabel)
         
         return setView
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //returns today's date in the format: Month Day, Year
-    func getFormattedDate(_ thisDate: Date) -> String {
-        
-        //gets the date String of the date object
-        let format = DateFormatter()
-        format.dateStyle = .medium
-        
-        //gets the date String from the date object
-        let dateString = format.string(from: thisDate)
-        
-        return dateString
     }
     
     
