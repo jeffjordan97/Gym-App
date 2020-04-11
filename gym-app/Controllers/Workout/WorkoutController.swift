@@ -25,6 +25,16 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
     var allWorkoutSessions = [WorkoutSession]()
     
     
+    //implements protocol to get data from AddWorkout
+    func pass(thisWorkout: WorkoutSession) {
+        self.allWorkoutSessions.append(thisWorkout)
+        self.allWorkoutSessions = self.allWorkoutSessions.sorted(by: { $0.date! < $1.date! }).reversed()
+        self.noWorkoutsView.isHidden = true
+        self.workoutsTable.isHidden = false
+        self.workoutsTable.reloadData()
+    }
+    
+    
     //function to pass info to AddWorkoutController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toAddWorkout"){
@@ -50,15 +60,6 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
     }
     
     
-    //implements protocol to get data from AddWorkout
-    func pass(thisWorkout: WorkoutSession) {
-        self.allWorkoutSessions.append(thisWorkout)
-        self.allWorkoutSessions = self.allWorkoutSessions.sorted(by: { $0.date! < $1.date! }).reversed()
-        self.noWorkoutsView.isHidden = true
-        self.workoutsTable.isHidden = false
-        self.workoutsTable.reloadData()
-    }
-    
     //retrieves previously recorded workouts from core data and adds to addWorkoutSessions
     func retrieveCoreData(){
         
@@ -69,6 +70,8 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
         fetchRequest.returnsObjectsAsFaults = false
         do {
             let fetchedResults = try managedContext.fetch(fetchRequest)
+            
+            allWorkoutSessions.removeAll()
             
             for result in fetchedResults as! [NSManagedObject] {
 
@@ -144,6 +147,27 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
     }
     
     
+    override func viewDidAppear(_ animated: Bool) {
+        print("Workout")
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, animations: {
+            self.view.alpha = 1
+        })
+        
+        let lastView = self.view.superview?.subviews.last
+        
+        for thisView in self.view.superview!.subviews {
+            
+            if thisView != lastView {
+                thisView.alpha = 0
+            }
+        }
+        
+        retrieveCoreData()
+        workoutsTable.reloadData()
+    }
+    
+    
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,13 +175,14 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
         
         print("Workout Loaded")
         
+        self.view.alpha = 0
         
         workoutsTable.delegate = self
         workoutsTable.register(UITableViewCell.self, forCellReuseIdentifier: "WorkoutTableInfoCell")
         
         
         //LOAD CORE DATA
-        retrieveCoreData()
+        //retrieveCoreData()
         
         
         //changes settingsButton image when button is clicked/highlighted
@@ -254,9 +279,9 @@ extension WorkoutController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if minReps == maxReps {
-            return "\(minReps)"
+            return "\(minReps)kg"
         } else {
-            return "\(minReps) - \(maxReps)"
+            return "\(minReps)kg - \(maxReps)kg"
         }
         
     }

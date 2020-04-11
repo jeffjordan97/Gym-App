@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18G103" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ProgressList" representedClassName="ProgressList" syncable="YES" codeGenerationType="class">
+        <attribute name="goalProgress" optional="YES" attributeType="Transformable" customClassName="GoalProgress"/>
+    </entity>
     <entity name="WorkoutList" representedClassName="WorkoutList" syncable="YES" codeGenerationType="class">
         <attribute name="workoutSession" optional="YES" attributeType="Transformable" customClassName="WorkoutSession"/>
     </entity>
     <elements>
         <element name="WorkoutList" positionX="-63" positionY="-18" width="128" height="58"/>
+        <element name="ProgressList" positionX="-63" positionY="-9" width="128" height="58"/>
     </elements>
 </model>

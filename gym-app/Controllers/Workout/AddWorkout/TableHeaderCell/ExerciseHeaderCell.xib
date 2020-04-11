@@ -29,24 +29,34 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qll-O7-BC2">
-                        <rect key="frame" x="20" y="10" width="301" height="20"/>
+                        <rect key="frame" x="26" y="10" width="301" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXs-t9-gUj">
-                        <rect key="frame" x="20" y="29" width="301" height="21"/>
+                        <rect key="frame" x="26" y="29" width="301" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pza-N9-tMC">
+                        <rect key="frame" x="3" y="3" width="15" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <state key="normal" image="icons8-close-window-100"/>
+                        <connections>
+                            <action selector="deleteSection:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="A0d-rT-257"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="deleteButton" destination="Pza-N9-tMC" id="noM-kS-FVc"/>
                 <outlet property="setButton" destination="ZUT-0r-Dwe" id="SkS-ZE-TaW"/>
                 <outlet property="titleLabel" destination="qll-O7-BC2" id="LvZ-P2-Bwi"/>
                 <outlet property="typeLabel" destination="tXs-t9-gUj" id="zff-5P-TK1"/>
@@ -54,4 +64,7 @@
             <point key="canvasLocation" x="140.57971014492756" y="124.55357142857142"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icons8-close-window-100" width="100" height="100"/>
+    </resources>
 </document>

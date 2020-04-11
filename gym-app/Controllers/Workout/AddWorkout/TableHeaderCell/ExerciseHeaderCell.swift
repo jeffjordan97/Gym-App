@@ -8,17 +8,22 @@
 
 import UIKit
 
+protocol HeaderButtonDeletePressDelegate {
+    func didPressDelete(_ section: Int)
+}
+
 class ExerciseHeaderCell: UITableViewHeaderFooterView {
 
     var tableSection: Int = 0
     var rowsInSection: Int = 0
     var table: UITableView = UITableView()
     var selectedExercises = [SelectedExercises]()
-    
+    var delegate: HeaderButtonDeletePressDelegate?
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var setButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
     
     
     func setTitle(_ title: String){
@@ -42,7 +47,6 @@ class ExerciseHeaderCell: UITableViewHeaderFooterView {
     }
     
     
-    
     @IBAction func addSetButton(_ sender: Any) {
         //self.titleLabel.text = "clicked"
         
@@ -55,7 +59,9 @@ class ExerciseHeaderCell: UITableViewHeaderFooterView {
     }
     
     
-    
+    @IBAction func deleteSection(_ sender: Any) {
+        delegate?.didPressDelete(tableSection)
+    }
     
     
     override func awakeFromNib() {

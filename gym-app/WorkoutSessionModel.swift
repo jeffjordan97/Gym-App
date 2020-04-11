@@ -9,9 +9,6 @@
 import Foundation
 
 
-//possibly add timeOfDay to WorkoutSession
-
-
 //Object Structure used to store a Workout
 public class WorkoutSession: NSObject, NSCoding{
     

@@ -12,14 +12,9 @@ import CoreData
 import FSCalendar
 
 
-class CalendarController: UIViewController{
-    
+class CalendarController: UIViewController {
     
     //MARK: Outlets
-    
-    
-    
-    
     
     //MARK: Attributes
     var allWorkoutSessions = [WorkoutSession]()

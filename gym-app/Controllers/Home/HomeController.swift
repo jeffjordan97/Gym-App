@@ -8,11 +8,13 @@
 
 import Foundation
 import UIKit
+import SOTabBar
 import CoreData
 import DropDown
 
 
 class HomeController: UIViewController, isAbleToReceiveData {
+    
     
     //MARK: Outlets
     @IBOutlet weak var workoutSummaryView: UIView!
@@ -26,13 +28,19 @@ class HomeController: UIViewController, isAbleToReceiveData {
     var totalTimeThisWeek:Int = 0
     let workoutsHeadingNumberLabel = UILabel(frame: CGRect(x: 100, y: 50, width: 35, height: 40))
     let timeHeadingNumberLabel = UILabel(frame: CGRect(x: 100, y: 45, width: 100, height: 40))
+    let noWorkoutsThisWeek = UIView(frame: CGRect(x: 10, y: 130, width: 394, height: 130))
+    var totalWorkoutsThisWeek:Int = 0
     
     
     //delegate function to receive added workouts from AddWorkoutVC
     func pass(thisWorkout: WorkoutSession) {
-        self.allWorkoutSessions.append(thisWorkout)
-        self.allWorkoutSessions = self.allWorkoutSessions.sorted(by: { $0.date! < $1.date! }).reversed()
-        //workoutSummaryTable.reloadData()
+        self.workoutSessionsThisWeek.append(thisWorkout)
+        self.workoutSessionsThisWeek = self.workoutSessionsThisWeek.sorted(by: { $0.date! < $1.date! }).reversed()
+        totalWorkoutsThisWeek = totalWorkoutsThisWeek + 1
+        workoutsHeadingNumberLabel.text = "\(totalWorkoutsThisWeek)"
+        totalTimeThisWeek = totalTimeThisWeek + thisWorkout.duration!
+        timeHeadingNumberLabel.text = Helper.displayZeroInTime(Helper.secondsToHoursMinutesSeconds(seconds: totalTimeThisWeek))
+        workoutSummaryTable.reloadData()
     }
     
     
@@ -42,6 +50,7 @@ class HomeController: UIViewController, isAbleToReceiveData {
             let addWorkoutVC = segue.destination as! AddWorkoutController
             print("toAddWorkout Segue...")
             addWorkoutVC.isModalInPresentation = true
+            addWorkoutVC.delegate = self
         }
     }
     
@@ -56,6 +65,12 @@ class HomeController: UIViewController, isAbleToReceiveData {
         fetchRequest.returnsObjectsAsFaults = false
         do {
             let fetchedResults = try managedContext.fetch(fetchRequest)
+            
+            //resets values
+            allWorkoutSessions.removeAll()
+            totalTimeThisWeek = 0
+            totalWorkoutsThisWeek = 0
+            workoutSessionsThisWeek.removeAll()
             
             for result in fetchedResults as! [NSManagedObject] {
 
@@ -88,19 +103,17 @@ class HomeController: UIViewController, isAbleToReceiveData {
     
     //MARK: Workouts This Week
     //gets a list of the previous 7 days and checks how many of the dates are in allWorkoutSessions
-    func workoutsThisWeek() -> Int {
-        var totalWorkoutsThisWeek:Int = 0
+    func workoutsThisWeek() {
         
         if self.allWorkoutSessions.count > 0 {
             
             let cal = NSCalendar.current
             var date = cal.startOfDay(for: Date())
-            
-            var arrDates = [String]()
-            
-            for _ in 1...7 {
+            var lastSevenDates = [String]()
+            lastSevenDates.append(Helper.getFormattedDate(Date()))
+            for _ in 0...5 {
                 date = cal.date(byAdding: Calendar.Component.day,value: -1, to: date)!
-                arrDates.append(Helper.getFormattedDate(date))
+                lastSevenDates.append(Helper.getFormattedDate(date))
             }
             
             //loops through each workout and checks date, if the date is in the array of dates for the last 7 days
@@ -108,19 +121,16 @@ class HomeController: UIViewController, isAbleToReceiveData {
                 
                 let workoutDate = Helper.getFormattedDate(workout.date!)
                 
-                if arrDates.contains(workoutDate){
+                if lastSevenDates.contains(workoutDate){
                     workoutSessionsThisWeek.append(workout)
                     totalWorkoutsThisWeek = totalWorkoutsThisWeek + 1
                     totalTimeThisWeek = totalTimeThisWeek + workout.duration!
+                    
                 } else { break }
                 
             }
-            print("TotalWorkoutsThisWeek = \(totalWorkoutsThisWeek)")
-            
             
         }
-        
-        return totalWorkoutsThisWeek
     }
     
     
@@ -146,7 +156,7 @@ class HomeController: UIViewController, isAbleToReceiveData {
         workoutsHeadingView.addSubview(workoutsHeadingLabel)
         
         
-        workoutsHeadingNumberLabel.text = "\(workoutsThisWeek())"
+        workoutsHeadingNumberLabel.text = "\(totalWorkoutsThisWeek)"
         workoutsHeadingNumberLabel.font = UIFont(name: "HelveticaNeue", size: 30.0)
         workoutsHeadingView.addSubview(workoutsHeadingNumberLabel)
         
@@ -164,6 +174,7 @@ class HomeController: UIViewController, isAbleToReceiveData {
         
         return workoutsHeadingView
     }
+    
     
     func timeHeadingView() -> UIView {
         let timeHeadingView = UIView(frame: CGRect(x: (workoutSummaryView.frame.width/2) - 2, y: 0, width: workoutSummaryView.frame.width/2 + 4.0, height: 120))
@@ -197,15 +208,86 @@ class HomeController: UIViewController, isAbleToReceiveData {
     }
     
     
+    func noWorkoutsThisWeekView() {
+        
+        noWorkoutsThisWeek.backgroundColor = .white
+        noWorkoutsThisWeek.layer.borderWidth = 2
+        noWorkoutsThisWeek.layer.borderColor = UIColor.opaqueSeparator.cgColor
+        noWorkoutsThisWeek.layer.cornerRadius = 10
+        
+        let noWorkoutsLabel = UILabel(frame: CGRect(x: 0, y: 45, width: 414, height: 30))
+        noWorkoutsLabel.textAlignment = .center
+        noWorkoutsLabel.text = "No Workouts This Week 😢"
+        noWorkoutsLabel.font = UIFont(name: "HelveticaNeue-Light", size: 20.0)
+       
+        noWorkoutsThisWeek.addSubview(noWorkoutsLabel)
+        
+    }
     
     
     
     
+    //MARK: Progress
+    
+    
+    
+    
+    func totalPointsForTime() {
+        
+    }
+    
+    
+    
+    //MARK: viewDidAppear
     override func viewDidAppear(_ animated: Bool) {
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, animations: {
+            self.view.alpha = 1
+        })
+        
+        let lastView = self.view.superview?.subviews.last
+        
+        for thisView in self.view.superview!.subviews {
+            
+            if thisView != lastView {
+                thisView.alpha = 0
+            }
+        }
+        
        
         workoutSummaryView.addSubview(workoutsHeadingView())
         
         workoutSummaryView.addSubview(timeHeadingView())
+        
+        noWorkoutsThisWeekView()
+        workoutSummaryView.addSubview(noWorkoutsThisWeek)
+        
+        
+        //add progress views here
+        
+        
+        //pass in goal 
+        //Helper.getProgressForWeights()
+        
+    }
+    
+    //MARK: viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        print("Home")
+        
+        
+        retrieveCoreData()
+        workoutsThisWeek()
+        
+        if workoutSessionsThisWeek.isEmpty {
+            noWorkoutsThisWeek.isHidden = false
+            workoutSummaryTable.isHidden = true
+        } else {
+            noWorkoutsThisWeek.isHidden = true
+            workoutSummaryTable.isHidden = false
+            workoutSummaryTable.reloadData()
+        }
+        
     }
     
     
@@ -216,16 +298,28 @@ class HomeController: UIViewController, isAbleToReceiveData {
         
         print("Home Loaded")
         
-        retrieveCoreData()
+        
+        self.view.alpha = 0
+        
+        //retrieveCoreData()
+        //workoutsThisWeek()
         
         workoutSummaryTable.dataSource = self
         workoutSummaryTable.delegate = self
+        
+        
+        if totalWorkoutsThisWeek == 0 {
+            workoutSummaryTable.isHidden = true
+        } else {
+            workoutSummaryTable.isHidden = false
+        }
         
         //changes settingsButton image when button is clicked/highlighted
         settingsButton.setImage(UIImage(named: "icons8-settings-dark"), for: .highlighted)
         
         
     }
+    
 }
 
 //MARK: Table View
@@ -233,10 +327,7 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-         
-        
-        return workoutsThisWeek()
+        return totalWorkoutsThisWeek
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

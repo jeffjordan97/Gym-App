@@ -12,6 +12,7 @@
 		1F072778243B66CD001607D3 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F072776243B66CD001607D3 /* HomeTableViewCell.swift */; };
 		1F072779243B66CD001607D3 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F072777243B66CD001607D3 /* HomeTableViewCell.xib */; };
 		1F07277B243BAA5D001607D3 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F07277A243BAA5D001607D3 /* HelperFunctions.swift */; };
+		1F07277D243CA9BA001607D3 /* GoalProgressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F07277C243CA9BA001607D3 /* GoalProgressModel.swift */; };
 		1F10FEA524267C9E0089F5C3 /* ExerciseHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F10FEA324267C9E0089F5C3 /* ExerciseHeaderCell.swift */; };
 		1F10FEA624267C9E0089F5C3 /* ExerciseHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F10FEA424267C9E0089F5C3 /* ExerciseHeaderCell.xib */; };
 		1FA9B5D72423B2D500182CBE /* testJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FA9B5D62423B2D500182CBE /* testJSON.json */; };
@@ -60,6 +61,7 @@
 		1F072776243B66CD001607D3 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		1F072777243B66CD001607D3 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		1F07277A243BAA5D001607D3 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
+		1F07277C243CA9BA001607D3 /* GoalProgressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressModel.swift; sourceTree = "<group>"; };
 		1F10FEA324267C9E0089F5C3 /* ExerciseHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseHeaderCell.swift; sourceTree = "<group>"; };
 		1F10FEA424267C9E0089F5C3 /* ExerciseHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExerciseHeaderCell.xib; sourceTree = "<group>"; };
 		1FA9B5D62423B2D500182CBE /* testJSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = testJSON.json; path = "../../../Dropbox/Uni Work/Year 3/Comp39X/3. Software Demo/testJSON.json"; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				90E1D21C240D3B0400F229F1 /* Info.plist */,
 				90E1D214240D3B0300F229F1 /* gym_app.xcdatamodeld */,
 				1F0727712436C10B001607D3 /* WorkoutSessionModel.swift */,
+				1F07277C243CA9BA001607D3 /* GoalProgressModel.swift */,
 				1F07277A243BAA5D001607D3 /* HelperFunctions.swift */,
 			);
 			path = "gym-app";
@@ -473,6 +476,7 @@
 				90620C39241189B900A98138 /* AddWorkoutController.swift in Sources */,
 				1F10FEA524267C9E0089F5C3 /* ExerciseHeaderCell.swift in Sources */,
 				1FAB97682434E43F000F6399 /* WorkoutTableHeaderCell.swift in Sources */,
+				1F07277D243CA9BA001607D3 /* GoalProgressModel.swift in Sources */,
 				1F0727742437E2AE001607D3 /* CalendarController.swift in Sources */,
 				1F072778243B66CD001607D3 /* HomeTableViewCell.swift in Sources */,
 				9020E58D241A6EBF00503674 /* AddGoalController.swift in Sources */,

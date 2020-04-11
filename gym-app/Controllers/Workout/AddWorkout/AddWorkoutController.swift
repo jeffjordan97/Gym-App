@@ -36,7 +36,6 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     
     
-    
     //MARK: Attributes
     
     var durationPicker = UIPickerView()
@@ -53,13 +52,13 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     //Stores all selectedExercises from ExercisesController, used in TableView
     var selectedExercises = [SelectedExercises]()
     var activeTextField = UITextField()
+    var selectedExercisesSections = [Int]()
     
     var finishClicked = false
     
     var delegate: isAbleToReceiveData?
     var workoutToPass: WorkoutSession?
     var canPassData = false
-    
     
     
     //generates numbers 0 to 59 to add to pickerview for duration
@@ -75,7 +74,6 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
     //To show dropdown for user to select workout type
     @IBAction func woTypeButton(_ sender: Any) {
         
-        woTypeLabel.isHidden = true
         
         let typeDropDown = DropDown()
         
@@ -91,7 +89,6 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
             
             //checks if item has been selected from dropDown, as user may click off before selecting
             if item != "" {
-                self.woTypeLabel.isHidden = false
                 self.woTypeLabel.text = item
                 self.typeInput = item
                 self.woTypeLabel.textColor = .black
@@ -282,6 +279,7 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
             
             delegate?.pass(thisWorkout: workoutToPass!)
             
+            
             //ADD TO CORE DATA
             createCoreData(workoutToPass!)
             
@@ -296,7 +294,6 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         
         print("AddWorkout Loaded")
-        
         
         minsSecondsPickListGenerate()
         durationPicker.delegate = self
@@ -315,10 +312,11 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         }
         
         editTable.delegate = self
+        editTable.dataSource = self
         editTable.rowHeight = 60
         
         
-        
+        editTable.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "ExerciseHeaderCell")
         editTable.register(UITableViewCell.self, forCellReuseIdentifier: "BelowExerciseHeaderCell")
         editTable.register(UITableViewCell.self, forCellReuseIdentifier: "AddExInfoTableCell")
         //editTable.register(UINib(nibName: "AddExInfoTableCell", bundle: nil), forCellReuseIdentifier: "AddExInfoTableCell")
@@ -327,12 +325,9 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
         
         registerNotifications()
         
-        
     }
     
-    
 }
-
 
 
 //MARK: Duration Picker
@@ -397,7 +392,6 @@ extension AddWorkoutController: UIPickerViewDelegate, UIPickerViewDataSource {
         
         activeTextField.text = Helper.displayZeroInTime(pickerTimePicked)
 
-        
     }
     
     
@@ -425,24 +419,111 @@ extension AddWorkoutController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 
 //MARK: Exercise Table
-extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
+extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource, HeaderButtonDeletePressDelegate {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return selectedExercises.count
+    
+    func didPressDelete(_ section: Int) {
+        //print("Section: \(section)")
+        
+        //print("Delete pressed: \(selectedExercisesSections)")
+        
+        let newSectionIndex = selectedExercisesSections.firstIndex(where: { $0 == section })
+        //print("Index: \(newSectionIndex ?? 0)")
+        selectedExercisesSections.remove(at: newSectionIndex ?? 0)
+        
+        
+        //print("Section Removed: \(newSectionIndex ?? 0)")
+        //print("Updated: \(selectedExercisesSections)")
+        
+        if newSectionIndex != nil {
+            selectedExercises.remove(at: newSectionIndex!)
+            
+            let indexSet = IndexSet(integer: newSectionIndex!)
+            editTable.deleteSections(indexSet, with: .fade)
+        } else {
+            selectedExercises.removeFirst()
+            selectedExercisesSections.removeFirst()
+            editTable.deleteSections(IndexSet(integer: 0), with: .fade)
+        }
+        
+        
+        if selectedExercises.count == 0 {
+            editTable.isHidden = true
+        }
+        
     }
     
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (selectedExercises[section].exerciseSets?.count ?? 0) + 1
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let exHeaderCell = Bundle.main.loadNibNamed("ExerciseHeaderCell", owner: self, options: nil)?.first as! ExerciseHeaderCell
+        exHeaderCell.delegate = self
+        
+        //print("Sections: \(selectedExercisesSections)")
+        if !selectedExercisesSections.contains(section) {
+            //inserts the section number to selectedExerciseSections at the index of value section
+            if selectedExercisesSections.count > section {
+                selectedExercisesSections.insert(section, at: section)
+            } else {
+                selectedExercisesSections.append(section)
+            }
+            
+        } else if selectedExercisesSections.last == section {
+            selectedExercisesSections.append(section)
+        }
+        
+        exHeaderCell.deleteButton.setImage(UIImage(named: "icons8-close-window-100-dark"), for: .highlighted)
+        exHeaderCell.deleteButton.setImage(UIImage(named: "icons8-close-window-100-dark"), for: .selected)
+        exHeaderCell.setTitle(selectedExercises[section].exerciseName!)
+        exHeaderCell.setType(selectedExercises[section].exerciseType!)
+        exHeaderCell.getSelectedExercises(selectedExercises)
+        
+        exHeaderCell.getTable(editTable, section: section, rowsInSection: editTable.numberOfRows(inSection: section))
+        
+        return exHeaderCell
     }
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60.0
     }
     
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (self.selectedExercises[section].exerciseSets?.count ?? 0) + 1
+    }
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.selectedExercises.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row > 1 {
+            return true
+        } else { return false }
+    }
+    
+    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//
+//        //avoids editing BelowHeaderCell
+//        if indexPath.row > 0 {
+//            if editingStyle == UITableViewCell.EditingStyle.delete {
+//                print("delete row at: \(indexPath)")
+//
+//                //need to update indexPaths stored for selected exercise sets
+//            }
+//        }
+//
+//    }
+    
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let thisExercise = selectedExercises[indexPath.section]
+        let thisExercise = self.selectedExercises[indexPath.section]
         
         //cell to display row headings -> Set Reps/Weight/Time
         if indexPath.row == 0  {
@@ -541,20 +622,6 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let exHeaderCell = Bundle.main.loadNibNamed("ExerciseHeaderCell", owner: self, options: nil)?.first as! ExerciseHeaderCell
-        
-        exHeaderCell.setButton.setTitleColor(.gray, for: .highlighted)
-        exHeaderCell.setTitle(selectedExercises[section].exerciseName!)
-        exHeaderCell.setType(selectedExercises[section].exerciseType!)
-        exHeaderCell.getTable(editTable, section: section, rowsInSection: editTable.numberOfRows(inSection: section))
-        
-        exHeaderCell.getSelectedExercises(selectedExercises)
-        
-        return exHeaderCell
-    }
-    
     //prevents colour change of cell when clicked
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.contentView.backgroundColor = .white
@@ -563,11 +630,6 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.contentView.backgroundColor = .white
-    }
-    
-    //checks whether a string can be converted to an Int
-    func isStringAnInt(string: String) -> Bool {
-        return Int(string) != nil
     }
     
     
@@ -585,7 +647,8 @@ extension AddWorkoutController {
             textField.inputView = durationPicker
             textField.inputAccessoryView = pickerViewToolBarStyles()
         default:
-            print("activeTextField: \(activeTextField.tag)")
+            print("")
+            //print("activeTextField: \(activeTextField.tag)")
         }
         
         return true
@@ -608,7 +671,7 @@ extension AddWorkoutController {
             let pointInTable = activeTextField.convert(activeTextField.bounds.origin, to: self.editTable)
             let textFieldIndexPath = self.editTable.indexPathForRow(at: pointInTable)
             
-            if isStringAnInt(string: activeTextField.text!) {
+            if Helper.isStringAnInt(string: activeTextField.text!) {
                 let textToInt = Int(activeTextField.text!)
                 selectedExercises[textFieldIndexPath!.section].exerciseSets?[textFieldIndexPath!.row - 1].reps = textToInt!
                 //print("Added Reps")
@@ -620,7 +683,7 @@ extension AddWorkoutController {
             let pointInTable = activeTextField.convert(activeTextField.bounds.origin, to: self.editTable)
             let textFieldIndexPath = self.editTable.indexPathForRow(at: pointInTable)
             
-            if isStringAnInt(string: activeTextField.text!) {
+            if Helper.isStringAnInt(string: activeTextField.text!) {
                 let textToInt = Int(activeTextField.text!)
                 selectedExercises[textFieldIndexPath!.section].exerciseSets?[textFieldIndexPath!.row - 1].weight = textToInt!
                 //print("Added weight")

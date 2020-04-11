@@ -20,7 +20,22 @@ class CommunityController: UIViewController {
     
     
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, animations: {
+            self.view.alpha = 1
+        })
+        
+        let lastView = self.view.superview?.subviews.last
+        
+        for thisView in self.view.superview!.subviews {
+            
+            if thisView != lastView {
+                thisView.alpha = 0
+            }
+        }
+        
+    }
     
     
     //MARK: viewDidLoad
@@ -29,6 +44,8 @@ class CommunityController: UIViewController {
         // Do any additional setup after loading the view.
         
         print("Community Loaded")
+        
+        self.view.alpha = 0
         
     }
 }
