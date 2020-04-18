@@ -9,5 +9,7 @@ target 'gym-app' do
   pod 'SOTabBar'
   pod 'FSCalendar'
   pod 'MaterialComponents/Buttons'
+  pod 'KDCircularProgress'
+
 
 end

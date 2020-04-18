@@ -25,12 +25,14 @@ class ExercisesController: UIViewController {
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var exSegControl: UISegmentedControl!
     @IBOutlet weak var warningLabel: UILabel!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     
     //MARK: Attributes
     
     //stores all exercises from JSON file
     var exList = [exListJson]()
+    var searchedExList = [exListJson]()
     
     var selectedExList = [exListJson]()
     
@@ -63,6 +65,8 @@ class ExercisesController: UIViewController {
                 //print(addEx)
                 
             }
+            
+            searchedExList = exList
             
         } catch {
             print("Error getting JSON: ", error)
@@ -135,34 +139,82 @@ class ExercisesController: UIViewController {
         getJSON()
         
         table.dataSource = self
+        searchBar.delegate = self
         
         if exSegControl.selectedSegmentIndex == 0 {
             table.register(UINib(nibName: "ExercisesTableCell", bundle: nil), forCellReuseIdentifier: "ExercisesTableCell")
         } else {
             print("Routines table")
         }
+
+        hideKeyboardWhenTappedAround()
         
     }
 }
 
 
-
-
-
-//MARK: Table View
-extension ExercisesController: UITableViewDelegate, UITableViewDataSource {
+//MARK: Table View/Search Bar
+extension ExercisesController: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        //if no text in search bar, resets searchedExList to exList
+        guard !searchText.isEmpty else {
+            searchedExList = exList
+            table.reloadData()
+            return
+        }
+        
+        //sets the searchedExList = exList that is filtered according to searched text
+        searchedExList = exList.filter({ exercise -> Bool in
+            guard let text = searchBar.text else {return false}
+            return (exercise.name?.lowercased().contains(text.lowercased()))!
+        })
+        table.reloadData()
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        switch selectedScope {
+        case 0:     //All
+            searchedExList = exList
+        case 1:     //Weights
+            searchedExList = exList.filter({ $0.info == "Weights" })
+        case 2:     //Cardio
+            searchedExList = exList.filter({ $0.info == "Cardio" })
+        case 3:     //Bodyweight
+            searchedExList = exList.filter({ $0.info == "Bodyweight" })
+        default:
+            break
+        }
+        table.reloadData()
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exList.count
+        return searchedExList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let exercise = exList[indexPath.row]
+        let exercise = searchedExList[indexPath.row]
         let cell = table.dequeueReusableCell(withIdentifier: "ExercisesTableCell", for: indexPath) as! ExercisesTableCell
         
         cell.setLabels(exercise.name!, exercise.type!, exercise.info!)
         cell.setImage(exercise.image!)
+        
+        cell.checked = false
+        
+        //manages when cells are reloaded
+        //if the selectedExList contains the current exercise, tick the box, else untick the box
+        if selectedExList.contains(where: { $0.name == exercise.name }) {
+            cell.boxTicked()
+        } else {
+            cell.checked = true
+            cell.boxTicked()
+        }
+        
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = #colorLiteral(red: 0.734172568, green: 0.997696025, blue: 1, alpha: 1)
@@ -179,9 +231,7 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource {
         
         //didSelectRow for Exercises
         if exSegControl.selectedSegmentIndex == 0 {
-            let exercise = exList[indexPath.row]
-            
-            //print(exercise.name)
+            let exercise = searchedExList[indexPath.row]
             
             let cell = table.cellForRow(at: indexPath) as! ExercisesTableCell
             
@@ -196,7 +246,6 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource {
                 if selectedExList.contains(where: {$0.name == exercise.name}) {
                     let getIndex = selectedExList.firstIndex(where: {$0.name == exercise.name})
                     selectedExList.remove(at: getIndex!)
-                    
                 }
             }
         } else {

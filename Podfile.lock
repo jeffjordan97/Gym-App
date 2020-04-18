@@ -1,6 +1,7 @@
 PODS:
   - DropDown (2.3.13)
   - FSCalendar (2.8.1)
+  - KDCircularProgress (1.5.4)
   - MaterialComponents/AnimationTiming (107.4.0)
   - MaterialComponents/Availability (107.4.0)
   - MaterialComponents/Buttons (107.4.0):
@@ -48,6 +49,7 @@ PODS:
 DEPENDENCIES:
   - DropDown
   - FSCalendar
+  - KDCircularProgress
   - MaterialComponents/Buttons
   - SOTabBar
 
@@ -55,6 +57,7 @@ SPEC REPOS:
   trunk:
     - DropDown
     - FSCalendar
+    - KDCircularProgress
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
@@ -63,11 +66,12 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
+  KDCircularProgress: 98200c6b8e85d22bc04eb644721d3b1e12b0686b
   MaterialComponents: 52e2ade4684e3017eff7f62587b37522d217ea50
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   SOTabBar: 27aea95bd6b39d1be3535c867a2cd3b5adc172e6
 
-PODFILE CHECKSUM: c856040fd8c3fb2befc01a3a1a869ced4a1cc622
+PODFILE CHECKSUM: 6206c83343d74d5ec58655aca9b90e9bdd7ff81d
 
 COCOAPODS: 1.9.1

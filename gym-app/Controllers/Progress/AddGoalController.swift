@@ -19,6 +19,7 @@ protocol passBackToProgress: class {
 class AddGoalController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     //MARK: Outlets
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var goalTypeView: UIView!
     @IBOutlet weak var goalTypeLabel: UILabel!
@@ -124,7 +125,6 @@ class AddGoalController: UIViewController, UITextFieldDelegate, UITextViewDelega
     @objc private func doneButtonTapped(){
         self.activeTextField.resignFirstResponder()
     }
-    
     
     //assigns activeTextField to the textField that began editing, so keyboard can be closed on doneButtonTapped()
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -264,7 +264,7 @@ class AddGoalController: UIViewController, UITextFieldDelegate, UITextViewDelega
     }
     
     //validate current weight and goal weight text fields  (if type is 'Build Muscle' or 'Lose Weight')
-    func validateWeight() -> Bool {
+    func validateWeight(goalType: String) -> Bool {
         var canReturnCurrent = true
         var canReturnGoal = true
         
@@ -283,6 +283,30 @@ class AddGoalController: UIViewController, UITextFieldDelegate, UITextViewDelega
         if !canReturnCurrent && !canReturnGoal {
             customTypeWarningLabel.text = "* Invalid Current Weight * Invalid Goal Weight *"
         }
+        
+        //checks whether the
+        if Helper.isStringAnInt(string: currentWeightTextField.text!) && Helper.isStringAnInt(string: goalWeightTextField.text!) {
+            let currentWeightAsInt = Int(currentWeightTextField.text!)!
+            let goalWeightAsInt = Int(goalWeightTextField.text!)!
+            
+            if goalType == "Build Muscle" {     //current weight should be less than goal weight
+                if currentWeightAsInt > goalWeightAsInt {
+                    customTypeWarningLabel.text = "* Current Weight Should be Less than Goal Weight *"
+                    canReturnCurrent = false
+                }
+                
+            } else {    //type is Lose Weight, goal weight should be less than current weight
+                if goalWeightAsInt > currentWeightAsInt {
+                    customTypeWarningLabel.text = "* Goal Weight Should be Less than Current Weight *"
+                    canReturnCurrent = false
+                }
+            }
+            
+        } else {
+            canReturnGoal = false
+            customTypeWarningLabel.text = "* Invalid Weight Value *"
+        }
+        
         
         if canReturnCurrent && canReturnGoal {
             return true
@@ -309,7 +333,7 @@ class AddGoalController: UIViewController, UITextFieldDelegate, UITextViewDelega
         
         if typeValidated && dateValidated {
                 if goalType == "Build Muscle" || goalType == "Lose Weight" {
-                    if validateWeight() {
+                    if validateWeight(goalType: goalType) {
                         
                         let goalProgressAdded: GoalProgress = GoalProgress(type: goalType, startDate: Date(), endDate: goalEndDate, notes: goalNotesTextView.text, startWeight: Int(currentWeightTextField.text!), currentWeight: nil, goalWeight: Int(goalWeightTextField.text!), primaryGoal: primaryGoal, rating: starRating, isComplete: false)
                         
@@ -375,6 +399,10 @@ class AddGoalController: UIViewController, UITextFieldDelegate, UITextViewDelega
         
         
         goalNotesTextView.delegate = self
+        
+        currentWeightTextField.delegate = self
+        goalWeightTextField.delegate = self
+        
         self.hideKeyboardWhenTappedAround()
         
         
@@ -394,6 +422,8 @@ class AddGoalController: UIViewController, UITextFieldDelegate, UITextViewDelega
         starFiveButton.setImage(starSelectedImage, for: .highlighted)
         
         customTypeView.isHidden = true
+        
+        registerNotifications()
     }
 }
 
@@ -423,5 +453,42 @@ extension AddGoalController {
             print("Failed to save to persistent store: \(error)")
         }
     }
+    
+    
+    
+    //checks whether keyboard did show or did hide in the current view
+    func registerNotifications(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    
+    //changes position of scrollview when keyboard shown
+    @objc func keyboardWillShow(notification: NSNotification){
+        
+        let userInfo = notification.userInfo!
+        var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        
+        if activeTextField.tag == 1 {
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
+                //want scrollview to move all the way above the keyboard, so use contentOffset
+                self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height+keyboardFrame.size.height+40.0)
+                self.scrollView.contentOffset = CGPoint(x: 0, y: keyboardFrame.size.height)
+            }, completion: nil)
+        }
+        
+        
+    }
+    
+    //changes position back to normal when keyboard not shown
+    @objc func keyboardWillHide(notification: NSNotification) {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
+            self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+            self.scrollView.contentOffset = CGPoint(x: 0, y: 0)
+        }, completion: nil)
+    }
+    
+    
     
 }

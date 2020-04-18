@@ -22,21 +22,7 @@ class CalendarController: UIViewController {
     
     let displayWorkoutView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 320, height: 400))
     let dateContentView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 400))
-    
-    
-    
-    //sets gradient background of a view (used for fading between calendar view and display workout view
-    func setGradientBackground(colourOne: UIColor, colourTwo: UIColor, view: UIView){
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = view.bounds
-        gradientLayer.colors = [colourOne.cgColor, colourTwo.cgColor]
-        gradientLayer.locations = [0.0, 1.0]
-        
-        view.layer.addSublayer(gradientLayer)
-        
-    }
-    
+
     
     //creates view at the top of the page above the calendar, adding the label 'Calendar'
     func createTopView(){
@@ -154,8 +140,7 @@ class CalendarController: UIViewController {
         
         
         let fadeView = UIView(frame: CGRect(x: 0, y: calendar.bounds.maxY + 58, width: view.frame.width, height: 20.0))
-        fadeView.backgroundColor = .green
-        setGradientBackground(colourOne: UIColor.white, colourTwo: UIColor.opaqueSeparator, view: fadeView)
+        Helper.setGradientBackground(colourOne: UIColor.white, colourTwo: UIColor.opaqueSeparator, view: fadeView)
         view.addSubview(fadeView)
         
         

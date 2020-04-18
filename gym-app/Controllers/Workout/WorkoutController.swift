@@ -55,7 +55,7 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
             let settingsVC = segue.destination as! SettingsController
             print("toSettings segue...")
             settingsVC.isModalInPresentation = true
-            clearCoreData()
+            //clearCoreData()
         }
     }
     
@@ -142,6 +142,9 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
         noWorkoutsView.layer.borderWidth = 1
         noWorkoutsView.layer.borderColor = UIColor.lightGray.cgColor
         noWorkoutsView.layer.cornerRadius = 20
+        noWorkoutsView.layer.shadowOpacity = 1
+        noWorkoutsView.layer.shadowColor = UIColor.opaqueSeparator.cgColor
+        noWorkoutsView.layer.shadowRadius = 10
         let label = noWorkoutsView.subviews.first as? UILabel
         label?.text = "No Workout History 😢"
     }

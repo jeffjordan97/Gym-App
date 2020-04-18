@@ -17,12 +17,17 @@ class HomeController: UIViewController, isAbleToReceiveData {
     
     
     //MARK: Outlets
+    @IBOutlet weak var primaryGoalView: UIView!
+    
     @IBOutlet weak var workoutSummaryView: UIView!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var workoutSummaryTable: UITableView!
+    @IBOutlet weak var fadeBelowTable: UIView!
     
     
     //MARK: Attributes
+    var allGoalProgress = [GoalProgress]()
+    
     var allWorkoutSessions = [WorkoutSession]()
     var workoutSessionsThisWeek = [WorkoutSession]()
     var totalTimeThisWeek:Int = 0
@@ -61,10 +66,31 @@ class HomeController: UIViewController, isAbleToReceiveData {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "WorkoutList")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProgressList")
         fetchRequest.returnsObjectsAsFaults = false
         do {
             let fetchedResults = try managedContext.fetch(fetchRequest)
+            
+            allGoalProgress.removeAll()
+            
+            for result in fetchedResults as! [NSManagedObject] {
+
+                let goalProgress = result.value(forKey: "goalProgress") as! GoalProgress
+                
+                self.allGoalProgress.append(goalProgress)
+            }
+            if self.allGoalProgress.count > 1 {
+                self.allGoalProgress = self.allGoalProgress.sorted(by: { $0.startDate! < $1.startDate! }).reversed()
+            }
+        } catch {
+            print("Failed to Retrieve Core Data - 1")
+        }
+        
+        
+        let fetchRequestTwo = NSFetchRequest<NSFetchRequestResult>(entityName: "WorkoutList")
+        fetchRequestTwo.returnsObjectsAsFaults = false
+        do {
+            let fetchedResults = try managedContext.fetch(fetchRequestTwo)
             
             //resets values
             allWorkoutSessions.removeAll()
@@ -81,7 +107,6 @@ class HomeController: UIViewController, isAbleToReceiveData {
             if self.allWorkoutSessions.count > 0 {
                 
                 self.allWorkoutSessions = self.allWorkoutSessions.sorted(by: { $0.date! < $1.date! }).reversed()
-                
             }
             
             checkCoreDataIsEmpty()
@@ -141,13 +166,11 @@ class HomeController: UIViewController, isAbleToReceiveData {
         workoutsHeadingView.layer.borderWidth = 2
         workoutsHeadingView.layer.borderColor = UIColor.lightGray.cgColor
         
-        
         let weightImage = UIImage(named: "icons8-barbell-100")
         let weightImageView = UIImageView(image: weightImage)
         weightImageView.frame = CGRect(x: 20, y: 0, width: 60, height: 60)
         weightImageView.center.y = workoutsHeadingView.center.y
         workoutsHeadingView.addSubview(weightImageView)
-        
         
         let workoutsHeadingLabel = UILabel(frame: CGRect(x: 100, y: 20, width: 100, height: 20))
         workoutsHeadingLabel.textAlignment = .left
@@ -155,11 +178,9 @@ class HomeController: UIViewController, isAbleToReceiveData {
         workoutsHeadingLabel.text = "Workouts"
         workoutsHeadingView.addSubview(workoutsHeadingLabel)
         
-        
         workoutsHeadingNumberLabel.text = "\(totalWorkoutsThisWeek)"
         workoutsHeadingNumberLabel.font = UIFont(name: "HelveticaNeue", size: 30.0)
         workoutsHeadingView.addSubview(workoutsHeadingNumberLabel)
-        
         
         let workoutsHeadingTextLabel = UILabel(frame: CGRect(x: 135, y: 50, width: 75, height: 40))
         workoutsHeadingTextLabel.textAlignment = .left
@@ -171,7 +192,6 @@ class HomeController: UIViewController, isAbleToReceiveData {
         """
         workoutsHeadingView.addSubview(workoutsHeadingTextLabel)
         
-        
         return workoutsHeadingView
     }
     
@@ -182,13 +202,11 @@ class HomeController: UIViewController, isAbleToReceiveData {
         timeHeadingView.layer.borderWidth = 2
         timeHeadingView.layer.borderColor = UIColor.lightGray.cgColor
         
-        
         let timeImage = UIImage(named: "icons8-timer-100")
         let timeImageView = UIImageView(image: timeImage)
         timeImageView.frame = CGRect(x: 20, y: 0, width: 60, height: 60)
         timeImageView.center.y = timeHeadingView.center.y
         timeHeadingView.addSubview(timeImageView)
-        
         
         let timeHeadingLabel = UILabel(frame: CGRect(x: 100, y: 20, width: 100, height: 20))
         timeHeadingLabel.textAlignment = .left
@@ -196,13 +214,10 @@ class HomeController: UIViewController, isAbleToReceiveData {
         timeHeadingLabel.text = "Total Time"
         timeHeadingView.addSubview(timeHeadingLabel)
         
-        
         let formattedDuration = Helper.secondsToHoursMinutesSeconds(seconds: totalTimeThisWeek)
         timeHeadingNumberLabel.text = Helper.displayZeroInTime(formattedDuration)
         timeHeadingNumberLabel.font = UIFont(name: "HelveticaNeue", size: 24.0)
         timeHeadingView.addSubview(timeHeadingNumberLabel)
-        
-        
         
         return timeHeadingView
     }
@@ -214,6 +229,9 @@ class HomeController: UIViewController, isAbleToReceiveData {
         noWorkoutsThisWeek.layer.borderWidth = 2
         noWorkoutsThisWeek.layer.borderColor = UIColor.opaqueSeparator.cgColor
         noWorkoutsThisWeek.layer.cornerRadius = 10
+        noWorkoutsThisWeek.layer.shadowRadius = 10
+        noWorkoutsThisWeek.layer.shadowColor = UIColor.opaqueSeparator.cgColor
+        noWorkoutsThisWeek.layer.shadowOpacity = 1
         
         let noWorkoutsLabel = UILabel(frame: CGRect(x: 0, y: 45, width: 414, height: 30))
         noWorkoutsLabel.textAlignment = .center
@@ -225,17 +243,27 @@ class HomeController: UIViewController, isAbleToReceiveData {
     }
     
     
-    
-    
-    //MARK: Progress
-    
-    
-    
-    
-    func totalPointsForTime() {
+    func noProgressToDisplay() -> UIView {
         
+        let noProgressView = UIView(frame: CGRect(x: 20, y: 20, width: primaryGoalView.frame.width - 40, height: 200))
+
+        noProgressView.backgroundColor = .white
+        noProgressView.layer.cornerRadius = 10
+        noProgressView.layer.borderColor = UIColor.opaqueSeparator.cgColor
+        noProgressView.layer.borderWidth = 2
+        noProgressView.layer.shadowColor = UIColor.opaqueSeparator.cgColor
+        noProgressView.layer.shadowRadius = 10
+        noProgressView.layer.shadowOpacity = 1
+        
+        let noProgressLabel = UILabel(frame: CGRect(x: 0, y: 85, width: noProgressView.frame.width, height: 30))
+        noProgressLabel.text = "No Goals Active 😢"
+        noProgressLabel.textAlignment = .center
+        noProgressLabel.font = UIFont(name: "HelveticaNeue-Light", size: 20.0)
+        
+        noProgressView.addSubview(noProgressLabel)
+        
+        return noProgressView
     }
-    
     
     
     //MARK: viewDidAppear
@@ -254,7 +282,51 @@ class HomeController: UIViewController, isAbleToReceiveData {
             }
         }
         
-       
+        
+        //MARK: Progress Goal View
+        //removes all previous views from primaryGoalView (to prevent layering)
+        for subView in primaryGoalView.subviews {
+            subView.removeFromSuperview()
+        }
+        
+        if !allGoalProgress.isEmpty {
+            var displayGoal: GoalProgress?
+            for goal in allGoalProgress {
+                
+                if goal.endDate! > Date() {
+                    
+                    //assigns displayGoal to the goal if it is the primary goal, else compares the rating and uses the highest rating goal
+                    if goal.primaryGoal! {
+                        displayGoal = goal
+                        break
+                    } else if displayGoal == nil || goal.rating! > displayGoal?.rating ?? -1 {
+                        displayGoal = goal
+                    }
+                    
+                } else { break }
+            }
+            
+            if displayGoal != nil {
+                let displayGoalView = Helper.createGoalView(view, displayGoal!, allWorkoutSessions)
+                
+                //adjusts frame to higher y position, at the top of primaryGoalView
+                displayGoalView.frame = CGRect(x: displayGoalView.frame.minX, y: 0, width: displayGoalView.frame.width, height: displayGoalView.frame.height)
+                
+                primaryGoalView.addSubview(displayGoalView)
+                
+            } else {
+                primaryGoalView.addSubview(noProgressToDisplay())
+            }
+            
+        } else {
+            primaryGoalView.addSubview(noProgressToDisplay())
+        }
+        
+        
+        
+        //MARK: Workout Summary View
+        //removes all previous views from Workout Summary View (to prevent layering)
+        
         workoutSummaryView.addSubview(workoutsHeadingView())
         
         workoutSummaryView.addSubview(timeHeadingView())
@@ -262,14 +334,8 @@ class HomeController: UIViewController, isAbleToReceiveData {
         noWorkoutsThisWeekView()
         workoutSummaryView.addSubview(noWorkoutsThisWeek)
         
-        
-        //add progress views here
-        
-        
-        //pass in goal 
-        //Helper.getProgressForWeights()
-        
     }
+    
     
     //MARK: viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -282,10 +348,14 @@ class HomeController: UIViewController, isAbleToReceiveData {
         if workoutSessionsThisWeek.isEmpty {
             noWorkoutsThisWeek.isHidden = false
             workoutSummaryTable.isHidden = true
+            fadeBelowTable.isHidden = true
         } else {
             noWorkoutsThisWeek.isHidden = true
             workoutSummaryTable.isHidden = false
             workoutSummaryTable.reloadData()
+            if workoutSessionsThisWeek.count > 3 {
+                fadeBelowTable.isHidden = false
+            }
         }
         
     }
@@ -298,11 +368,7 @@ class HomeController: UIViewController, isAbleToReceiveData {
         
         print("Home Loaded")
         
-        
         self.view.alpha = 0
-        
-        //retrieveCoreData()
-        //workoutsThisWeek()
         
         workoutSummaryTable.dataSource = self
         workoutSummaryTable.delegate = self
@@ -317,7 +383,7 @@ class HomeController: UIViewController, isAbleToReceiveData {
         //changes settingsButton image when button is clicked/highlighted
         settingsButton.setImage(UIImage(named: "icons8-settings-dark"), for: .highlighted)
         
-        
+        Helper.setGradientBackground(colourOne: UIColor.clear, colourTwo: UIColor.white, view: fadeBelowTable)
     }
     
 }

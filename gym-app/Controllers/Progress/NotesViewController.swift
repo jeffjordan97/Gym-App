@@ -1,8 +1,8 @@
 //
-//  SettingsController.swift
+//  NotesViewController.swift
 //  gym-app
 //
-//  Created by Jordan, Jeffrey on 11/03/2020.
+//  Created by Jeff Jordan on 16/04/2020.
 //  Copyright © 2020 Jordan, Jeffrey. All rights reserved.
 //
 
@@ -10,29 +10,25 @@ import Foundation
 import UIKit
 import CoreData
 
-class SettingsController: UIViewController {
+class NotesViewController: UIViewController {
+    
+    
     
     //MARK: Outlets
-    @IBOutlet weak var settingsView: UIView!
-    
+    @IBOutlet weak var outerView: UIView!
+    @IBOutlet weak var textView: UITextView!
     
     
     //MARK: Attributes
-    
-    
-    
+    var textViewText: String?
     
     @IBAction func closeButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     
-    
     override func viewWillAppear(_ animated: Bool) {
-        settingsView.layer.cornerRadius = 20
-        settingsView.layer.shadowOpacity = 1
-        settingsView.layer.shadowColor = UIColor.opaqueSeparator.cgColor
-        settingsView.layer.shadowRadius = 10
+        outerView.layer.cornerRadius = 40
     }
     
     
@@ -41,7 +37,10 @@ class SettingsController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        print("Settings Loaded")
+        print("Notes Loaded")
+        
+        textView.text = textViewText
+        
         
     }
 }

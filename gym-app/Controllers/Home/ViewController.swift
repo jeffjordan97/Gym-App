@@ -46,6 +46,7 @@ class ViewController: SOTabBarController {
         super.loadView()
         SOTabBarSetting.tabBarAnimationDurationTime = 0.3
         SOTabBarSetting.tabBarTintColor = .white
+        SOTabBarSetting.tabBarCircleSize = CGSize(width: 50, height: 50)
     }
     
     

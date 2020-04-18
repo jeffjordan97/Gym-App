@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 import CoreData
+import KDCircularProgress
+import MaterialComponents.MDCFloatingButton
 
-class ProgressController: UIViewController, passBackToProgress {
-    
-    
-    
+class ProgressController: UIViewController, passBackToProgress, EditedGoalToProgress {
+
     
     //MARK: Outlets
     @IBOutlet weak var scrollView: UIScrollView!
@@ -23,6 +23,10 @@ class ProgressController: UIViewController, passBackToProgress {
     //MARK: Attributes
     var allGoalProgress = [GoalProgress]()
     var allWorkoutSessions = [WorkoutSession]()
+    
+    var notesForGoal: String?
+    var goalsToUpdateWeight = [GoalProgress]()
+    var totalEditButtons:Int = 0
     
     //function to pass info to AddWorkoutController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -43,6 +47,168 @@ class ProgressController: UIViewController, passBackToProgress {
     }
     
     
+    //returns a button to represent a note icon
+    func getNotes(_ thisView:UIView, _ notes: String) -> UIButton {
+        let notesButton = UIButton(frame: CGRect(x: thisView.frame.width - 50, y: 20, width: 30, height: 30))
+        let notesImage = UIImage(named: "icons8-note-100")
+        let notesSelectedImage = UIImage(named: "icons8-note-100-filled")
+        
+        notesButton.setImage(notesImage, for: .normal)
+        notesButton.setImage(notesSelectedImage, for: .selected)
+        notesButton.setImage(notesSelectedImage, for: .highlighted)
+        
+        notesForGoal = notes
+        
+        notesButton.addTarget(self, action: #selector(notesButtonAction), for: .touchUpInside)
+        
+        return notesButton
+    }
+    
+    
+    //function called when notesButton Clicked
+    @objc func notesButtonAction(){
+        print("Notes Button tapped")
+        let notesVC = UIStoryboard(name: "NotesPopover", bundle: nil).instantiateViewController(withIdentifier: "NotesViewController") as! NotesViewController
+        
+        //delegate to pass to NotesVC
+        if notesForGoal?.isEmpty ?? true {
+            notesVC.textViewText = "No Notes"
+        } else {
+            notesVC.textViewText = notesForGoal
+        }
+        
+        self.present(notesVC, animated: true, completion: nil)
+    }
+    
+    
+    //returns a button to edit the current weight of the user
+    func getEditButton(_ thisView:UIView, _ goal:GoalProgress) -> UIButton {
+        let editButton = UIButton(frame: CGRect(x: thisView.frame.width - 40, y: 185, width: 20, height: 20))
+        let editImage = UIImage(named: "icons8-edit-100")
+        let editSelectedImage = UIImage(named: "icons8-edit-100-filled")
+        
+        editButton.tag = totalEditButtons
+        totalEditButtons = totalEditButtons + 1
+        
+        goalsToUpdateWeight.append(goal)
+        
+        editButton.setImage(editImage, for: .normal)
+        editButton.setImage(editSelectedImage, for: .selected)
+        editButton.setImage(editSelectedImage, for: .highlighted)
+        
+        editButton.addTarget(self, action: #selector(editButtonAction), for: .touchUpInside)
+        
+        return editButton
+    }
+    
+    
+    @objc func editButtonAction(sender:UIButton){
+        print("Edit Button tapped")
+        let EditVC = UIStoryboard(name: "EditWeight", bundle: nil).instantiateViewController(withIdentifier: "EditWeightViewController") as! EditWeightViewController
+        
+        if !goalsToUpdateWeight.isEmpty {
+            
+            EditVC.goalPassed = goalsToUpdateWeight[sender.tag]
+            EditVC.delegate = self
+            
+            self.present(EditVC, animated: true, completion: nil)
+        }
+        
+        
+    }
+    
+    
+    func updatedGoalPassed(_ goal: GoalProgress) {
+        allGoalProgress.first(where: { $0.startDate == goal.startDate })?.currentWeight = goal.currentWeight
+        //figure out why this isnt updating the goal currentWeight?
+        
+        
+        //update core data here...
+        
+        
+        updateGoals()
+        
+    }
+    
+    
+    //creates views for each goal added, adds them to scrollView, then adjusts scrollView contentSize to enable scrolling if content is greater than scrollView height
+    func updateGoals(){
+        
+        if !allGoalProgress.isEmpty {
+            //clear all subviews in scrollView ready for updated views to be added
+            for subview in scrollView.subviews {
+                subview.removeFromSuperview()
+            }
+            var totalGoalViewHeight:CGFloat = 20.0
+            var finishedFlag = false
+            
+            for goal in allGoalProgress {
+                
+                //if the goal endDate is greater than the current date, add, else add to endedGoals array
+                if goal.endDate! > Date() {
+                    let goalView = Helper.createGoalView(view, goal, allWorkoutSessions)
+                    
+                    let setNotes = getNotes(goalView, goal.notes!)
+                    goalView.addSubview(setNotes)
+                    
+                    if goal.type == "Lose Weight" || goal.type == "Build Muscle" {
+                        let setEditButton = getEditButton(goalView, goal)
+                        goalView.addSubview(setEditButton)
+                    }
+                    
+                    //adjust y position of goalView to appear below the previosly added goalView
+                    goalView.frame = CGRect(x: goalView.frame.minX, y: totalGoalViewHeight, width: goalView.frame.width, height: goalView.frame.height)
+                    
+                    //adjusts to add height of the previously added progress
+                    totalGoalViewHeight = totalGoalViewHeight + goalView.frame.height + 30.0
+                    
+                    scrollView.addSubview(goalView)
+                    
+                    
+                } else {
+                    //accessed once to add in a view that cuts off the in progress goals from the finished goals
+                    if !finishedFlag {
+                        let finishedDividerView = finishedGoalsDivider()
+                        finishedDividerView.frame = CGRect(x: finishedDividerView.frame.minX, y: totalGoalViewHeight, width: finishedDividerView.frame.width, height: finishedDividerView.frame.height)
+                        scrollView.addSubview(finishedDividerView)
+                        finishedFlag = true
+                        totalGoalViewHeight = totalGoalViewHeight + finishedDividerView.frame.height + 30.0
+                    }
+                    
+                    let endedGoalView = Helper.createGoalView(view, goal, allWorkoutSessions)
+                    
+                    let setNotes = getNotes(endedGoalView, goal.notes!)
+                    endedGoalView.addSubview(setNotes)
+                    
+                    if goal.type == "Lose Weight" || goal.type == "Build Muscle" {
+                        let setEditButton = getEditButton(endedGoalView, goal)
+                        endedGoalView.addSubview(setEditButton)
+                    }
+                    
+                    //adjust y position of endedGoalView to appear below previously added goal view
+                    endedGoalView.frame = CGRect(x: endedGoalView.frame.minX, y: totalGoalViewHeight, width: endedGoalView.frame.width, height: endedGoalView.frame.height)
+                    
+                    totalGoalViewHeight = totalGoalViewHeight + endedGoalView.frame.height + 30.0
+                    
+                    scrollView.addSubview(endedGoalView)
+                }
+            }
+            
+            
+            scrollView.contentSize = CGSize(width: scrollView.frame.width, height: totalGoalViewHeight)
+            
+            if scrollView.contentSize.height > scrollView.frame.height {
+                let fadeView = UIView(frame: CGRect(x: 0, y:scrollView.frame.minY + scrollView.frame.height - 10.0, width: scrollView.frame.width, height: 10.0))
+                Helper.setGradientBackground(colourOne: UIColor.clear, colourTwo: UIColor.white, view: fadeView)
+                view.addSubview(fadeView)
+            }
+            
+        }
+        
+    }
+    
+    
+    
     //handle data passed from delegate here...
     func dataToPass(_ goalProgress: GoalProgress) {
         print("...Goal Passed to ProgressVC")
@@ -55,28 +221,21 @@ class ProgressController: UIViewController, passBackToProgress {
             }
         }
         
-        //inserts as the first element, as ordered in terms of start date from recent to later
+        //inserts as the first element
         allGoalProgress.insert(goalProgress, at: 0)
         
+        //sorts according to time remaining, with least amount of time first
+        allGoalProgress.sort(by: { $0.startDate!.distance(to: $0.endDate!) < $1.startDate!.distance(to: $1.endDate!) })
         
-        //create view to add to scrollView based on the type of goal added
-        if goalProgress.type == "Build Muscle" || goalProgress.type == "Lose Weight" {
-            print("Create View: with weights")
-        } else {
-            print("Create View: without weights")
-        }
+        //unhides scrollview
+        checkCoreDataIsEmpty()
         
-        
-        //adjust y position of all subviews in scrollView to move them down
-        
-        
-        //adjusts the 'scroll' size of the scrollView according to the height of the new view
-        //scrollView.contentSize = CGSize(width: scrollView.frame.width, height: <#T##CGFloat#>)
+        updateGoals()
         
     }
     
     
-    
+    //MARK: ViewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         
         //fades opacity of the view controller's view
@@ -96,7 +255,10 @@ class ProgressController: UIViewController, passBackToProgress {
         }
         
         
+        retrieveCoreData()
+        checkCoreDataIsEmpty()
         
+        updateGoals()
         
     }
     
@@ -114,61 +276,12 @@ class ProgressController: UIViewController, passBackToProgress {
         noGoalsView.layer.borderWidth = 2
         noGoalsView.layer.borderColor = UIColor.opaqueSeparator.cgColor
         noGoalsView.layer.cornerRadius = 20
-        
-        retrieveCoreData()
-        checkCoreDataIsEmpty()
-        
-        //creates views for each goal added, adds them to scrollView, then adjusts scrollView contentSize to enable scrolling if content is greater than scrollView height
-        if !allGoalProgress.isEmpty {
-            var totalGoalViewHeight:CGFloat = 0.0
-            var endedGoals = [UIView]()
-            var finishedFlag = false
-            
-            for goal in allGoalProgress {
-                
-                //if the goal endDate is greater than the current date, add, else add to endedGoals array
-                if goal.endDate! > Date() {
-                    let goalView = createGoalView(goal)
-                    totalGoalViewHeight = totalGoalViewHeight + goalView.frame.height
-                    
-                    //adjust y position of goalView to appear below the previosly added goalView
-                    
-                    
-                    scrollView.addSubview(goalView)
-                    
-                } else {
-                    //accessed once to add in a view that cuts off the in progress goals from the finished goals
-                    if !finishedFlag {
-                        let finishedDividerView = finishedGoalsDivider()
-                        scrollView.addSubview(finishedDividerView)
-                        finishedFlag = true
-                        totalGoalViewHeight = totalGoalViewHeight + finishedDividerView.frame.height
-                    }
-                    
-                    let endedGoalView = createGoalView(goal)
-                    totalGoalViewHeight = totalGoalViewHeight + endedGoalView.frame.height
-                    
-                    //adjust y position of endedGoalView to appear below previously added goal view
-                    
-                    
-                    endedGoals.append(endedGoalView)
-                }
-                
-                
-            }
-            
-            
-            
-            scrollView.contentSize = CGSize(width: scrollView.frame.width, height: totalGoalViewHeight)
-        }
-        
+        noGoalsView.layer.shadowOpacity = 1
+        noGoalsView.layer.shadowRadius = 10
+        noGoalsView.layer.shadowColor = UIColor.opaqueSeparator.cgColor
         
     }
-}
-
-
-//MARK: Goal Views
-extension ProgressController {
+    
     
     //creates finished divider to separate in progress goals from finished goals
     func finishedGoalsDivider() -> UIView {
@@ -179,158 +292,14 @@ extension ProgressController {
         let finishedDividerLabel = UILabel(frame: CGRect(x: 20, y: 5, width: 200, height: 20))
         finishedDividerLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20.0)
         finishedDividerLabel.textColor = .white
+        finishedDividerLabel.text = "Previous"
         
         finishedDividerView.addSubview(finishedDividerLabel)
         
         return finishedDividerView
     }
     
-    //creates the outer view for a goal
-    func createGoalView(_ goalProgress: GoalProgress) -> UIView {
-        let goalView = UIView(frame: CGRect(x: 20, y: 20, width: scrollView.frame.width - 40, height: 260))
-        
-        goalView.backgroundColor = .white
-        goalView.layer.borderWidth = 2
-        goalView.layer.borderColor = UIColor.black.cgColor
-        goalView.layer.cornerRadius = 20
-        
-        
-        let setTypeImage = getTypeImage(goalProgress.type!)
-        goalView.addSubview(setTypeImage)
-        
-        let setTitle = getTypeTitle(goalProgress.type!)
-        goalView.addSubview(setTitle)
-        
-        let setDaysLeft = getDaysLeft(goalProgress.startDate!, goalProgress.endDate!)
-        goalView.addSubview(setDaysLeft)
-        
-        let setStartEndDate = getStartEndDates(goalProgress.startDate!, goalProgress.endDate!)
-        goalView.addSubview(setStartEndDate)
-        
-        let setProgressView = getProgressBar(goalProgress)
-        goalView.addSubview(setProgressView)
-        
-        return goalView
-    }
     
-    //returns a UIImage for the correct goal type
-    func getTypeImage(_ type:String) -> UIImageView {
-        var typeImage = UIImage(named: "icons8-running-100")
-        
-        if type == "Lose Weight" {
-            typeImage = UIImage(named: "icons8-lose-weight-100")
-        } else if type == "Build Muscle" {
-            typeImage = UIImage(named: "icons8-muscle-100")
-        } else if type == "Improve Strength" {
-            typeImage = UIImage(named: "icons8-strength-100")
-        }
-        
-        let returnImageView = UIImageView(image: typeImage)
-        returnImageView.frame = CGRect(x: 10, y: 10, width: 60, height: 60)
-        
-        return returnImageView
-    }
-    
-    //returns a UILabel with the goal type
-    func getTypeTitle(_ type:String) -> UILabel {
-        let typeTitleLabel = UILabel(frame: CGRect(x: 80, y: 25, width: 250, height: 30))
-        
-        typeTitleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 22.0)
-        typeTitleLabel.textColor = .black
-        typeTitleLabel.text = type
-        //typeTitleLabel.backgroundColor = .orange
-        
-        
-        return typeTitleLabel
-    }
-    
-    //returns a UIView of the number of days/hours left to complete their goal
-    func getDaysLeft(_ startDate:Date, _ endDate:Date) -> UIView {
-        let returnView = UIView(frame: CGRect(x: 10, y: 60, width: 130, height: 60))
-        var daysOrHoursDifference: Int = 0
-        var daysOrHoursString: String = "days"
-        
-        //returnView.backgroundColor = .purple
-        
-        //works out the number of days between two dates
-        daysOrHoursDifference = Calendar.current.dateComponents([.day], from: startDate, to: endDate).day!
-        
-        if daysOrHoursDifference <= 0 {
-            
-            //if number of days between is 0, work out the number of hours between the two dates, adjusting the corresponding string
-            daysOrHoursDifference = Calendar.current.dateComponents([.hour], from: startDate, to: endDate).hour!
-            daysOrHoursString = "hours"
-            
-        } else if daysOrHoursDifference == 1 {
-            daysOrHoursString = "day"
-        }
-        
-        
-        let daysLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
-        daysLabel.text = "\(daysOrHoursDifference)"
-        daysLabel.font = UIFont(name: "HelveticaNeue", size: 30.0)
-        daysLabel.textAlignment = .right
-        
-        returnView.addSubview(daysLabel)
-        
-        
-        let daysTextLabel = UILabel(frame: CGRect(x: 70, y: 0, width: 60, height: 60))
-        daysTextLabel.text = """
-        \(daysOrHoursString)
-        left
-        """
-        daysTextLabel.numberOfLines = 2
-        daysTextLabel.font = UIFont(name: "HelveticaNeue-Light", size: 20.0)
-        daysTextLabel.textAlignment = .left
-        
-        returnView.addSubview(daysTextLabel)
-        
-        
-        return returnView
-    }
-    
-    //returns a view with the start and end dates of the goalProgress
-    func getStartEndDates(_ startDate:Date, _ endDate:Date) -> UIView {
-        let returnView = UIView(frame: CGRect(x: 150, y: 68, width: 190, height: 42))
-        
-        //returnView.backgroundColor = .orange
-        
-        let startDateLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 180, height: 20))
-        startDateLabel.text = "Start: " + Helper.getFormattedDate(startDate)
-        startDateLabel.font = UIFont(name: "HelveticaNeue-Light", size: 16.0)
-        returnView.addSubview(startDateLabel)
-        
-        
-        let endDateLabel = UILabel(frame: CGRect(x: 0, y: 24, width: 180, height: 20))
-        endDateLabel.text = "End:  " + Helper.getFormattedDate(endDate)
-        endDateLabel.font = UIFont(name: "HelveticaNeue-Light", size: 16.0)
-        returnView.addSubview(endDateLabel)
-        
-        return returnView
-    }
-    
-    //returns a progress bar view for the current goal
-    func getProgressBar(_ goalProgress: GoalProgress) -> UIView{
-        let progressView = UIView(frame: CGRect(x: 0, y: 110, width: scrollView.frame.width - 40, height: 100))
-        
-        progressView.backgroundColor = .green
-        
-        //progress bar
-        let progressBarPercentage = Helper.getProgressForWeights(goalProgress: goalProgress, allWorkoutSessions: allWorkoutSessions)
-        print("Progress: \(progressBarPercentage)")
-        
-        //type label
-        
-        //start label
-        
-        //current label
-        
-        //goal label
-        
-        //button to update weight if goalType is 'lose weight' or 'build muscle'
-        
-        return progressView
-    }
     
     
 }
@@ -360,7 +329,8 @@ extension ProgressController {
                 self.allGoalProgress.append(goalProgress)
             }
             if self.allGoalProgress.count > 1 {
-                self.allGoalProgress = self.allGoalProgress.sorted(by: { $0.startDate! < $1.startDate! }).reversed()
+                //sorts according to time remaining, with lowest time remaining at the top
+                self.allGoalProgress = self.allGoalProgress.sorted(by: { $0.startDate!.distance(to: $0.endDate!) < $1.startDate!.distance(to: $1.endDate!) })
             }
         } catch {
             print("Failed to Retrieve Core Data - 1")
