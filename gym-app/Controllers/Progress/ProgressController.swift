@@ -141,11 +141,14 @@ class ProgressController: UIViewController, passBackToProgress, EditedGoalToProg
             }
             var totalGoalViewHeight:CGFloat = 20.0
             var finishedFlag = false
+            var endedGoals = [GoalProgress]()
             
+            print("Date: \(Date())")
             for goal in allGoalProgress {
                 
                 //if the goal endDate is greater than the current date, add, else add to endedGoals array
                 if goal.endDate! > Date() {
+                    print("Goal: \(goal.type!) endDate: \(goal.endDate!)")
                     let goalView = Helper.createGoalView(view, goal, allWorkoutSessions)
                     
                     let setNotes = getNotes(goalView, goal.notes!)
@@ -164,34 +167,35 @@ class ProgressController: UIViewController, passBackToProgress, EditedGoalToProg
                     
                     scrollView.addSubview(goalView)
                     
-                    
                 } else {
-                    //accessed once to add in a view that cuts off the in progress goals from the finished goals
-                    if !finishedFlag {
-                        let finishedDividerView = finishedGoalsDivider()
-                        finishedDividerView.frame = CGRect(x: finishedDividerView.frame.minX, y: totalGoalViewHeight, width: finishedDividerView.frame.width, height: finishedDividerView.frame.height)
-                        scrollView.addSubview(finishedDividerView)
-                        finishedFlag = true
-                        totalGoalViewHeight = totalGoalViewHeight + finishedDividerView.frame.height + 30.0
-                    }
-                    
-                    let endedGoalView = Helper.createGoalView(view, goal, allWorkoutSessions)
-                    
-                    let setNotes = getNotes(endedGoalView, goal.notes!)
-                    endedGoalView.addSubview(setNotes)
-                    
-                    if goal.type == "Lose Weight" || goal.type == "Build Muscle" {
-                        let setEditButton = getEditButton(endedGoalView, goal)
-                        endedGoalView.addSubview(setEditButton)
-                    }
-                    
-                    //adjust y position of endedGoalView to appear below previously added goal view
-                    endedGoalView.frame = CGRect(x: endedGoalView.frame.minX, y: totalGoalViewHeight, width: endedGoalView.frame.width, height: endedGoalView.frame.height)
-                    
-                    totalGoalViewHeight = totalGoalViewHeight + endedGoalView.frame.height + 30.0
-                    
-                    scrollView.addSubview(endedGoalView)
+                    //adds to ended goals to add below all goals in progress
+                    endedGoals.append(goal)
                 }
+            }
+            
+            let finishedDividerView = finishedGoalsDivider()
+            finishedDividerView.frame = CGRect(x: finishedDividerView.frame.minX, y: totalGoalViewHeight, width: finishedDividerView.frame.width, height: finishedDividerView.frame.height)
+            scrollView.addSubview(finishedDividerView)
+            finishedFlag = true
+            totalGoalViewHeight = totalGoalViewHeight + finishedDividerView.frame.height + 30.0
+            
+            for goal in endedGoals {
+                let endedGoalView = Helper.createGoalView(view, goal, allWorkoutSessions)
+                
+                let setNotes = getNotes(endedGoalView, goal.notes!)
+                endedGoalView.addSubview(setNotes)
+                
+                if goal.type == "Lose Weight" || goal.type == "Build Muscle" {
+                    let setEditButton = getEditButton(endedGoalView, goal)
+                    endedGoalView.addSubview(setEditButton)
+                }
+                
+                //adjust y position of endedGoalView to appear below previously added goal view
+                endedGoalView.frame = CGRect(x: endedGoalView.frame.minX, y: totalGoalViewHeight, width: endedGoalView.frame.width, height: endedGoalView.frame.height)
+                
+                totalGoalViewHeight = totalGoalViewHeight + endedGoalView.frame.height + 30.0
+                
+                scrollView.addSubview(endedGoalView)
             }
             
             
@@ -253,7 +257,6 @@ class ProgressController: UIViewController, passBackToProgress, EditedGoalToProg
                 thisView.alpha = 0
             }
         }
-        
         
         retrieveCoreData()
         checkCoreDataIsEmpty()

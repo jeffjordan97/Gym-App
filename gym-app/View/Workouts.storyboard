@@ -219,6 +219,10 @@
                                                 <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons8-expand-arrow-100" translatesAutoresizingMaskIntoConstraints="NO" id="akl-JD-YUb">
+                                                <rect key="frame" x="322" y="16" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
@@ -314,6 +318,10 @@
                                             <action selector="cancelButton:" destination="sTi-3F-Wcz" eventType="touchUpInside" id="adk-He-v7m"/>
                                         </connections>
                                     </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons8-expand-arrow-100" translatesAutoresizingMaskIntoConstraints="NO" id="NlY-35-HUA">
+                                        <rect key="frame" x="341" y="127" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <viewLayoutGuide key="contentLayoutGuide" id="iWJ-mh-Al6"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="NXd-Qu-p4a"/>
@@ -448,6 +456,7 @@
     <resources>
         <image name="UniLogo" width="926" height="378"/>
         <image name="icons8-calendar-100" width="100" height="100"/>
+        <image name="icons8-expand-arrow-100" width="100" height="100"/>
         <image name="icons8-settings" width="50" height="50"/>
     </resources>
 </document>

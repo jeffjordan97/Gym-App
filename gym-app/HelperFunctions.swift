@@ -290,17 +290,15 @@ extension Helper {
         //progress bar
         if goalProgress.type! == "Improve Strength" || goalProgress.type! == "Improve Fitness" {
             progressBarPercentage = Helper.percentageForStrengthFitness(goalProgress: goalProgress, allWorkoutSessions: allWorkoutSessions)
-            print("Progress: \(progressBarPercentage)")
+            //print("Progress: \(progressBarPercentage)")
         } else {
-            print("Generate progress bar percentage for comparing start weight, current weight and goal weight")
+            //print("progress bar percentage for comparing start weight, current weight and goal weight")
             progressBarPercentage = Helper.percentageForLoseWeightBuildMuscle(goalProgress)
         }
         
         progress.angle = 360 * progressBarPercentage
         
-        progress.animate(fromAngle: 0, toAngle: (360 * progressBarPercentage), duration: 2) { completed in
-            if completed { print("animation stopped, completed") } else { print("animation stopped, was interrupted") }
-        }
+        progress.animate(fromAngle: 0, toAngle: (360 * progressBarPercentage), duration: 2, completion: nil)
         
         let progressPercentage = Int((progressBarPercentage * 100).round(to: 0))
         
@@ -527,9 +525,9 @@ extension Helper {
         //returns the goal number of points to achieve, based on the goal startDate, endDate, and average number of sets per session
         let goalPoints:Double = calculateGoalPoints(startDate, endDate, allWorkoutSessions: allWorkoutSessions)
         
-        print("Achieved Points: \(achievedPoints)")
-        print(" > 0 == improved | < 0 == declining")
-        print("Goal Points: \(goalPoints)")
+//        print("Achieved Points: \(achievedPoints)")
+//        print(" > 0 == improved | < 0 == declining")
+//        print("Goal Points: \(goalPoints)")
         
         //value between 0.0 and 1.0 returned to represent a percentage from 0% to 100% for the goal
         var totalPercentage = (achievedPoints/goalPoints)

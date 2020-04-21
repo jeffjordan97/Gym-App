@@ -142,6 +142,10 @@
                                                 <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons8-expand-arrow-100" translatesAutoresizingMaskIntoConstraints="NO" id="4RJ-56-aoB">
+                                                <rect key="frame" x="326" y="13" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
@@ -312,6 +316,10 @@
                                             <action selector="cancelButton:" destination="klH-ee-jAs" eventType="touchUpInside" id="Uds-dK-E53"/>
                                         </connections>
                                     </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons8-expand-arrow-100" translatesAutoresizingMaskIntoConstraints="NO" id="Elz-Dt-dZU">
+                                        <rect key="frame" x="346" y="252" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Cy3-cG-IOg"/>
@@ -350,6 +358,7 @@
     </scenes>
     <resources>
         <image name="UniLogo" width="926" height="378"/>
+        <image name="icons8-expand-arrow-100" width="100" height="100"/>
         <image name="icons8-settings" width="50" height="50"/>
         <image name="icons8-star-100" width="100" height="100"/>
         <image name="icons8-unchecked-checkbox-50" width="50" height="50"/>
