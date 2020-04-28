@@ -433,7 +433,6 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource, Head
         }
         
         
-        
         //print("Section Removed: \(newSectionIndex ?? 0)")
         //print("Updated: \(selectedExercisesSections)")
         
