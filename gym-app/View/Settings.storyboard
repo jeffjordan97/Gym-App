@@ -57,7 +57,7 @@
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pvY-W1-Aex">
-                                <rect key="frame" x="20" y="142" width="373" height="665"/>
+                                <rect key="frame" x="20" y="142" width="373" height="470"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xey-cb-J4w">
@@ -72,12 +72,25 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xl-XX-3EM">
+                                <rect key="frame" x="20" y="727" width="374" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="1" green="0.23667496120000001" blue="0.18829268139999999" alpha="0.60238776409999994" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="  Remove All Data" image="delete.right" catalog="system">
+                                    <color key="titleColor" red="1" green="0.23667496120000001" blue="0.18829268139999999" alpha="0.60238776409999994" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeDataButtonAction:" destination="ctv-pU-Tyr" eventType="touchUpInside" id="sTI-HQ-N7Z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="cXX-Fo-dga"/>
                     </view>
                     <connections>
                         <outlet property="exercisesSelectButton" destination="bU2-fH-c3A" id="m5F-fY-CIu"/>
+                        <outlet property="removeDataButton" destination="7Xl-XX-3EM" id="jbj-hi-MSN"/>
                         <outlet property="settingsTable" destination="xey-cb-J4w" id="4Vg-0K-HiH"/>
                         <outlet property="settingsView" destination="pvY-W1-Aex" id="yG1-eC-mKa"/>
                     </connections>
@@ -87,4 +100,7 @@
             <point key="canvasLocation" x="50.724637681159422" y="117.85714285714285"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="delete.right" catalog="system" width="64" height="52"/>
+    </resources>
 </document>

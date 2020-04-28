@@ -18,8 +18,10 @@ class ExercisesTableCell: UITableViewCell {
     @IBOutlet weak var exImage: UIImageView?
     @IBOutlet weak var tickBox: UIImageView?
     
+    
     //Attributes
     var checked = false
+    let startLetterLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
     
     
     //MARK: Set Text
@@ -29,14 +31,23 @@ class ExercisesTableCell: UITableViewCell {
         exInfo?.text = info
     }
     
+    
     //MARK: Set Image
-    func setImage(_ imageString:String){
+    func setImage(_ imageString:String, exName:String){
         if imageString == "" {
-            exImage?.image = UIImage(named: "icons8-no-image-50")!
+            //exImage?.image = UIImage(named: "icons8-no-image-50")!
+            
+            startLetterLabel.textAlignment = .center
+            startLetterLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 40)
+            
+            startLetterLabel.text = String(exName.prefix(1))
+            
+            exImage?.addSubview(startLetterLabel)
         } else {
             exImage?.image = UIImage(named: imageString)!
         }
     }
+    
     
     //MARK: Tick Box Image
     func boxTicked(){
@@ -50,24 +61,6 @@ class ExercisesTableCell: UITableViewCell {
         }
         
     }
-    
-    
-    //MARK: Cell Tapped
-//    @IBAction func cellTapped(_ sender: Any) {
-//        if outerView.backgroundColor == .none {
-//
-//            outerView.backgroundColor = #colorLiteral(red: 0.751993654, green: 0.9365622094, blue: 1, alpha: 1)
-//            tickBox?.image = UIImage(named: "icons8-tick-box-50")
-//
-//        } else if outerView.backgroundColor == #colorLiteral(red: 0.751993654, green: 0.9365622094, blue: 1, alpha: 1) {
-//
-//            outerView.backgroundColor = .none
-//
-//
-//        }
-//
-//    }
-    
     
     
     override func awakeFromNib() {

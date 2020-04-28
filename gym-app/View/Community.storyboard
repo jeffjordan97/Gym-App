@@ -26,6 +26,11 @@
                                 <color key="textColor" red="0.0" green="0.22257292270000001" blue="0.51798737049999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AvF-eT-Xbt">
+                                <rect key="frame" x="364" y="44" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="icons8-settings"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pg1-Ei-4Hy"/>
@@ -39,5 +44,6 @@
     </scenes>
     <resources>
         <image name="UniLogo" width="926" height="378"/>
+        <image name="icons8-settings" width="50" height="50"/>
     </resources>
 </document>

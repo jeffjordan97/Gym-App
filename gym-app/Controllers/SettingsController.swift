@@ -17,10 +17,19 @@ class SettingsController: UIViewController {
     @IBOutlet weak var settingsView: UIView!
     @IBOutlet weak var settingsTable: UITableView!
     @IBOutlet weak var exercisesSelectButton: MDCFloatingButton!
+    @IBOutlet weak var removeDataButton: UIButton!
+    
     
     
     //MARK: Attributes
     var preferredActivites = [String]()
+    
+    
+    
+    @IBAction func removeDataButtonAction(_ sender: Any) {
+        print("Clicked Remove All Data")
+        clearCoreData()
+    }
     
     
     
@@ -29,12 +38,66 @@ class SettingsController: UIViewController {
     }
     
     
+    func clearCoreData(){
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProgressList")
+        
+        let fetchRequestTwo = NSFetchRequest<NSFetchRequestResult>(entityName: "WorkoutList")
+        
+        do {
+            let results = try managedContext.fetch(fetchRequestTwo)
+            
+            if results.count > 0 {
+                for result in results as! [NSManagedObject] {
+                    managedContext.delete(result)
+                }
+                do {
+                    try managedContext.save()
+                    print("Removed ALL core data")
+                } catch {
+                    print("Error saving context from delete: ", error)
+                }
+            }
+        } catch {
+            print("Error fetching results: ",error)
+        }
+        
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            
+            if results.count > 0 {
+                for result in results as! [NSManagedObject] {
+                    managedContext.delete(result)
+                }
+                do {
+                    try managedContext.save()
+                    print("Removed ALL core data")
+                    
+                } catch {
+                    print("Error saving context from delete: ", error)
+                }
+            }
+        } catch {
+            print("Error fetching results: ",error)
+        }
+        
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         settingsView.layer.cornerRadius = 20
         settingsView.layer.shadowOpacity = 1
         settingsView.layer.shadowColor = UIColor.opaqueSeparator.cgColor
         settingsView.layer.shadowRadius = 10
+        settingsTable.layer.cornerRadius = 20
+        
+        removeDataButton.layer.cornerRadius = 20
+        removeDataButton.layer.shadowOpacity = 1
+        removeDataButton.layer.shadowColor = UIColor.opaqueSeparator.cgColor
+        removeDataButton.layer.shadowRadius = 10
     }
     
     

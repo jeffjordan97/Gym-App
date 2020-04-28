@@ -55,7 +55,6 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
             let settingsVC = segue.destination as! SettingsController
             print("toSettings segue...")
             settingsVC.isModalInPresentation = true
-            //clearCoreData()
         }
     }
     

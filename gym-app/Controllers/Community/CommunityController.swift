@@ -17,7 +17,13 @@ class CommunityController: UIViewController {
     //MARK: Attributes
     
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toSettings"){
+            let settingsVC = segue.destination as! SettingsController
+            print("toSettings segue...")
+            settingsVC.isModalInPresentation = true
+        }
+    }
     
     
     override func viewDidAppear(_ animated: Bool) {

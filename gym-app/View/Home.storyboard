@@ -24,7 +24,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="icons8-settings"/>
                                 <connections>
-                                    <segue destination="xOP-Ep-lc8" kind="presentation" modalPresentationStyle="fullScreen" id="Abp-qR-jgz"/>
+                                    <segue destination="xOP-Ep-lc8" kind="presentation" identifier="toSettings" modalPresentationStyle="fullScreen" id="Abp-qR-jgz"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="010-mw-Bq1">

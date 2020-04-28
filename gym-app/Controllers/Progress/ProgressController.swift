@@ -40,9 +40,6 @@ class ProgressController: UIViewController, passBackToProgress, EditedGoalToProg
             let settingsVC = segue.destination as! SettingsController
             print("toSettings Segue...")
             settingsVC.isModalInPresentation = true
-            
-            //testing to clear core data
-            clearCoreData()
         }
     }
     
@@ -372,46 +369,5 @@ extension ProgressController {
         }
     }
     
-    
-    func clearCoreData(){
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProgressList")
-        
-        do {
-            let results = try managedContext.fetch(fetchRequest)
-            
-            if results.count > 0 {
-                for result in results as! [NSManagedObject] {
-                    managedContext.delete(result)
-                }
-                do {
-                    try managedContext.save()
-                    print("Removed ALL core data")
-                    self.allGoalProgress.removeAll()
-                    
-                    //removes all added goal views from scrollView
-                    for thisView in scrollView.subviews {
-                        thisView.removeFromSuperview()
-                    }
-                    
-                    //resets the scrollView 'scroll' size
-                    scrollView.contentSize = CGSize(width: scrollView.frame.width, height: scrollView.frame.height)
-                    
-                    //hides the scrollView, shows the noGoalsView message
-                    scrollView.isHidden = true
-                    noGoalsView.isHidden = false
-                    
-                } catch {
-                    print("Error saving context from delete: ", error)
-                }
-            }
-        } catch {
-            print("Error fetching results: ",error)
-        }
-        
-    }
     
 }

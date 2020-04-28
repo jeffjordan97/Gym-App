@@ -428,8 +428,10 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource, Head
         //print("Delete pressed: \(selectedExercisesSections)")
         
         let newSectionIndex = selectedExercisesSections.firstIndex(where: { $0 == section })
-        //print("Index: \(newSectionIndex ?? 0)")
-        selectedExercisesSections.remove(at: newSectionIndex ?? 0)
+        if !selectedExercisesSections.isEmpty {
+            selectedExercisesSections.remove(at: newSectionIndex ?? 0)
+        }
+        
         
         
         //print("Section Removed: \(newSectionIndex ?? 0)")
@@ -442,7 +444,10 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource, Head
             editTable.deleteSections(indexSet, with: .fade)
         } else {
             selectedExercises.removeFirst()
-            selectedExercisesSections.removeFirst()
+            if !selectedExercisesSections.isEmpty {
+                selectedExercisesSections.removeFirst()
+            }
+            
             editTable.deleteSections(IndexSet(integer: 0), with: .fade)
         }
         

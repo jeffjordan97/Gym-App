@@ -57,6 +57,11 @@ class HomeController: UIViewController, isAbleToReceiveData {
             addWorkoutVC.isModalInPresentation = true
             addWorkoutVC.delegate = self
         }
+        if (segue.identifier == "toSettings"){
+            let settingsVC = segue.destination as! SettingsController
+            print("toSettings segue...")
+            settingsVC.isModalInPresentation = true
+        }
     }
     
     

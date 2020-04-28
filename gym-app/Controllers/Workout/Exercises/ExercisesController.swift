@@ -115,7 +115,7 @@ class ExercisesController: UIViewController {
     //MARK: Segment Control Tapped
     @IBAction func exSegControlTapped(_ sender: Any) {
         
-        var segIndex = exSegControl.selectedSegmentIndex
+        let segIndex = exSegControl.selectedSegmentIndex
         
         if segIndex == 0 {
             table.isHidden = false
@@ -202,7 +202,7 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource, UISea
         let cell = table.dequeueReusableCell(withIdentifier: "ExercisesTableCell", for: indexPath) as! ExercisesTableCell
         
         cell.setLabels(exercise.name!, exercise.type!, exercise.info!)
-        cell.setImage(exercise.image!)
+        cell.setImage(exercise.image!, exName: exercise.name!)
         
         cell.checked = false
         
@@ -210,9 +210,11 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource, UISea
         //if the selectedExList contains the current exercise, tick the box, else untick the box
         if selectedExList.contains(where: { $0.name == exercise.name }) {
             cell.boxTicked()
+            cell.backgroundColor = #colorLiteral(red: 0.734172568, green: 0.997696025, blue: 1, alpha: 1)
         } else {
             cell.checked = true
             cell.boxTicked()
+            cell.backgroundColor = .white
         }
         
         
@@ -240,6 +242,7 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource, UISea
             //If box ticked, add exercise to selectedExList
             if cell.checked {
                 selectedExList.append(exercise)
+                cell.backgroundColor = #colorLiteral(red: 0.734172568, green: 0.997696025, blue: 1, alpha: 1)
                 
             } else {
                 //check if exercise in selectedExList, remove
@@ -247,6 +250,7 @@ extension ExercisesController: UITableViewDelegate, UITableViewDataSource, UISea
                     let getIndex = selectedExList.firstIndex(where: {$0.name == exercise.name})
                     selectedExList.remove(at: getIndex!)
                 }
+                cell.backgroundColor = .white
             }
         } else {
             //didSelectRow for Routines
