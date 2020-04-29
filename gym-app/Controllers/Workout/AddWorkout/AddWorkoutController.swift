@@ -213,6 +213,10 @@ class AddWorkoutController: UIViewController, UITextFieldDelegate {
             //passes workout info to WorkoutVC //NEED TO ADD FOR HomeVC
             
             canPassData = true
+            
+//            let cal = NSCalendar.current
+//            let tempDate = cal.date(byAdding: Calendar.Component.day, value: -3, to: Date())
+            
             workoutToPass = WorkoutSession(duration: durationAsSecondsInput!, type: self.typeInput!, date: Date(), workoutExercises: self.selectedExercises)
             
             self.dismiss(animated: true, completion: nil)
@@ -598,7 +602,8 @@ extension AddWorkoutController: UITableViewDelegate, UITableViewDataSource, Head
                     
                     //checks whether weight has been entered for the given set for an exercise, when cell loaded
                     if getSetForExercise?.time != nil {
-                        cell.inputTime.text = String(describing: (getSetForExercise?.time)!)
+                        let zerosInTime = Helper.displayZeroInTime(Helper.secondsToHoursMinutesSeconds(seconds: getSetForExercise!.time!))
+                        cell.inputTime.text = zerosInTime
                         
                     } else {
                         if finishClicked {

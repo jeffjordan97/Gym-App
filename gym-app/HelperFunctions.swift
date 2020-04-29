@@ -129,7 +129,6 @@ extension Helper {
         goalView.layer.shadowRadius = 5
         goalView.layer.shadowColor = UIColor.opaqueSeparator.cgColor
         
-        
         let setTypeImage = getTypeImage(goalProgress.type!)
         goalView.addSubview(setTypeImage)
         
@@ -189,7 +188,7 @@ extension Helper {
         let starImage = UIImage(named: "icons8-star-100-filled")
         var xPositionOfStar:CGFloat = 0
         
-        for _ in 0...starRating {
+        for _ in 0...starRating-1 {
             let starImageView = UIImageView(image: starImage)
             starImageView.frame = CGRect(x: xPositionOfStar, y: 0, width: 20, height: 20)
             starsView.addSubview(starImageView)
@@ -205,10 +204,13 @@ extension Helper {
         var daysOrHoursDifference: Int = 0
         var daysOrHoursString: String = "days"
         
-        //returnView.backgroundColor = .purple
+        //Sets the number of days left, including the end day (therefore using the start of the following day as the end date)
+        let cal = NSCalendar.current
+        let nextEndDay = cal.date(byAdding: Calendar.Component.day, value: 1, to: endDate)
+        let endDay = cal.startOfDay(for: nextEndDay!)
         
         //works out the number of days between two dates
-        daysOrHoursDifference = Calendar.current.dateComponents([.day], from: startDate, to: endDate).day!
+        daysOrHoursDifference = Calendar.current.dateComponents([.day], from: startDate, to: endDay).day!
         
         if daysOrHoursDifference <= 0 {
             
@@ -352,10 +354,20 @@ extension Helper {
         goalView.addSubview(highLabel)
 
         let imageSeparatorPosition = CGRect(x: startView.center.x-12.5, y: 0, width: 25, height: 25)
+        
+        
+        let cal = NSCalendar.current
+        //gets start of day for goalStartDate
+        let startDay = cal.startOfDay(for: goalProgress.startDate!)
+        
+        //adds one to the endDate to include the end day (using the start of the following day as the end date)
+        
+        let nextEndDay = cal.date(byAdding: Calendar.Component.day, value: 1, to: goalProgress.endDate!)
+        let endDay = cal.startOfDay(for: nextEndDay!)
 
         if goalProgress.type! == "Improve Strength" {
             title.text = "Total Weights Moved"
-            let lowAverageHigh = Helper.lowAverageHighWeights(goalProgress.startDate!, goalProgress.endDate!, allWorkoutSessions: allWorkoutSessions)
+            let lowAverageHigh = Helper.lowAverageHighWeights(startDay, endDay, allWorkoutSessions: allWorkoutSessions)
             
             let weightSeparator = UIImage(named: "icons8-weight-100")
             
@@ -400,7 +412,7 @@ extension Helper {
             
         } else if goalProgress.type! == "Improve Fitness" {
             title.text = "Total Time Achieved"
-            let lowAverageHigh = Helper.lowAverageHighTimes(goalProgress.startDate!, goalProgress.endDate!, allWorkoutSessions: allWorkoutSessions)
+            let lowAverageHigh = Helper.lowAverageHighTimes(goalProgress.startDate!, endDay, allWorkoutSessions: allWorkoutSessions)
             
             let timeSeparator = UIImage(named: "icons8-stopwatch-100")
             
@@ -476,8 +488,6 @@ extension Helper {
             //add notes icon alongside title which opens new VC to display notes(can be edited?)
             
             
-            
-            
 //            let buttonView = MDCFloatingButton(frame: CGRect(x: goalView.frame.width - 82, y: 100, width: 72, height: 30))
 //            buttonView.backgroundColor = UIColor.link
 //            buttonView.setBackgroundColor(UIColor.opaqueSeparator.withAlphaComponent(0.6), for: .selected)
@@ -515,15 +525,23 @@ extension Helper {
         //start and end date of the goal
         let startDate = goalProgress.startDate!
         let endDate = goalProgress.endDate!
+        let cal = NSCalendar.current
+        
+        //gets the start of the day for the startDate
+        let startDay = cal.startOfDay(for: startDate)
+
+        //adds one to the endDate to include the end day (using the start of the following day as the end date)
+        let nextEndDay = cal.date(byAdding: Calendar.Component.day, value: 1, to: endDate)
+        let endDay = cal.startOfDay(for: nextEndDay!)
         
         //returns the workouts within the date range
-        let workoutsWithinDateRange = getWorkoutsWithinProgressDateRange(startDate, endDate, allWorkoutSessions: allWorkoutSessions)
+        let workoutsWithinDateRange = getWorkoutsWithinProgressDateRange(startDay, endDay, allWorkoutSessions: allWorkoutSessions)
         
         //achievedPoints is the number of points achieved from performing weights sets in workouts within the goal date range
         let achievedPoints:Double = Double(totalPoints(workoutsWithinDateRange, goalType: goalProgress.type!))
         
         //returns the goal number of points to achieve, based on the goal startDate, endDate, and average number of sets per session
-        let goalPoints:Double = calculateGoalPoints(startDate, endDate, allWorkoutSessions: allWorkoutSessions)
+        let goalPoints:Double = calculateGoalPoints(startDay, endDay, allWorkoutSessions: allWorkoutSessions, goalProgress.type!)
         
 //        print("Achieved Points: \(achievedPoints)")
 //        print(" > 0 == improved | < 0 == declining")
@@ -607,7 +625,7 @@ extension Helper {
                         
                         if  weightsSetsVolume[i] > weightsSetsVolume[j] {
                             achievedPoints = achievedPoints + 1
-                            print("AchievedPoints: \(achievedPoints)")
+                            //print("AchievedPoints: \(achievedPoints)")
                         }
                     }
                     
@@ -650,20 +668,26 @@ extension Helper {
     
     
     //returns an approximate number of sets to progress within two date ranges
-    static func calculateGoalPoints(_ startDate:Date, _ endDate:Date, allWorkoutSessions: [WorkoutSession]) -> Double {
+    static func calculateGoalPoints(_ startDate:Date, _ endDate:Date, allWorkoutSessions: [WorkoutSession], _ goalType:String) -> Double {
         var goalPoints:Double = 0
         
         //returns number of days difference between goal start date and end date
         let daysDifference = Calendar.current.dateComponents([.day], from: startDate, to: endDate).day!
         
         //calculates the average number of sets per workout, based on all recorded workouts (default being 15)
-        let averageSetsPerWorkout = getAverageSetsPerWorkout(allWorkoutSessions: allWorkoutSessions)
+        let averageSetsPerWorkout = getAverageSetsPerWorkout(allWorkoutSessions: allWorkoutSessions, goalType: goalType)
         
         if daysDifference > 1 {
             
-            goalPoints = Double(daysDifference) * (averageSetsPerWorkout/3)
+            //user personalisation here...?
+            if goalType == "Improve Strength" {
+               goalPoints = Double(daysDifference) * (averageSetsPerWorkout)
+            } else {
+                goalPoints = Double(daysDifference)
+            }
             
-        } else {
+            
+        } else { //only one day between goal start date and goal end date
             //1 represents 1 workout
             goalPoints = 1 * (averageSetsPerWorkout/3)
             
@@ -673,28 +697,42 @@ extension Helper {
     
     
     //gets the average number of sets per workout for the user
-    static func getAverageSetsPerWorkout(allWorkoutSessions: [WorkoutSession]) -> Double {
+    static func getAverageSetsPerWorkout(allWorkoutSessions: [WorkoutSession], goalType:String) -> Double {
         var totalWorkouts:Double = 0
-        var totalSets:Double = 0
+        var totalWeightsSets:Double = 0
+        var totalCardioSets:Double = 0
         var average:Double = 0
 
         for workout in allWorkoutSessions {
             totalWorkouts = totalWorkouts + 1
             for exercise in workout.workoutExercises! {
-                for _ in exercise.exerciseSets! {
-                    totalSets = totalSets + 1
+                if exercise.exerciseInfo! == "Weights" || exercise.exerciseInfo! == "Bodyweight" {
+                    for _ in exercise.exerciseSets! {
+                        totalWeightsSets = totalWeightsSets + 1
+                    }
+                } else {
+                    for _ in exercise.exerciseSets! {
+                        totalCardioSets = totalCardioSets + 1
+                    }
                 }
             }
         }
         
         if allWorkoutSessions.count > 3 {
             //returns the average sets per workout
-            average = Double(totalSets/totalWorkouts).round(to: 2)
+            if goalType == "Build Muscle" {
+                average = Double(totalWeightsSets/totalWorkouts).round(to: 2)
+            } else {
+                average = Double(totalCardioSets/totalWorkouts).round(to: 2)
+            }
         }
         
-        if average < 15 {
+        //user personalisation here ...? (in terms of calculating the average number of sets for the user)
+        if average < 15 && goalType == "Improve Strength" {
             //sets general average for sets per workout (Lower bound from researching average sets per workout)
             average = 15
+        } else if average < 3 && goalType == "Improve Fitness" {
+            average = 3
         }
         
         return average
@@ -755,8 +793,8 @@ extension Helper {
             }
             averageWeightTotal = averageWeightTotal + weightsTotal
         }
-        if weightsWorkoutTotals.count < 1 {
-            averageWeightTotal = (averageWeightTotal/1)
+        if weightsWorkoutTotals.count > 1 {
+            averageWeightTotal = (averageWeightTotal/weightsWorkoutTotals.count)
 
         }
         if lowestWeightTotal == 100000 {

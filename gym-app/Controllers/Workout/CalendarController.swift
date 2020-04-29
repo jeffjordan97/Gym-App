@@ -75,12 +75,12 @@ class CalendarController: UIViewController {
             
             
             if workoutSessionsForToday.count > 0 {
-                print("Workout Found Today")
+                //print("Workout Found Today")
                 
                 var subViewsTotalHeight: CGFloat = 0.0
                 
                 for workoutSession in workoutSessionsForToday {
-                    print("Workout: \(workoutSession.type!)")
+                    //print("Workout: \(workoutSession.type!)")
                     let viewToAdd = viewForWorkout(workoutSession)
                     let viewToAddHeight = viewToAdd.frame.height
                     let viewToAddWidth = viewToAdd.frame.width
@@ -97,13 +97,13 @@ class CalendarController: UIViewController {
                 displayWorkoutView.contentSize = CGSize(width: displayWorkoutView.frame.width, height: subViewsTotalHeight)
                 
             } else {
-                print("Workout Not Found Today")
+                //print("Workout Not Found Today")
                 displayWorkoutView.addSubview(noWorkoutView())
                 displayWorkoutView.contentSize = CGSize(width: displayWorkoutView.frame.width, height: displayWorkoutView.frame.height)
             }
             
         } else {
-            print("Workout Not Found Today")
+            //print("Workout Not Found Today")
             displayWorkoutView.addSubview(noWorkoutView())
             displayWorkoutView.contentSize = CGSize(width: displayWorkoutView.frame.width, height: displayWorkoutView.frame.height)
         }
@@ -182,7 +182,7 @@ extension CalendarController: FSCalendarDataSource, FSCalendarDelegate {
     
     //changes content below calendar upon selecting a date
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print(date)
+        //print(date)
         
         let workoutSessionsForDate = allWorkoutSessions.filter( { Helper.getFormattedDate($0.date!)  == Helper.getFormattedDate(date)} )
         
@@ -193,8 +193,7 @@ extension CalendarController: FSCalendarDataSource, FSCalendarDelegate {
         
         if workoutSessionsForDate.count > 0 {
             
-            print("Workout Found!")
-            
+            //print("Workout Found!")
             
             var heightForWorkoutView:CGFloat = 0.0
             var subViewsTotalHeight:CGFloat = 0.0
@@ -221,7 +220,7 @@ extension CalendarController: FSCalendarDataSource, FSCalendarDelegate {
             
         } else {
             
-            print("Workout Not Found")
+            //print("Workout Not Found")
             displayWorkoutView.addSubview(noWorkoutView())
             displayWorkoutView.contentSize = CGSize(width: displayWorkoutView.frame.width, height: displayWorkoutView.frame.height)
             

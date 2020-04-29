@@ -167,6 +167,17 @@ class WorkoutController: UIViewController, isAbleToReceiveData {
         
         retrieveCoreData()
         workoutsTable.reloadData()
+        
+        
+        if allWorkoutSessions.isEmpty {
+            noWorkoutsView.isHidden = false
+            workoutsTable.isHidden = true
+        } else {
+            noWorkoutsView.isHidden = true
+            workoutsTable.isHidden = false
+        }
+        
+        
     }
     
     

@@ -67,7 +67,7 @@ class SettingsController: UIViewController {
         
         do {
             let results = try managedContext.fetch(fetchRequest)
-            
+
             if results.count > 0 {
                 for result in results as! [NSManagedObject] {
                     managedContext.delete(result)
@@ -75,7 +75,7 @@ class SettingsController: UIViewController {
                 do {
                     try managedContext.save()
                     print("Removed ALL core data")
-                    
+
                 } catch {
                     print("Error saving context from delete: ", error)
                 }

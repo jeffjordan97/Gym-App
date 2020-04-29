@@ -137,14 +137,18 @@ class ProgressController: UIViewController, passBackToProgress, EditedGoalToProg
                 subview.removeFromSuperview()
             }
             var totalGoalViewHeight:CGFloat = 20.0
-            var finishedFlag = false
             var endedGoals = [GoalProgress]()
             
             print("Date: \(Date())")
             for goal in allGoalProgress {
                 
-                //if the goal endDate is greater than the current date, add, else add to endedGoals array
-                if goal.endDate! > Date() {
+                //Sets the number of days left, including the end day (therefore using the start of the following day as the end date)
+                let cal = NSCalendar.current
+                let nextEndDay = cal.date(byAdding: Calendar.Component.day, value: 1, to: goal.endDate!)
+                let endDay = cal.startOfDay(for: nextEndDay!)
+                
+                //if the goal endDate + 1 (to include the endDate) is greater than the current date, add, else add to endedGoals array
+                if endDay > Date() {
                     print("Goal: \(goal.type!) endDate: \(goal.endDate!)")
                     let goalView = Helper.createGoalView(view, goal, allWorkoutSessions)
                     
@@ -173,7 +177,6 @@ class ProgressController: UIViewController, passBackToProgress, EditedGoalToProg
             let finishedDividerView = finishedGoalsDivider()
             finishedDividerView.frame = CGRect(x: finishedDividerView.frame.minX, y: totalGoalViewHeight, width: finishedDividerView.frame.width, height: finishedDividerView.frame.height)
             scrollView.addSubview(finishedDividerView)
-            finishedFlag = true
             totalGoalViewHeight = totalGoalViewHeight + finishedDividerView.frame.height + 30.0
             
             for goal in endedGoals {

@@ -29,6 +29,9 @@ class NotesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         outerView.layer.cornerRadius = 40
+        outerView.layer.shadowRadius = 10
+        outerView.layer.shadowColor = UIColor.black.cgColor
+        outerView.layer.shadowOpacity = 1
     }
     
     

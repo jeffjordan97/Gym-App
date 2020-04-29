@@ -46,6 +46,20 @@ class HomeController: UIViewController, isAbleToReceiveData {
         totalTimeThisWeek = totalTimeThisWeek + thisWorkout.duration!
         timeHeadingNumberLabel.text = Helper.displayZeroInTime(Helper.secondsToHoursMinutesSeconds(seconds: totalTimeThisWeek))
         workoutSummaryTable.reloadData()
+        
+        if workoutSessionsThisWeek.isEmpty {
+            noWorkoutsThisWeek.isHidden = false
+            workoutSummaryTable.isHidden = true
+            fadeBelowTable.isHidden = true
+        } else {
+            noWorkoutsThisWeek.isHidden = true
+            workoutSummaryTable.isHidden = false
+            workoutSummaryTable.reloadData()
+            if workoutSessionsThisWeek.count > 3 {
+                fadeBelowTable.isHidden = false
+            }
+        }
+        
     }
     
     
@@ -339,6 +353,20 @@ class HomeController: UIViewController, isAbleToReceiveData {
         noWorkoutsThisWeekView()
         workoutSummaryView.addSubview(noWorkoutsThisWeek)
         
+        
+        if workoutSessionsThisWeek.isEmpty {
+            noWorkoutsThisWeek.isHidden = false
+            workoutSummaryTable.isHidden = true
+            fadeBelowTable.isHidden = true
+        } else {
+            noWorkoutsThisWeek.isHidden = true
+            workoutSummaryTable.isHidden = false
+            workoutSummaryTable.reloadData()
+            if workoutSessionsThisWeek.count > 3 {
+                fadeBelowTable.isHidden = false
+            }
+        }
+        
     }
     
     
@@ -381,8 +409,14 @@ class HomeController: UIViewController, isAbleToReceiveData {
         
         if totalWorkoutsThisWeek == 0 {
             workoutSummaryTable.isHidden = true
+            fadeBelowTable.isHidden = true
         } else {
             workoutSummaryTable.isHidden = false
+            fadeBelowTable.isHidden = false
+        }
+        
+        if totalWorkoutsThisWeek > 2 {
+            fadeBelowTable.isHidden = false
         }
         
         //changes settingsButton image when button is clicked/highlighted

@@ -56,7 +56,7 @@ class AddGoalController: UIViewController, UITextFieldDelegate, UITextViewDelega
     var goalTimePicker = UIDatePicker()
     var goalTimeAsDays: Int?
     let dateFormatter = DateFormatter()
-    var goalEndDate:Date = Date()
+    var goalEndDate:Date?
     
     //related to current weight and goal weight inputs
     var activeTextField = UITextField()
@@ -138,11 +138,17 @@ class AddGoalController: UIViewController, UITextFieldDelegate, UITextViewDelega
         
         let selectedDate:String = dateFormatter.string(from: sender.date)
         
+        let cal = NSCalendar.current
+        let startOfDay = cal.startOfDay(for: Date())
+        let nextEndDay = cal.date(byAdding: Calendar.Component.day, value: 1, to: sender.date)
+        let endDay = cal.startOfDay(for: nextEndDay!)
+        
+        
         //print("SelectedDate: \(selectedDate)")
         
         activeTextField.textAlignment = .center
         activeTextField.font = UIFont(name: "HelveticaNeue", size: 22.0)
-        activeTextField.text = selectedDate + "         " + Helper.returnDatesDifference(Date(), sender.date)
+        activeTextField.text = selectedDate + "         " + Helper.returnDatesDifference(startOfDay, endDay)
         
         goalTimeWarningLabel.text = ""
         
@@ -318,7 +324,7 @@ class AddGoalController: UIViewController, UITextFieldDelegate, UITextViewDelega
     @IBAction func finishButton(_ sender: Any) {
         print("....Clicked....")
         print("Type: \(goalType)")
-        print("Date: \(goalEndDate)")
+        print("Date: \(String(describing: goalEndDate))")
         print("Notes: \(goalNotesTextView.text!)")
         print("As Primary Goal?: \(primaryGoal)")
         print("Importance: \(starRating)")
@@ -330,6 +336,9 @@ class AddGoalController: UIViewController, UITextFieldDelegate, UITextViewDelega
         
         let typeValidated:Bool = validateType()
         let dateValidated:Bool = validateDate()
+        
+        let cal = NSCalendar.current
+        let tempDate = cal.date(byAdding: Calendar.Component.day, value: -4, to: Date())
         
         if typeValidated && dateValidated {
                 if goalType == "Build Muscle" || goalType == "Lose Weight" {
