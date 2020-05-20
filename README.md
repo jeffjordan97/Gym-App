@@ -4,7 +4,8 @@ A workout and fitness tracking iOS app for use by the University of Liverpool.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will get you a copy of the project up and running on your local machine for development 
+and testing purposes.
 
 ### Prerequisites
 
@@ -34,7 +35,8 @@ Open the Gym-App-Master folder and remove the gym-app.xcworkspace file.
 Step 3.
 
 ```
-Whilst still in the Gym-App-Master folder, right click on gym-app.xcodeproj file and select open with Terminal.
+Whilst still in the Gym-App-Master folder, right click on gym-app.xcodeproj file and select open 
+with Terminal.
 ```
 
 Step 4.
@@ -53,19 +55,22 @@ If you have any difficulties installing CocoaPods, you can visit the following l
 Step 5.
 
 ```
-Open the gym-app.xcworkspace file (that has been automatically created in your Gym-App-master folder) using Xcode.
+Open the gym-app.xcworkspace file (that has been automatically created in your Gym-App-master folder) 
+using Xcode.
 ```
 
 Step 6.
 
 ```
-In Xcode, select the device to run in the simulator by clicking iPhone 11 Pro Max in the top left of the Xcode window, which should open a dropdown of devices. From this list, select iPhone 11.
+In Xcode, select the device to run in the simulator by clicking iPhone 11 Pro Max in the top left of the 
+Xcode window, which should open a dropdown of devices. From this list, select iPhone 11.
 ```
 
 Step 7.
 
 ```
-Finally, run the project via pressing the Run button in the top left of the Xcode window to start using the app.
+Finally, run the project via pressing the Run button in the top left of the Xcode window to start using 
+the app.
 ```
 
 ## Built With
