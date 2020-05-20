@@ -17,7 +17,7 @@ CocoaPods
 
 ### Installing
 
-A step by step process to explain how to get a development env running
+A step by step process to explain how to get a development env running by installing CocoaPods
 
 Step 1.
 
